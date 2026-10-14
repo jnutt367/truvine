@@ -162,6 +162,36 @@
     font-size: 14.5px; line-height: 1.7; color: #5A6B58;
   }
   .fallback a { color: #10365C; font-weight: 700; }
+
+  /* ---------- Theater pop-out player ---------- */
+  .theater {
+    position: fixed; inset: 0; z-index: 60;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .theater[hidden] { display: none; }
+  .theater-backdrop {
+    position: absolute; inset: 0; background: rgba(9, 17, 28, .84);
+  }
+  .theater-stage { position: relative; width: min(94vw, 1024px); }
+  .theater-screen {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: #000; border: 3px solid #C08A1E; border-radius: 14px;
+    overflow: hidden; box-shadow: 0 18px 60px rgba(0, 0, 0, .55);
+  }
+  .theater-screen iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  .theater-close {
+    position: absolute; top: 10px; right: 10px; z-index: 2;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #C08A1E; color: #10365C; border: 3px solid #FFF8E6;
+    font-family: inherit; font-size: 20px; font-weight: 800; line-height: 1;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .4);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .theater-close:focus-visible { outline: 3px solid #FFF8E6; outline-offset: 3px; }
+  @media print { .theater { display: none !important; } }
 </style>
 </head>
 <body>
@@ -264,21 +294,58 @@
 
 </div>
 
+  <!-- ===== Theater pop-out player (hidden until a poster is tapped) ===== -->
+  <div class="theater" id="theater" hidden role="dialog" aria-modal="true" aria-label="Film player">
+    <div class="theater-backdrop" data-close aria-hidden="true"></div>
+    <div class="theater-stage">
+      <div class="theater-screen">
+        <iframe id="theater-frame" title="Film player"
+                allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+      <button class="theater-close" type="button" data-close aria-label="Close player">&#10005;</button>
+    </div>
+  </div>
+
+
 <script>
-  // Tap a poster -> the film plays right here in the page.
-  document.querySelectorAll('.facade').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-yt');
-      var frame = document.createElement('iframe');
+  // Tap a poster -> the film pops out in the theater overlay, right on this page.
+  (function () {
+    var theater = document.getElementById('theater');
+    var frame = document.getElementById('theater-frame');
+    var lastFocus = null;
+
+    function openTheater(id, label) {
+      lastFocus = document.activeElement;
+      frame.title = label || 'Film player';
       frame.src = 'https://www.youtube-nocookie.com/embed/' + id +
                   '?autoplay=1&rel=0';
-      frame.title = btn.getAttribute('aria-label');
-      frame.setAttribute('allow',
-        'accelerometer; autoplay; encrypted-media; picture-in-picture');
-      frame.setAttribute('allowfullscreen', '');
-      btn.replaceWith(frame);
+      theater.hidden = false;
+      document.body.style.overflow = 'hidden';
+      theater.querySelector('.theater-close').focus();
+    }
+
+    function closeTheater() {
+      frame.src = ''; // clear the src: playback stops
+      theater.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    document.querySelectorAll('.facade').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openTheater(btn.getAttribute('data-yt'), btn.getAttribute('aria-label'));
+      });
     });
-  });
+
+    theater.querySelectorAll('[data-close]').forEach(function (el) {
+      el.addEventListener('click', closeTheater);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'Escape' || e.key === 'Esc') && !theater.hidden) closeTheater();
+    });
+  })();
 </script>
 </body>
 </html>
