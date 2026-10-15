@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  THE TRUVINE FIELD REPORT — THE LIVING APP · v2
+  THE TRUVINE FIELD REPORT — THE LIVING APP · v3
   Est. October 14, 2026. The permanent home for everything
   about Jason, the TruVINE channel, and the growth of
   anything carrying the TruVINE name.
@@ -15,6 +15,12 @@
   PNG snapshot (fresh filename) beside this file.
   v2 (Oct 14, 2026): four story-charts added — the Growth
   Vine, the Fields, the Tallest Plants, the Full Shelf.
+  v3 (Oct 14, 2026, late): first real traffic read — the
+  Vercel placeholder in The Sites retired for counted figures
+  (Jason's own signed-in Vercel dashboards), and a new
+  section, Where the Seeds Have Landed, plants one marker
+  per country reached (markers, never proportions — the
+  dashboard names countries without a reliable split).
   Hosted at jnutt367.github.io/truvine/field-report/ and
   refreshed daily by the Field Report heartbeat, which
   appends to the growthVine array in the JSON block at the
@@ -321,6 +327,33 @@
   .shelf-cap { margin-top: 12px; text-align: center; font-size: 16px; font-weight: 600; color: #33413A; }
   .shelf-cap strong { color: #A87B14; }
 
+  /* ---------- Site traffic + Where the Seeds Have Landed (v3) ---------- */
+  .site .tally {
+    display: inline-block; background: #10365C; color: #F5EDD6;
+    font-size: 12px; font-weight: 800; letter-spacing: 1.4px;
+    padding: 3px 10px; border-radius: 999px; text-transform: uppercase;
+  }
+  .site .tfig { font-size: 42px; font-weight: 800; color: #10365C; line-height: 1.05; margin-top: 10px; }
+  .site .tfig .unit { font-size: 19px; font-weight: 700; color: #2F6B3A; }
+  .site .trange { margin-top: 9px; font-size: 14px; font-weight: 800; color: #A87B14; }
+  .site .tsrc { margin-top: 3px; font-size: 12.5px; font-weight: 600; color: #66755F; line-height: 1.45; }
+  .ld-svg { width: 100%; height: auto; display: block; margin-top: 10px; }
+  .ld-sky { fill: #FBF3DC; }
+  .ld-hill { fill: #DCE8C8; }
+  .ld-hill2 { fill: #C7DBAB; }
+  .ld-field { fill: #F1E6C6; }
+  .ld-furrow { stroke: #DFCFA0; stroke-width: 3; }
+  .ld-horizon { stroke: #2F6B3A; stroke-width: 3; opacity: .45; }
+  .ld-stem { stroke: #2F6B3A; stroke-width: 4; stroke-linecap: round; fill: none; }
+  .ld-leaf { fill: #2F6B3A; opacity: .9; }
+  .ld-pole { stroke: #8A6D2F; stroke-width: 4; stroke-linecap: round; }
+  .ld-flag { fill: #C08A1E; }
+  .ld-country { font-size: 27px; font-weight: 800; fill: #10365C; }
+  .ld-detail { font-size: 15.5px; font-weight: 600; fill: #33413A; }
+  .ld-cap { font-size: 14.5px; font-weight: 600; color: #66755F; margin-top: 10px; line-height: 1.5; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
 </style>
 </head>
 <body>
@@ -360,6 +393,7 @@
       <li><a href="#builder">The Builder Shelf</a></li>
       <li><a href="#study">The Study Ladder</a></li>
       <li><a href="#sites">The Sites</a></li>
+      <li><a href="#landed">Where Seeds Landed</a></li>
       <li><a href="#milestones">Milestones</a></li>
     </ul>
   </nav>
@@ -652,12 +686,80 @@
       </div>
     </div>
     <div class="sites">
-      <div class="site placeholder">
-        <span class="soon">On the way</span>
-        <h3>Visitor numbers</h3>
-        <p>How many folks walk through these doors each week — this count unlocks when
-          Vercel analytics reconnects. No numbers shown until they&rsquo;re real.</p>
+      <div class="site">
+        <span class="tally">Counted</span>
+        <div class="tfig">66 <span class="unit">visitors</span></div>
+        <p><strong>1,157 page views</strong> at Word of God Risen — folks stopping longest
+          at the front door (32), the Parables (11), Matthew chapter 1 (7), and Genesis (6).
+          Most of them arrived by way of youtube.com.</p>
+        <div class="trange">Last 7 days — Oct 7&ndash;14, 2026</div>
+        <p class="tsrc">Read from Jason&rsquo;s Vercel dashboard, Oct 14, 2026.</p>
       </div>
+      <div class="site">
+        <span class="tally">Counted</span>
+        <div class="tfig">12 <span class="unit">visitors</span></div>
+        <p><strong>23 page views</strong> at the portfolio — and every one of those visits
+          arrived within the last 7 days, as the new front door opened.</p>
+        <div class="trange">Last 30 days — Sep 14&ndash;Oct 14, 2026</div>
+        <p class="tsrc">Read from Jason&rsquo;s Vercel dashboard, Oct 14, 2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHERE THE SEEDS HAVE LANDED ================= -->
+  <section class="panel" id="landed" aria-labelledby="h-landed">
+    <div class="panel-head">
+      <span class="ptag tend">The Reach</span>
+      <h2 id="h-landed">Where the Seeds Have Landed</h2>
+      <span class="note">countries as reported — Oct 14, 2026</span>
+    </div>
+    <div class="chart">
+      <h3>The map so far — one marker for every country reached</h3>
+      <p class="chart-note">Not a scoreboard — a planting record. Each marker stands where a reader actually showed up.</p>
+      <!-- COUNTRIES LEDGER — one planted marker per country, appended by
+           dated dashboard reads. Each marker names the country exactly as
+           Vercel reported it, and the site(s) that reached it. Do NOT
+           convert this to a pie or proportions: the dashboard names the
+           countries reached but gives no reliable per-country split for
+           Word of God Risen. A future read appends a marker here, updates
+           the sr-only list and the read dates, and keeps every earlier
+           marker standing. -->
+      <svg class="ld-svg" viewBox="0 0 1096 300" role="img" aria-label="A field at first light with two planted markers. United States — reached by Word of God Risen and by Jason's Portfolio. Kenya — reached by Word of God Risen." xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1096" height="196" class="ld-sky"/>
+        <circle cx="962" cy="54" r="30" fill="#D9B45C" opacity="0.55"/>
+        <path d="M0 168 Q 240 128 520 158 T 1096 148 V196 H0 Z" class="ld-hill"/>
+        <path d="M0 184 Q 300 154 640 178 T 1096 170 V196 H0 Z" class="ld-hill2"/>
+        <rect x="0" y="196" width="1096" height="104" class="ld-field"/>
+        <path d="M0 226 H1096" class="ld-furrow"/>
+        <path d="M0 254 H1096" class="ld-furrow"/>
+        <path d="M0 282 H1096" class="ld-furrow"/>
+        <line x1="0" y1="196" x2="1096" y2="196" class="ld-horizon"/>
+        <g>
+          <line x1="292" y1="222" x2="292" y2="118" class="ld-pole"/>
+          <path d="M292 118 h52 l-12 13 12 13 h-52 Z" class="ld-flag"/>
+          <path d="M292 222 C 291 212, 293 206, 292 200" class="ld-stem"/>
+          <path d="M292 208 q -20 -3 -27 -18 q 19 1 27 18 Z" class="ld-leaf"/>
+          <path d="M292 204 q 20 -3 27 -18 q -19 1 -27 18 Z" class="ld-leaf"/>
+          <text x="292" y="256" class="ld-country" text-anchor="middle">United States</text>
+          <text x="292" y="282" class="ld-detail" text-anchor="middle">Word of God Risen · the Portfolio</text>
+        </g>
+        <g>
+          <line x1="768" y1="222" x2="768" y2="118" class="ld-pole"/>
+          <path d="M768 118 h52 l-12 13 12 13 h-52 Z" class="ld-flag"/>
+          <path d="M768 222 C 767 212, 769 206, 768 200" class="ld-stem"/>
+          <path d="M768 208 q -20 -3 -27 -18 q 19 1 27 18 Z" class="ld-leaf"/>
+          <path d="M768 204 q 20 -3 27 -18 q -19 1 -27 18 Z" class="ld-leaf"/>
+          <text x="768" y="256" class="ld-country" text-anchor="middle">Kenya</text>
+          <text x="768" y="282" class="ld-detail" text-anchor="middle">Word of God Risen</text>
+        </g>
+      </svg>
+      <ul class="sr-only">
+        <li>United States — reached by Word of God Risen and by Jason&rsquo;s Portfolio</li>
+        <li>Kenya — reached by Word of God Risen</li>
+      </ul>
+      <p class="ld-cap">Countries as reported by Vercel · read October 14, 2026. The dashboard names
+        the countries the sites have reached; it does not give a reliable count for each one —
+        so the seeds stand here as markers, never as slices of a pie. Nothing drawn bigger than the truth.</p>
     </div>
   </section>
 
@@ -669,6 +771,10 @@
       <span class="note">newest first</span>
     </div>
     <ul class="miles">
+      <li>
+        <span class="m-date">Oct 14, 2026</span>
+        <span class="m-txt"><strong>First traffic read: the Word reached Kenya</strong> — the site counters open for the first time: 66 visitors and 1,157 page views at Word of God Risen in a single week, readers arriving by way of YouTube — and Kenya planted among the countries reached.</span>
+      </li>
       <li>
         <span class="m-date">Oct 14, 2026</span>
         <span class="m-txt"><strong>The Field Report goes live</strong> — the charts are drawn (the Growth Vine, the Fields, the Tallest Plants, the Full Shelf), the report takes its own home under the TruVINE name, and a daily heartbeat keeps it honest.</span>
