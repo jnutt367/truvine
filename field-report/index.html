@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  THE TRUVINE FIELD REPORT — THE LIVING APP · v3
+  THE TRUVINE FIELD REPORT — THE LIVING APP · v4
   Est. October 14, 2026. The permanent home for everything
   about Jason, the TruVINE channel, and the growth of
   anything carrying the TruVINE name.
@@ -21,6 +21,11 @@
   section, Where the Seeds Have Landed, plants one marker
   per country reached (markers, never proportions — the
   dashboard names countries without a reliable split).
+  v4 (Oct 14, 2026, late night): the follow-up Countries
+  "View All" read brought the exact split — the markers grow
+  into true-proportion furrow bars (Word of God Risen, last
+  7 days: United States 65 of 66 · 98%, Kenya 1 of 66 · 2%;
+  the Portfolio, same window: United States 12 of 12 · 100%).
   Hosted at jnutt367.github.io/truvine/field-report/ and
   refreshed daily by the Field Report heartbeat, which
   appends to the growthVine array in the JSON block at the
@@ -351,6 +356,13 @@
   .ld-country { font-size: 27px; font-weight: 800; fill: #10365C; }
   .ld-detail { font-size: 15.5px; font-weight: 600; fill: #33413A; }
   .ld-cap { font-size: 14.5px; font-weight: 600; color: #66755F; margin-top: 10px; line-height: 1.5; }
+  .ld-bar-title { font-size: 17px; font-weight: 800; fill: #10365C; }
+  .ld-rowname { font-size: 20px; font-weight: 800; fill: #10365C; }
+  .ld-bartrack { fill: #E9DFC2; }
+  .ld-bar-us { fill: #2F6B3A; }
+  .ld-bar-ke { fill: #C08A1E; }
+  .ld-barcount { font-size: 17px; font-weight: 800; fill: #33413A; }
+  .ld-pf { font-size: 15.5px; font-weight: 600; fill: #33413A; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden;
     clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 
@@ -711,25 +723,30 @@
     <div class="panel-head">
       <span class="ptag tend">The Reach</span>
       <h2 id="h-landed">Where the Seeds Have Landed</h2>
-      <span class="note">countries as reported — Oct 14, 2026</span>
+      <span class="note">true proportions — Oct 14, 2026</span>
     </div>
     <div class="chart">
-      <h3>The map so far — one marker for every country reached</h3>
-      <p class="chart-note">Not a scoreboard — a planting record. Each marker stands where a reader actually showed up.</p>
-      <!-- COUNTRIES LEDGER — one planted marker per country, appended by
-           dated dashboard reads. Each marker names the country exactly as
-           Vercel reported it, and the site(s) that reached it. Do NOT
-           convert this to a pie or proportions: the dashboard names the
-           countries reached but gives no reliable per-country split for
-           Word of God Risen. A future read appends a marker here, updates
-           the sr-only list and the read dates, and keeps every earlier
-           marker standing. -->
-      <svg class="ld-svg" viewBox="0 0 1096 300" role="img" aria-label="A field at first light with two planted markers. United States — reached by Word of God Risen and by Jason's Portfolio. Kenya — reached by Word of God Risen." xmlns="http://www.w3.org/2000/svg">
+      <h3>The map so far — every country, drawn to scale</h3>
+      <p class="chart-note">Not a scoreboard — a planting record. Each bar is sized by the readers who actually showed up.</p>
+      <!-- COUNTRIES LEDGER — appended by dated dashboard reads.
+           Oct 14, 2026 (first read): one planted marker per country —
+           United States (Word of God Risen · the Portfolio), Kenya
+           (Word of God Risen). Oct 14, 2026 (follow-up read, Countries
+           "View All"): the exact split arrived, and the markers grew
+           into true-proportion furrow bars — Word of God Risen, last
+           7 days (Oct 7–14): United States 65 of 66 visitors (98%),
+           Kenya 1 of 66 (2%); the Portfolio, same window: United
+           States 12 of 12 (100%). Bar length stays proportional to
+           visitor count, track = the stated total. A future read
+           updates the bars, the counts, the sr-only list, and the
+           read dates together, and keeps every earlier reading
+           standing in the log (GOAL.md). -->
+      <svg class="ld-svg" viewBox="0 0 1096 478" role="img" aria-label="A field at first light with two planted markers — United States and Kenya — and below them two furrows drawn to scale: Word of God Risen visitors by country, last 7 days. United States, 65 visitors, 98 percent. Kenya, 1 visitor, 2 percent. The Portfolio, same days: United States, 12 visitors, 100 percent." xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="1096" height="196" class="ld-sky"/>
         <circle cx="962" cy="54" r="30" fill="#D9B45C" opacity="0.55"/>
         <path d="M0 168 Q 240 128 520 158 T 1096 148 V196 H0 Z" class="ld-hill"/>
         <path d="M0 184 Q 300 154 640 178 T 1096 170 V196 H0 Z" class="ld-hill2"/>
-        <rect x="0" y="196" width="1096" height="104" class="ld-field"/>
+        <rect x="0" y="196" width="1096" height="282" class="ld-field"/>
         <path d="M0 226 H1096" class="ld-furrow"/>
         <path d="M0 254 H1096" class="ld-furrow"/>
         <path d="M0 282 H1096" class="ld-furrow"/>
@@ -752,14 +769,26 @@
           <text x="768" y="256" class="ld-country" text-anchor="middle">Kenya</text>
           <text x="768" y="282" class="ld-detail" text-anchor="middle">Word of God Risen</text>
         </g>
+        <text x="24" y="338" class="ld-bar-title">Word of God Risen — visitors by country · last 7 days (Oct 7–14)</text>
+        <text x="24" y="386" class="ld-rowname">United States</text>
+        <rect x="216" y="362" width="694" height="26" class="ld-bartrack"/>
+        <rect x="216" y="362" width="683" height="26" class="ld-bar-us"/>
+        <text x="920" y="386" class="ld-barcount">65 visitors · 98%</text>
+        <text x="24" y="430" class="ld-rowname">Kenya</text>
+        <rect x="216" y="406" width="694" height="26" class="ld-bartrack"/>
+        <rect x="216" y="406" width="11" height="26" class="ld-bar-ke"/>
+        <text x="920" y="430" class="ld-barcount">1 visitor · 2%</text>
+        <text x="24" y="464" class="ld-pf">The Portfolio — same days: United States · 12 visitors · 100%</text>
       </svg>
       <ul class="sr-only">
-        <li>United States — reached by Word of God Risen and by Jason&rsquo;s Portfolio</li>
-        <li>Kenya — reached by Word of God Risen</li>
+        <li>Word of God Risen, visitors by country, last 7 days: United States — 65 visitors, 98 percent; Kenya — 1 visitor, 2 percent</li>
+        <li>The Portfolio, same days: United States — 12 visitors, 100 percent</li>
       </ul>
-      <p class="ld-cap">Countries as reported by Vercel · read October 14, 2026. The dashboard names
-        the countries the sites have reached; it does not give a reliable count for each one —
-        so the seeds stand here as markers, never as slices of a pie. Nothing drawn bigger than the truth.</p>
+      <p class="ld-cap">Drawn to scale from the count itself — Word of God Risen visitors by country,
+        last 7 days (Oct 7&ndash;14, 2026), read from Jason&rsquo;s Vercel dashboard (Countries, View All),
+        October 14, 2026: United States 65 of 66 (98%), Kenya 1 of 66 (2%). The Portfolio, same days:
+        United States 12 of 12 (100%). One reader is still a planting — so the smallest seed stands
+        at its true size, and nothing is drawn bigger than the truth.</p>
     </div>
   </section>
 
