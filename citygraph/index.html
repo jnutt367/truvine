@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1200">
+<title>The Citygraph — a year of building, raised in the field · TruVINE Field Report</title>
+<style>
+  /* ---------- TruVINE palette (same as the-field-report.html) ----------
+     deep blue #10365C · vine green #2F6B3A
+     warm gold #C08A1E · cream #FBF4E1 · ink #24313D */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E7DCC0;
+    font-family: "Quicksand", "Avenir Next", "Segoe UI", "Trebuchet MS",
+                 "Noto Sans", Verdana, sans-serif;
+    color: #24313D;
+  }
+  .sheet {
+    width: 1200px; margin: 0 auto;
+    background: linear-gradient(180deg, #FCF6E5 0%, #FAF0D8 100%);
+    padding: 36px 52px 40px;
+  }
+  a { color: #10365C; }
+  a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+    outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  p.body { font-size: 17.5px; line-height: 1.55; color: #33413A; margin-top: 12px; }
+  p.body strong { color: #10365C; }
+
+  /* ---------- Masthead ---------- */
+  .masthead { display: flex; align-items: center; gap: 26px; }
+  .host-tile {
+    background: #FFFFFF; border: 3px solid #C08A1E; border-radius: 18px;
+    padding: 8px; flex: 0 0 auto;
+  }
+  .host-tile img { height: 118px; width: 118px; border-radius: 12px; display: block; object-fit: cover; }
+  .masthead h1 {
+    font-size: 40px; line-height: 1.12; font-weight: 800;
+    color: #10365C; letter-spacing: .2px;
+  }
+  .masthead .subline {
+    margin-top: 8px; font-size: 19px; font-weight: 600; color: #2F6B3A;
+  }
+  .masthead .backline { margin-left: auto; flex: 0 0 auto; text-align: center; }
+  .masthead .backline a {
+    display: inline-block; text-decoration: none; font-weight: 800;
+    font-size: 15px; letter-spacing: .6px; color: #10365C;
+    background: #FFFFFF; border: 2px solid #D8C491; border-radius: 999px;
+    padding: 10px 18px;
+  }
+  .masthead .backline a:hover { border-color: #C08A1E; }
+  .rule { height: 3px; background: #C08A1E; border-radius: 2px; margin: 18px 0 16px; }
+
+  /* ---------- Panels ---------- */
+  section.panel { margin-top: 36px; }
+  .panel-head {
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 2px solid #D9B45C; padding-bottom: 8px; margin-bottom: 14px;
+  }
+  .ptag {
+    flex: 0 0 auto; background: #2F6B3A; color: #F5EDD6;
+    font-size: 13.5px; font-weight: 800; letter-spacing: 1.4px;
+    padding: 5px 12px; border-radius: 999px; text-transform: uppercase;
+  }
+  .panel-head h2 { font-size: 27px; color: #10365C; font-weight: 800; }
+  .panel-head .note {
+    margin-left: auto; font-size: 14.5px; color: #8A6D2F; font-weight: 700;
+    font-style: italic; white-space: nowrap;
+  }
+
+  .cards { display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+  .card {
+    flex: 1 1 0; min-width: 160px; background: #FFFDF6;
+    border: 2px solid #D8C491; border-radius: 14px; padding: 16px 18px;
+  }
+  .card .bignum { font-size: 37px; font-weight: 800; color: #10365C; line-height: 1.1; }
+  .card .bignum.gold { color: #A87B14; }
+  .card .bignum.green { color: #2F6B3A; }
+  .card .lab { font-size: 15px; font-weight: 700; color: #33413A; margin-top: 4px; line-height: 1.35; }
+  .card .lab small { display: block; font-weight: 600; color: #8A6D2F; font-size: 13px; margin-top: 3px; }
+
+  /* ---------- Stage ---------- */
+  .stage-frame {
+    background: #FFFFFF; border: 2px solid #D8C491; border-radius: 16px;
+    padding: 14px; margin-top: 18px;
+  }
+  #stage { position: relative; width: 100%; aspect-ratio: 16 / 8.6; border-radius: 10px; overflow: hidden; }
+  #stage canvas { display: block; width: 100%; height: 100%; }
+  #monthstrip {
+    position: relative; height: 22px; margin: 4px 2px 0;
+    font-size: 12.5px; font-weight: 800; color: #8A6D2F; letter-spacing: .4px;
+  }
+  #monthstrip span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  #stageMsg {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: #F5EDD6; color: #8A6D2F; font-weight: 700; font-size: 17px;
+    text-align: center; padding: 0 60px; border-radius: 10px;
+  }
+  .controls {
+    display: flex; align-items: center; gap: 14px; margin-top: 14px; flex-wrap: wrap;
+    background: #FFFDF6; border: 2px solid #D8C491; border-radius: 12px; padding: 12px 18px;
+  }
+  .controls button {
+    font-family: inherit; font-size: 16px; font-weight: 800; letter-spacing: .4px;
+    border-radius: 999px; padding: 10px 22px; cursor: pointer;
+  }
+  #playBtn { background: #2F6B3A; color: #F5EDD6; border: 2px solid #2F6B3A; }
+  #playBtn[aria-pressed="true"] { background: #8A6D2F; border-color: #8A6D2F; }
+  #stopBtn { background: #FFFFFF; color: #10365C; border: 2px solid #D8C491; }
+  .scrub-wrap { flex: 1 1 320px; display: flex; align-items: center; gap: 10px; }
+  .scrub-wrap label { font-size: 14.5px; font-weight: 800; color: #8A6D2F; white-space: nowrap; }
+  #scrub { flex: 1; accent-color: #C08A1E; }
+  #readout { font-size: 16.5px; font-weight: 700; color: #10365C; margin-top: 10px; min-height: 26px; }
+  .help { font-size: 14.5px; color: #8A6D2F; font-weight: 600; margin-top: 6px; }
+
+  /* ---------- Table ---------- */
+  table.data { border-collapse: collapse; width: 100%; margin-top: 14px; font-size: 15.5px; }
+  table.data caption { text-align: left; font-weight: 800; color: #10365C; font-size: 17px; margin-bottom: 8px; }
+  table.data th, table.data td { border: 1px solid #D8C491; padding: 8px 12px; text-align: right; }
+  table.data th:first-child, table.data td:first-child { text-align: left; }
+  table.data thead th { background: #10365C; color: #F5EDD6; font-weight: 800; }
+  table.data tbody tr:nth-child(even) { background: #FFFDF6; }
+  table.data tfoot td { font-weight: 800; background: #F1E6C6; }
+
+  .method {
+    background: #FFFDF6; border: 2px solid #D8C491; border-left: 8px solid #2F6B3A;
+    border-radius: 10px; padding: 16px 22px; margin-top: 22px;
+    font-size: 16px; line-height: 1.55; color: #33413A;
+  }
+  .method strong { color: #10365C; }
+  footer { margin-top: 34px; padding-top: 14px; border-top: 2px solid #D9B45C;
+           font-size: 15px; color: #8A6D2F; font-weight: 600; text-align: center; }
+  footer a { font-weight: 800; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="host-tile">
+      <img src="teddy-final.png" alt="Portrait of Grandpa Teddy in his straw hat and overalls, smiling warmly — the host of the TruVINE Family Farm">
+    </div>
+    <div>
+      <h1>The Citygraph</h1>
+      <div class="subline">A year of building, raised in the field — Jason Nutt's GitHub contributions, Oct 12, 2025 – Oct 15, 2026</div>
+    </div>
+    <div class="backline"><a href="../field-report/">← The Field Report</a></div>
+  </header>
+  <div class="rule"></div>
+
+  <p class="body">
+    Every day of the last year stands here as a building in the TruVINE field. The taller the tower,
+    the more was built that day — commits, pull requests, issues, and reviews, counted the way
+    GitHub counts them on his public profile. Walk around it with your pointer or fingers.
+    <strong>Press Play the Year</strong>, and the skyline plays itself: busy days ring out,
+    quiet days rest. A quiet square is not an empty one — rest is part of the record too.
+  </p>
+
+  <section class="panel" aria-labelledby="h-summary">
+    <div class="panel-head">
+      <span class="ptag">The harvest count</span>
+      <h2 id="h-summary">The year at a glance</h2>
+      <span class="note" id="dataNote">counted October 15, 2026</span>
+    </div>
+    <div class="cards" id="statCards" aria-label="Year statistics">
+      <div class="card"><div class="bignum" id="stTotal">—</div><div class="lab">contributions<small>the whole year, every one counted</small></div></div>
+      <div class="card"><div class="bignum" id="stDays">—</div><div class="lab">days of building<small>out of 369 days in the record</small></div></div>
+      <div class="card"><div class="bignum gold" id="stBusy">—</div><div class="lab">tallest tower<small id="stBusyWhen">—</small></div></div>
+      <div class="card"><div class="bignum green" id="stLong">—</div><div class="lab">longest stretch<small id="stLongWhen">—</small></div></div>
+      <div class="card"><div class="bignum" id="stCur">—</div><div class="lab">building right now<small>days in a row through today</small></div></div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-city">
+    <div class="panel-head">
+      <span class="ptag">The city</span>
+      <h2 id="h-city">Walk the field</h2>
+    </div>
+    <div class="stage-frame">
+      <div id="stage" role="img" aria-label="A 3D city of 369 days. Each day is a building on a green field; taller buildings mean more contributions that day.">
+        <div id="stageMsg">Loading the field…</div>
+      </div>
+      <div id="monthstrip" aria-hidden="true"></div>
+      <div class="controls" role="group" aria-label="Playback controls">
+        <button id="playBtn" aria-pressed="false">▶ Play the Year</button>
+        <button id="stopBtn">■ Stop</button>
+        <div class="scrub-wrap">
+          <label for="scrub">Walk day by day</label>
+          <input type="range" id="scrub" min="0" max="368" value="0" step="1" aria-describedby="readout">
+        </div>
+      </div>
+      <p id="readout">Slide or play to travel through the year.</p>
+      <p class="help">Drag the field with your pointer to look around, scroll to zoom. Keyboard: Tab to the slider, then ← → move day by day; Tab to Play the Year, then Enter to hear it.</p>
+      <p class="sr-only" aria-live="polite" id="announcer"></p>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-months">
+    <div class="panel-head">
+      <span class="ptag">The ledger</span>
+      <h2 id="h-months">The year by month</h2>
+    </div>
+    <div style="overflow-x:auto">
+    <table class="data" id="monthTable">
+      <caption>Monthly contribution totals — same days, same counts as the city above</caption>
+      <thead><tr><th scope="col">Month</th><th scope="col">Contributions</th><th scope="col">Days of building</th></tr></thead>
+      <tbody></tbody>
+      <tfoot><tr><td>Total</td><td id="mTotal">—</td><td id="mDays">—</td></tr></tfoot>
+    </table>
+    </div>
+  </section>
+
+  <div class="method">
+    <strong>How this is counted.</strong>
+    These are GitHub's own per-day counts from Jason's public profile contribution calendar —
+    commits, pull requests, issues, and reviews as GitHub attributes them — drawn on
+    <strong>October 15, 2026</strong>, covering October 12, 2025 through October 15, 2026.
+    Building heights are true to the counts (no smoothing, no filler), and a day GitHub
+    recorded nothing stands as bare ground. Verify it any time at
+    <a href="https://github.com/jnutt367">github.com/jnutt367</a>.
+  </div>
+
+  <footer>
+    The Citygraph · part of the TruVINE Field Report ·
+    <a href="../field-report/">back to the report</a>
+  </footer>
+
+</div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+
+<script type="module">
+const dataUrl = "citygraph-data.json";
+let DATA = null;
+try {
+  const r = await fetch(dataUrl, { cache: "no-store" });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  DATA = await r.json();
+} catch (e) {
+  document.getElementById("stageMsg").textContent =
+    "The field could not be loaded today (" + e.message + "). The ledger and stats above will return with the next refresh — nothing here is guessed.";
+  throw e;
+}
+const days = DATA.days, stats = DATA.stats;
+const maxCount = stats.busiestDay.count;
+
+/* ---------- helpers ---------- */
+const fmtDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+const fmtMon = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "long", year: "numeric" });
+
+/* ---------- stats + ledger (render with or without WebGL) ---------- */
+document.getElementById("stTotal").textContent = stats.total.toLocaleString("en-US");
+document.getElementById("stDays").textContent = stats.activeDays + " / " + stats.daysInWindow;
+document.getElementById("stBusy").textContent = stats.busiestDay.count;
+document.getElementById("stBusyWhen").textContent = "on " + fmtDate(stats.busiestDay.date) + " — the gold tower";
+document.getElementById("stLong").textContent = stats.longestStreak.days + " days";
+document.getElementById("stLongWhen").textContent = fmtMon(stats.longestStreak.start) + " · " + stats.longestStreak.start.slice(5).replace("-", "/") + " – " + stats.longestStreak.end.slice(5).replace("-", "/");
+document.getElementById("stCur").textContent = stats.currentStreak.days + (stats.currentStreak.days === 1 ? " day" : " days");
+document.getElementById("monthstrip").setAttribute("aria-hidden", "true");
+
+const months = {};
+for (const d of days) {
+  const k = d.date.slice(0, 7);
+  (months[k] = months[k] || { contributions: 0, active: 0 }).contributions += d.count;
+  if (d.count > 0) months[k].active++;
+}
+const tbody = document.querySelector("#monthTable tbody");
+for (const k of Object.keys(months).sort()) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = "<td>" + fmtMon(k + "-01") + "</td><td>" + months[k].contributions.toLocaleString("en-US") + "</td><td>" + months[k].active + "</td>";
+  tbody.appendChild(tr);
+}
+document.getElementById("mTotal").textContent = stats.total.toLocaleString("en-US");
+document.getElementById("mDays").textContent = stats.activeDays;
+
+/* month ticks under the stage */
+const cols = Math.ceil(days.length / 7);
+{
+  const strip = document.getElementById("monthstrip");
+  let last = null;
+  days.forEach((d, i) => {
+    const m = d.date.slice(0, 7);
+    if (m !== last && i % 7 === 0) {
+      last = m;
+      const s = document.createElement("span");
+      s.style.left = (Math.floor(i / 7) / cols * 100) + "%";
+      s.textContent = new Date(d.date + "T12:00:00").toLocaleDateString("en-US", { month: "short" });
+      strip.appendChild(s);
+    }
+  });
+}
+
+/* ---------- readout / announcer ---------- */
+const readout = document.getElementById("readout");
+const announcer = document.getElementById("announcer");
+function describe(i) {
+  const d = days[i];
+  return fmtDate(d.date) + " — " + (d.count === 0
+    ? "no contributions recorded; the field rests"
+    : d.count + (d.count === 1 ? " contribution" : " contributions"));
+}
+
+/* ---------- 3D world: the TruVINE field ---------- */
+const stage = document.getElementById("stage");
+const stageMsg = document.getElementById("stageMsg");
+let THREE, OrbitControls;
+try {
+  THREE = await import("three");
+  ({ OrbitControls } = await import("three/addons/controls/OrbitControls.js"));
+} catch (e) {
+  stageMsg.textContent = "The 3D field needs a live connection to load its rendering library (" + e.message + "). The year ledger above holds the same numbers — nothing is lost, only the walk-through waits.";
+  stageMsg.style.display = "flex";
+  throw e;
+}
+stageMsg.style.display = "none";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.prepend(renderer.domElement);
+renderer.domElement.setAttribute("aria-hidden", "true");
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xF3E2B0);            /* warm gold-hour haze */
+scene.fog = new THREE.Fog(0xF0DCA8, 70, 170);
+
+const camera = new THREE.PerspectiveCamera(44, 16 / 8.6, 0.1, 500);
+camera.position.set(27, 29, 36);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0.5, 0);
+controls.maxPolarAngle = Math.PI * 0.46;
+controls.minDistance = 10;
+controls.maxDistance = 130;
+controls.enableDamping = true;
+
+scene.add(new THREE.HemisphereLight(0xFFEBBE, 0x8A9A5B, 0.85));
+const sun = new THREE.DirectionalLight(0xFFD9A0, 1.35);  /* gold hour */
+sun.position.set(34, 30, -22);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -40; sun.shadow.camera.right = 40;
+sun.shadow.camera.top = 40; sun.shadow.camera.bottom = -40;
+sun.shadow.bias = -0.0005;
+scene.add(sun);
+
+/* the field: soft green-gold ground with vineyard rows between the streets */
+const CELL = 1, CW = cols, CH = 7;
+const fieldW = CW + 8, fieldD = CH + 8;
+function fieldTexture() {
+  const px = 20, c = document.createElement("canvas");
+  c.width = Math.round(fieldW * px); c.height = Math.round(fieldD * px);
+  const g = c.getContext("2d");
+  g.fillStyle = "#86A758"; g.fillRect(0, 0, c.width, c.height);
+  /* vineyard rows: quiet bands running between the day-streets (along X) */
+  for (let r = 0; r < CH + 8; r++) {
+    const y = (4 + r) * px;
+    g.fillStyle = r % 2 ? "#7C9A4E" : "#8DB160";
+    g.fillRect(0, y, c.width, px * 0.55);
+  }
+  /* faint gold light-dapple */
+  for (let i = 0; i < 500; i++) {
+    g.fillStyle = "rgba(240,220,168," + (Math.random() * 0.12) + ")";
+    const s = 2 + Math.random() * 5;
+    g.fillRect(Math.random() * c.width, Math.random() * c.height, s, s);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const field = new THREE.Mesh(
+  new THREE.PlaneGeometry(fieldW, fieldD),
+  new THREE.MeshLambertMaterial({ map: fieldTexture() })
+);
+field.rotation.x = -Math.PI / 2;
+field.position.y = -0.02;
+field.receiveShadow = true;
+scene.add(field);
+
+/* the tilled plot the city rises from */
+const plot = new THREE.Mesh(
+  new THREE.BoxGeometry(CW + 1.6, 0.3, CH + 1.6),
+  new THREE.MeshLambertMaterial({ color: 0xEADFB8 })
+);
+plot.position.y = -0.17;
+plot.receiveShadow = true;
+scene.add(plot);
+
+/* buildings: heights true to the counts, family colors by GitHub's own levels */
+const LVL_COLORS = [0xE3D5AB, 0xB7C78B, 0x7FA968, 0x4A7D46, 0x2F6B3A];
+const BUSY_DATE = stats.busiestDay.date;
+const blds = [];
+const geo = new THREE.BoxGeometry(0.88, 1, 0.88);
+geo.translate(0, 0.5, 0); /* grow upward from the plot */
+days.forEach((d, i) => {
+  const col = Math.floor(i / 7), row = i % 7;
+  const h = d.count === 0 ? 0.06 : 0.45 + Math.sqrt(d.count) * 0.5;
+  const color = d.date === BUSY_DATE ? 0xC08A1E : LVL_COLORS[d.level] || 0x4A7D46;
+  const mat = new THREE.MeshLambertMaterial({ color });
+  const m = new THREE.Mesh(geo, mat);
+  m.scale.y = h;
+  m.position.set(col - (CW - 1) / 2, 0, row - (CH - 1) / 2);
+  m.castShadow = d.count > 0;
+  m.receiveShadow = true;
+  m.userData = { i, h, color };
+  scene.add(m);
+  blds.push(m);
+});
+
+/* playhead veil: a soft gold column of light over the current week */
+const veil = new THREE.Mesh(
+  new THREE.PlaneGeometry(1.05, CH + 0.8),
+  new THREE.MeshBasicMaterial({ color: 0xC08A1E, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false })
+);
+veil.rotation.x = -Math.PI / 2;
+veil.position.y = 0.03;
+scene.add(veil);
+veil.visible = false;
+
+let current = -1;
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function setCurrent(i) {
+  if (current === i) return;
+  if (current >= 0) { blds[current].material.emissive.setHex(0x000000); }
+  current = i;
+  const b = blds[i];
+  b.material.emissive.setHex(0xC08A1E);
+  b.material.emissiveIntensity = 0.55;
+  const col = Math.floor(i / 7);
+  veil.position.x = col - (CW - 1) / 2;
+  veil.visible = true;
+  readout.textContent = describe(i);
+  document.getElementById("scrub").value = i;
+}
+
+/* ---------- playback: Play the Year ---------- */
+const STEPS = 8; /* days per second — a steady walking pace */
+const PENT = [0, 2, 4, 7, 9]; /* C major pentatonic, the field's hymn */
+let ctx = null, master = null, playing = false, step = 0, timer = null, nextT = 0;
+const playBtn = document.getElementById("playBtn");
+const stopBtn = document.getElementById("stopBtn");
+const scrub = document.getElementById("scrub");
+
+function audio() {
+  if (!ctx) {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass"; lp.frequency.value = 1900;
+    master = ctx.createGain(); master.gain.value = 0.5;
+    lp.connect(master); master.connect(ctx.destination);
+    audio.lp = lp;
+  }
+  return ctx;
+}
+function note(count, t) {
+  const deg = Math.min(14, Math.round(Math.sqrt(count) / Math.sqrt(maxCount) * 14));
+  const semi = PENT[deg % 5] + 12 * Math.floor(deg / 5);
+  const f = 261.63 * Math.pow(2, semi / 12);
+  const vel = 0.22 + 0.78 * Math.sqrt(count / maxCount);
+  const c = audio();
+  const o1 = c.createOscillator(), o2 = c.createOscillator(), g = c.createGain();
+  o1.type = "triangle"; o1.frequency.value = f;
+  o2.type = "sine"; o2.frequency.value = f * 2; 
+  const g2 = c.createGain(); g2.gain.value = 0.18;
+  o1.connect(g); o2.connect(g2); g2.connect(g);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(vel, t + 0.015);
+  g.gain.exponentialRampToValueAtTime(0.0008, t + 0.42);
+  g.connect(audio.lp);
+  o1.start(t); o2.start(t); o1.stop(t + 0.5); o2.stop(t + 0.5);
+}
+function scheduler() {
+  const c = audio();
+  while (nextT < c.currentTime + 0.15) {
+    const i = step;
+    if (i >= days.length) { finish(); return; }
+    const d = days[i];
+    if (d.count > 0) note(d.count, nextT);
+    const delay = Math.max(0, (nextT - c.currentTime) * 1000);
+    setTimeout(() => { if (playing) setCurrent(i); }, delay);
+    step++; nextT += 1 / STEPS;
+  }
+}
+function play() {
+  audio(); ctx.resume();
+  playing = true;
+  playBtn.textContent = "⏸ Pause";
+  playBtn.setAttribute("aria-pressed", "true");
+  if (step >= days.length) step = 0;
+  nextT = ctx.currentTime + 0.08;
+  setCurrent(step);
+  timer = setInterval(scheduler, 60);
+  announcer.textContent = "Playing the year, from " + fmtDate(days[0].date) + ".";
+}
+function pause(announce) {
+  playing = false;
+  clearInterval(timer);
+  if (ctx) ctx.suspend();
+  playBtn.textContent = "▶ Play the Year";
+  playBtn.setAttribute("aria-pressed", "false");
+  if (announce) announcer.textContent = "Paused on " + describe(current >= 0 ? current : 0) + ".";
+}
+function finish() {
+  pause(false);
+  announcer.textContent = "Finished playing the year — " + stats.total + " contributions, ending " + fmtDate(days[days.length - 1].date) + ".";
+}
+playBtn.addEventListener("click", () => { playing ? pause(true) : play(); });
+stopBtn.addEventListener("click", () => {
+  pause(false); step = 0; setCurrent(0);
+  announcer.textContent = "Back at the start of the year, " + fmtDate(days[0].date) + ".";
+});
+scrub.addEventListener("input", () => {
+  const i = +scrub.value;
+  if (playing) { step = i; nextT = ctx.currentTime + 0.05; }
+  setCurrent(i);
+});
+
+/* ---------- resize + render ---------- */
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener("resize", resize);
+resize();
+setCurrent(0);
+(function loop() {
+  requestAnimationFrame(loop);
+  controls.update();
+  renderer.render(scene, camera);
+})();
+</script>
+</body>
+</html>
