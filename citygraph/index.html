@@ -334,8 +334,8 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xF3E2B0);            /* warm gold-hour haze */
 scene.fog = new THREE.Fog(0xF0DCA8, 70, 170);
 
-const camera = new THREE.PerspectiveCamera(44, 16 / 8.6, 0.1, 500);
-camera.position.set(27, 29, 36);
+const camera = new THREE.PerspectiveCamera(46, 16 / 8.6, 0.1, 500);
+camera.position.set(22.5, 23, 30);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0.5, 0);
 controls.maxPolarAngle = Math.PI * 0.46;
