@@ -106,6 +106,18 @@
     font-style: italic; text-align: center;
   }
 
+  /* ---------- The film — place of honor ---------- */
+  .film-frame {
+    overflow: hidden; border-radius: 14px; border: 3px solid #C08A1E;
+    background: #10365C;
+  }
+  .film-frame video { display: block; width: 100%; height: auto; background: #10365C; }
+  video:focus-visible { outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px; }
+  .film-cap {
+    margin-top: 10px; font-size: 15px; line-height: 1.5; color: #5A5342;
+    font-style: italic; text-align: center;
+  }
+
   /* ---------- Panels ---------- */
   section.panel { margin-top: 38px; }
   .panel-head {
@@ -411,6 +423,27 @@
     <figcaption>The sign Jason is pointing at says what this whole page says:
       the flock is gathering — 841 strong, from 38 countries — and every single one counts.</figcaption>
   </figure>
+
+  <!-- ================= TONIGHT — A FILM FOR WILL (placeholder preview; the finished film takes this exact place) ================= -->
+  <section class="panel" aria-labelledby="h-film">
+    <div class="panel-head">
+      <span class="ptag tend">Tonight</span>
+      <h2 id="h-film">Tonight — a Film for Will</h2>
+      <span class="note">the place of honor — right up front</span>
+    </div>
+    <figure>
+      <div class="film-frame">
+        <video controls playsinline preload="none" poster="film-poster.jpg"
+          src="film-placeholder.mp4"
+          aria-label="Preview of Will's welcome film: a slow slideshow of the film's tour pictures — Grandpa Teddy opening the farm gate, Jason walking Will past the flock, the two of them at the counted board, the family television inside, Jason holding up his phone on the porch, and all three back at the board with the sheep around them. The finished film takes this preview's place tonight.">
+          Your browser can&rsquo;t play the preview here, Will — the finished film
+          is being made tonight, and it will stand in this very spot.
+        </video>
+      </div>
+      <figcaption class="film-cap">Your welcome film is being finished tonight, Will —
+        this preview holds its place until it lands.</figcaption>
+    </figure>
+  </section>
 
   <!-- ================= PINNED TO THE BOARD ================= -->
   <section class="panel" aria-labelledby="h-pinned">
