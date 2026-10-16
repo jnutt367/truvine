@@ -333,6 +333,17 @@
   .door.primary .d-u { color: #D9B45C; }
   .door.primary.green { background: #2F6B3A; border-color: #2F6B3A; }
   .door.wide { grid-column: 1 / -1; text-align: center; background: #FBF3DC; }
+  /* ---------- the game's teaser, seated just above its door ---------- */
+  .game-teaser {
+    grid-column: 1 / -1; background: #FFFFFF; border: 2px solid #D8C491;
+    border-radius: 14px; padding: 16px 18px 12px; text-align: center;
+  }
+  .game-teaser .d-t { font-size: 19px; font-weight: 800; color: #10365C; }
+  .game-teaser .d-g { margin-top: 4px; font-size: 15px; line-height: 1.5; color: #33413A; }
+  .game-teaser video {
+    width: 100%; max-width: 560px; height: auto; display: block;
+    margin: 10px auto 4px; border-radius: 10px; background: #10365C;
+  }
   .field-teaser { margin-top: 16px; text-align: center; font-size: 16px; line-height: 1.55; color: #33413A; }
   .field-teaser a { color: #10365C; font-weight: 700; }
 
@@ -804,6 +815,15 @@
         <div class="d-g">Step into the field — walk around the board in 3D.</div>
         <div class="d-u">jnutt367.github.io/truvine/for-will-field</div>
       </a>
+      <div class="game-teaser">
+        <div class="d-t">Teddy introduces the game</div>
+        <div class="d-g">Grandpa Teddy&rsquo;s own word about the little game waiting through the next door — press play when you&rsquo;re ready.</div>
+        <video controls preload="metadata" poster="trivia-teaser-poster.jpg" width="1920" height="1080"
+               aria-label="Grandpa Teddy introduces Will&rsquo;s Flock Trivia — a short welcome film for the game">
+          <source src="trivia-teaser.mp4" type="video/mp4">
+          Your browser can&rsquo;t play this little film — but the game through the door below works just the same.
+        </video>
+      </div>
       <a class="door wide" href="../for-will-game/" aria-label="A Little Game — Will&rsquo;s Flock Trivia. Six gentle questions, one sheep at a time — there&rsquo;s no way to lose.">
         <div class="d-t">A Little Game — Will&rsquo;s Flock Trivia</div>
         <div class="d-g">Six gentle questions, one sheep at a time — there&rsquo;s no way to lose.</div>
