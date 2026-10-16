@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  THE OPEN DOOR — THE TruVINE FAMILY WALL
+  The family's wall: real faces and chosen names, hung only
+  by each person's own free "yes" — or not hung at all, for
+  family who choose the quiet door and are held in prayer,
+  anonymous and loved exactly as much.
+  Opened October 16, 2026, by Jason's word: the covenant
+  promises (banked Oct 15 in the New Sheep Package template)
+  were read and CROWNED, and the door put where it belongs —
+  here, and carried by every New Sheep Package after.
+  Joining is a LETTER to Jason (mailto), never a public
+  upload form; nothing is stored on this website.
+  HONESTY RULE (the family's): no fake members, ever. An
+  empty wall with room is more honest than a crowded one
+  that isn't real. The canon cast is NOT hung here — the
+  cast is the doorway; this wall is the family itself.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Open Door — The TruVINE Family Wall · TruVINE</title>
+<meta name="description" content="The TruVINE Family Wall: anyone, from any country, may take their place in this family — with a photo, with a name only, or anonymous and held in prayer. Always optional, always by permission, always their choice.">
+<style>
+  /* ---------- TruVINE palette ----------
+     deep blue #10365C · vine green #2F6B3A · deep green #18582A
+     warm gold #C08A1E · light gold #D9B45C · cream #FBF4E1 · ink #24313D */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #E7DCC0;
+    font-family: "Quicksand", "Avenir Next", "Segoe UI", "Trebuchet MS",
+                 "Noto Sans", Verdana, sans-serif;
+    color: #24313D;
+  }
+  .sheet {
+    max-width: 900px; margin: 0 auto;
+    background: linear-gradient(180deg, #FCF6E5 0%, #FAF0D8 100%);
+    padding: 30px 34px 34px;
+    box-shadow: 0 0 44px rgba(27, 42, 74, .18);
+  }
+  @media (max-width: 640px) { .sheet { padding: 22px 16px 28px; } }
+  img { display: block; max-width: 100%; }
+  a { color: #10365C; }
+  a:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+    outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; background: #10365C;
+    color: #F5EDD6; padding: 10px 18px; font-weight: 700; z-index: 10;
+  }
+  .skip:focus-visible { left: 12px; top: 12px; }
+  .serif { font-family: "Noto Serif Display", "Playfair Display", Georgia, "Times New Roman", serif; }
+  p.body { font-size: 17px; line-height: 1.55; color: #33413A; margin-top: 10px; }
+  p.body strong { color: #10365C; }
+
+  /* ---------- Masthead ---------- */
+  .masthead { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .emblem-tile {
+    background: #FFFFFF; border: 3px solid #C08A1E; border-radius: 18px;
+    padding: 8px 12px; flex: 0 0 auto;
+  }
+  .emblem-tile img { width: 104px; height: 79px; object-fit: contain; display: block; }
+  .masthead .titles { flex: 1 1 320px; min-width: 260px; }
+  .overline {
+    font-size: 13px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; color: #C08A1E;
+  }
+  .masthead h1 {
+    margin-top: 4px; font-size: 46px; line-height: 1.08; font-weight: 800;
+    color: #10365C; letter-spacing: .2px;
+  }
+  .masthead .subline { margin-top: 6px; font-size: 20px; font-weight: 700; color: #2F6B3A; }
+  .masthead .warmline { margin-top: 6px; font-size: 16px; line-height: 1.5; font-weight: 600; color: #33413A; }
+  .dateline {
+    flex: 0 0 auto; text-align: center; background: #10365C; color: #F5EDD6;
+    border-radius: 12px; padding: 10px 18px;
+  }
+  .dateline .d1 { font-size: 12px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: #D9B45C; }
+  .dateline .d2 { font-size: 18px; font-weight: 800; margin-top: 2px; }
+  .rule { height: 3px; background: #C08A1E; border-radius: 2px; margin: 20px 0 6px; }
+
+  /* ---------- Panels ---------- */
+  section.panel { margin-top: 38px; }
+  .panel-head {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    border-bottom: 2px solid #D9B45C; padding-bottom: 8px; margin-bottom: 14px;
+  }
+  .ptag {
+    flex: 0 0 auto; background: #10365C; color: #F5EDD6;
+    font-size: 13px; font-weight: 800; letter-spacing: 1.4px;
+    padding: 5px 12px; border-radius: 999px; text-transform: uppercase;
+  }
+  .ptag.tend { background: #2F6B3A; }
+  .ptag.sow { background: #8A6D2F; }
+  .panel-head h2 {
+    font-size: 23px; font-weight: 800; letter-spacing: 1.4px;
+    text-transform: uppercase; color: #10365C;
+  }
+  .panel-head .note {
+    margin-left: auto; text-align: right; font-size: 15px;
+    font-weight: 600; color: #2F6B3A;
+  }
+
+  /* ---------- The empty wall: frames kept ready ---------- */
+  .wall-board {
+    background-color: #E9D5A8;
+    background-image: radial-gradient(rgba(122, 90, 40, .16) 1.6px, transparent 1.7px);
+    background-size: 22px 22px;
+    border: 10px solid #7A5A28; border-radius: 12px;
+    padding: 28px 24px 24px;
+  }
+  .wall-frames {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 700px) { .wall-frames { grid-template-columns: repeat(2, 1fr); } }
+  .wframe {
+    background: #FFFDF4; border: 1.5px solid #D8C491; border-radius: 6px;
+    box-shadow: 0 8px 18px rgba(90, 66, 20, .22);
+    padding: 12px 12px 10px; text-align: center;
+  }
+  .wframe .slot {
+    border: 2.5px dashed #C8AE72; border-radius: 6px; background: #FBF3DC;
+    min-height: 110px; display: flex; align-items: center; justify-content: center;
+    font-size: 30px; color: #C08A1E;
+  }
+  .wframe figcaption { margin-top: 9px; font-size: 14px; font-weight: 600; color: #5A5342; font-style: italic; }
+  .wall-note {
+    margin-top: 18px; text-align: center; font-size: 16.5px; line-height: 1.6; color: #33413A;
+  }
+  .wall-note strong { color: #10365C; }
+  .roll-note {
+    margin-top: 16px; background: #FFFDF6; border: 2px solid #D8C491; border-left: 8px solid #2F6B3A;
+    border-radius: 12px; padding: 16px 20px; font-size: 16px; line-height: 1.6; color: #33413A;
+  }
+  .roll-note strong { color: #10365C; }
+
+  /* ---------- Doors ---------- */
+  .doors { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 6px; }
+  @media (max-width: 860px) { .doors { grid-template-columns: 1fr; } }
+  .door {
+    display: block; border-radius: 14px;
+    padding: 18px 20px; background: #FFFFFF; border: 2px solid #D8C491;
+  }
+  .door .d-t { font-size: 19px; font-weight: 800; color: #10365C; }
+  .door .d-g { margin-top: 4px; font-size: 15px; line-height: 1.55; color: #33413A; }
+  .door .d-u { margin-top: 8px; font-size: 13.5px; font-weight: 700; color: #C08A1E; }
+  .door.quiet { background: #2F6B3A; border-color: #2F6B3A; }
+  .door.quiet .d-t { color: #F5EDD6; }
+  .door.quiet .d-g { color: #EAF3E2; }
+  .door.quiet .d-u { color: #D9B45C; }
+
+  /* ---------- The promises ---------- */
+  .promises { list-style: none; margin-top: 4px; }
+  .promises li {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 4px; border-bottom: 1.5px solid #EADBBA;
+  }
+  .promises li:last-child { border-bottom: none; }
+  .promises .p-n {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%;
+    background: #10365C; color: #F5EDD6; font-weight: 800; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .promises .p-t { font-size: 17.5px; font-weight: 800; color: #10365C; }
+  .promises .p-g { margin-top: 3px; font-size: 16px; line-height: 1.6; color: #33413A; }
+  .risk-note {
+    margin-top: 18px; background: #FBF3DC; border: 2px solid #D9B45C; border-radius: 12px;
+    padding: 14px 18px; font-size: 16px; line-height: 1.6; color: #33413A; text-align: center;
+  }
+  .risk-note strong { color: #10365C; }
+
+  /* ---------- The letter (Tell-Jason pattern) ---------- */
+  .tell-copy { font-size: 16.5px; line-height: 1.6; color: #33413A; max-width: 720px; }
+  .tell-form { margin-top: 16px; max-width: 720px; display: grid; gap: 16px; }
+  .tell-form label { display: block; font-size: 16px; font-weight: 700; color: #10365C; margin-bottom: 6px; }
+  .tell-opt { font-size: 14px; font-weight: 600; color: #66707A; }
+  .tell-form input, .tell-form textarea, .tell-form select {
+    width: 100%; font: inherit; font-size: 16.5px; line-height: 1.5;
+    color: #24313D; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 10px; padding: 12px 14px;
+  }
+  .tell-form textarea { resize: vertical; }
+  .tell-form input:focus-visible, .tell-form textarea:focus-visible,
+  .tell-form select:focus-visible, .tell-btn:focus-visible {
+    outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px;
+  }
+  .tell-btn {
+    justify-self: start; font: inherit; font-size: 17.5px; font-weight: 800;
+    color: #F5EDD6; background: #10365C; border: 2px solid #10365C;
+    border-radius: 12px; padding: 14px 26px; cursor: pointer;
+  }
+  .tell-btn:hover { background: #18582A; border-color: #18582A; }
+
+  /* ---------- Scripture, voice & footer ---------- */
+  .scripture {
+    margin-top: 22px; text-align: center;
+    font-family: "Noto Serif Display", Georgia, serif; font-style: italic;
+    font-size: 19px; line-height: 1.55; color: #18582A;
+  }
+  .scripture .ref { display: block; margin-top: 6px; font-size: 15px; font-style: normal; font-weight: 700; color: #10365C; }
+  .voice { margin-top: 34px; text-align: center; }
+  .voice .v1 {
+    font-family: "Noto Serif Display", Georgia, serif; font-style: italic;
+    font-size: 24px; font-weight: 700; color: #18582A;
+  }
+  footer.report-foot {
+    margin-top: 26px; border-top: 2px solid #D9B45C; padding-top: 16px;
+    font-size: 13.5px; line-height: 1.6; color: #66707A; text-align: center;
+  }
+  footer.report-foot .faith { font-weight: 700; color: #10365C; }
+
+  /* ---------- Widescreen ---------- */
+  @media screen and (min-width: 1100px) {
+    .sheet { max-width: 1240px; padding: 40px 48px 44px; }
+    .masthead h1 { font-size: 54px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#wall">Skip to the wall</a>
+<div class="sheet">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header class="masthead">
+    <div class="emblem-tile">
+      <img src="emblem.png" alt="The TruVINE emblem — a green vine cross inside a blue triangle" width="624" height="472">
+    </div>
+    <div class="titles">
+      <div class="overline">TruVINE &middot; The Family Wall</div>
+      <h1>The Open Door</h1>
+      <div class="subline">A wall with room — for anyone, from anywhere</div>
+      <p class="warmline">&ldquo;Every sheep counted — with a face and a name, by permission and by love.&rdquo;</p>
+    </div>
+    <div class="dateline">
+      <div class="d1">The door opened</div>
+      <div class="d2">October 16, 2026</div>
+    </div>
+  </header>
+  <div class="rule" aria-hidden="true"></div>
+
+  <!-- ================= THE INVITATION ================= -->
+  <section class="panel" aria-labelledby="h-invite">
+    <div class="panel-head">
+      <span class="ptag tend">The Invitation</span>
+      <h2 id="h-invite">There&rsquo;s a Place on This Wall for You</h2>
+      <span class="note">if you want it — only if you want it</span>
+    </div>
+    <p class="body">
+      If you watch TruVINE from anywhere on God&rsquo;s earth — any country, any
+      language, any kitchen table — this wall is yours as much as it is ours. It
+      was built for one reason: <strong>fellowship</strong>. Counting the flock
+      is good, and we count it carefully. But a family isn&rsquo;t a number. A
+      family has faces, and names, and room at the table.
+    </p>
+    <p class="body">
+      So the door is open: <strong>send your picture, and we&rsquo;ll add you to
+      the family — legit, on the wall — if you give your permission and you
+      want to be there.</strong> Completely optional, always. Nobody is missing
+      from this family for declining; you are loved exactly the same from the
+      pew as from the picture frame.
+    </p>
+    <p class="scripture">
+      &ldquo;&hellip;other sheep I have, which are not of this fold. I must bring
+      them also, and they will listen to my voice. They will become one flock
+      with one shepherd.&rdquo;
+      <span class="ref">John 10:16 — World English Bible</span>
+    </p>
+  </section>
+
+  <!-- ================= THE WALL ================= -->
+  <section class="panel" id="wall" aria-labelledby="h-wall">
+    <div class="panel-head">
+      <span class="ptag">The Wall</span>
+      <h2 id="h-wall">The Wall, Waiting</h2>
+      <span class="note">hung only by free yeses</span>
+    </div>
+    <div class="wall-board" role="img" aria-label="An empty family wall with six picture frames kept ready — the wall is waiting for its first yeses.">
+      <div class="wall-frames" aria-hidden="true">
+        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Room for you</figcaption></figure>
+        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Waiting for its first yes</figcaption></figure>
+        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>A place kept</figcaption></figure>
+        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Yours, if you&rsquo;d like it</figcaption></figure>
+        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Room at the table</figcaption></figure>
+        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Kept with love</figcaption></figure>
+      </div>
+      <p class="wall-note">
+        <strong>The first family photo day is coming — the wall is waiting for
+        its first yeses.</strong> When family arrives, they&rsquo;ll hang here in
+        gentle waves, every single one placed by their own free &ldquo;yes,&rdquo;
+        and every single one seen first by its owner&rsquo;s own eyes. No fake
+        faces, no stock strangers — an empty wall with room is more honest
+        than a crowded one that isn&rsquo;t real.
+      </p>
+    </div>
+    <div class="roll-note">
+      <strong>The Roll.</strong> The names of family who choose the name-only
+      door will rest here, each printed exactly as its owner chose it. And
+      family who choose the <strong>quiet door</strong> won&rsquo;t appear here
+      at all — by design, and by their own word. They are counted in our hearts
+      and our prayers, and that count is kept by the Shepherd, not posted on a
+      page.
+    </div>
+  </section>
+
+  <!-- ================= THE THREE DOORS ================= -->
+  <section class="panel" aria-labelledby="h-doors">
+    <div class="panel-head">
+      <span class="ptag tend">Three Doors</span>
+      <h2 id="h-doors">Three Doors — None of Them Lesser</h2>
+      <span class="note">your choice, changeable any time</span>
+    </div>
+    <p class="body">
+      How you take your place is <strong>entirely your choice</strong> — and you
+      can change your mind in either direction at any time, with one letter.
+      The third door is not a lesser door: some of the dearest members of any
+      family are the quiet ones. And hear this plainly, because love tells the
+      truth: if being seen as a follower of Jesus could carry any risk where
+      you live, the quiet door exists for you, and it is an honored door.
+    </p>
+    <div class="doors">
+      <div class="door">
+        <div class="d-t">Door One — Your Photo on the Wall</div>
+        <div class="d-g">Your face hangs on the wall with the family — your own photograph as it is, or farm-style artwork made from it, in the form you choose (see the promises below). The name you choose rests beneath it.</div>
+        <div class="d-u">seen &middot; named &middot; by your yes</div>
+      </div>
+      <div class="door">
+        <div class="d-t">Door Two — Your Name on the Roll</div>
+        <div class="d-g">Counted and named, with no face shown. Your name — the one you choose — is printed on the family roll above. Some folks are private; private is honored here.</div>
+        <div class="d-u">named &middot; no face &middot; by your yes</div>
+      </div>
+      <div class="door quiet">
+        <div class="d-t">Door Three — Anonymous, Held in Prayer</div>
+        <div class="d-g">No name. No face. No public trace at all. You are counted by the Shepherd, loved exactly as much, and held in prayer. Anonymous is not absent — anonymous is family, kept safe.</div>
+        <div class="d-u">unseen &middot; unnamed &middot; loved exactly as much</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE PROMISES ================= -->
+  <section class="panel" aria-labelledby="h-promises">
+    <div class="panel-head">
+      <span class="ptag">The Promises</span>
+      <h2 id="h-promises">The Covenant, in Plain Words</h2>
+      <span class="note">written down, so we can be held to it</span>
+    </div>
+    <ol class="promises">
+      <li>
+        <span class="p-n" aria-hidden="true">1</span>
+        <div>
+          <div class="p-t">Your name is your choice.</div>
+          <p class="p-g">A real first name, a nickname, or a description like &ldquo;a sister in Lahore&rdquo; — whatever you want to be known by. Or no name at all. Nobody must publish a legal name to belong to this family.</p>
+        </div>
+      </li>
+      <li>
+        <span class="p-n" aria-hidden="true">2</span>
+        <div>
+          <div class="p-t">Your face comes in the form you choose.</div>
+          <p class="p-g">Your photograph as-is — or the farm-style Pixar treatment, at a level of variance <em>you</em> set: low, and it is unmistakably, tenderly you; higher, and the likeness is softened so strangers couldn&rsquo;t pick you out of a crowd, while you and those who know you still know exactly who it is. Any artwork is rendered, shown to you, and hangs only on <em>your</em> approval of the actual portrait — and it is labeled as artwork wherever it appears. A photograph is never quietly turned into artwork behind your back.</p>
+        </div>
+      </li>
+      <li>
+        <span class="p-n" aria-hidden="true">3</span>
+        <div>
+          <div class="p-t">Children come only by a guardian&rsquo;s yes.</div>
+          <p class="p-g">No child&rsquo;s photo without a parent or guardian&rsquo;s explicit written consent, sent by the guardian themselves — no exceptions because a picture is sweet. If consent is ever in doubt, the photo doesn&rsquo;t go up.</p>
+        </div>
+      </li>
+      <li>
+        <span class="p-n" aria-hidden="true">4</span>
+        <div>
+          <div class="p-t">Your yes can become &ldquo;no longer&rdquo; at any time.</div>
+          <p class="p-g">Consent is revocable, always. One letter, and your photo and name come down — promptly, no questions, no hard feelings, no explanation owed. A &ldquo;yes&rdquo; is kept with care; a &ldquo;no longer&rdquo; erases both.</p>
+        </div>
+      </li>
+      <li>
+        <span class="p-n" aria-hidden="true">5</span>
+        <div>
+          <div class="p-t">Family photo days, not a drip feed.</div>
+          <p class="p-g">Additions land in gentle waves — a family photo day — and every single addition passes Jason&rsquo;s own review before it appears. Nothing goes up unlooked-at, and nothing goes up unasked-for.</p>
+        </div>
+      </li>
+      <li>
+        <span class="p-n" aria-hidden="true">6</span>
+        <div>
+          <div class="p-t">Counted honestly, never decoration.</div>
+          <p class="p-g">The wall is tended like the board: true counts, real people, nobody used as a prop and nobody inflated into a number. Every sheep counted — with a face and a name, by permission and by love.</p>
+        </div>
+      </li>
+    </ol>
+    <p class="risk-note">
+      <strong>One more word, in love:</strong> if showing your face as a
+      believer could ever put you at risk where you live, please take the
+      quiet door. We would rather hold you in prayer, unseen, than ever see
+      you harmed for the sake of a picture.
+    </p>
+  </section>
+
+  <!-- ================= HOW TO JOIN — a letter, never a form ================= -->
+  <section class="panel" aria-labelledby="h-join">
+    <div class="panel-head">
+      <span class="ptag tend">Join</span>
+      <h2 id="h-join">Write to Jason — a Letter, Not a Form</h2>
+      <span class="note">he reads every word himself</span>
+    </div>
+    <p class="tell-copy">
+      Joining works the way everything warm works here: you write Jason a
+      letter. Fill this in, and it opens in your own mail app, addressed
+      straight to him — if you chose Door One, attach your photo to that
+      email. Jason reads every letter himself, and your place is prepared by
+      hand, with the same care as everything on this wall. Nothing you write
+      here is stored on this website — it travels like a letter, from your
+      hands to his.
+    </p>
+    <form class="tell-form" id="door-form">
+      <div>
+        <label for="door-name">The name to use on the wall or the roll <span class="tell-opt">(only if you&rsquo;d like one — leave blank for the quiet door)</span></label>
+        <input type="text" id="door-name" name="name" autocomplete="name" placeholder="Your first name, a nickname, or a description — your choice">
+      </div>
+      <div>
+        <label for="door-country">Your country <span class="tell-opt">(only if you&rsquo;d like it shown)</span></label>
+        <input type="text" id="door-country" name="country" autocomplete="country-name" placeholder="e.g. Philippines">
+      </div>
+      <div>
+        <label for="door-choice">Your door</label>
+        <select id="door-choice" name="door" required>
+          <option value="Door One — my photo on the wall">Door One — my photo on the wall</option>
+          <option value="Door Two — my name on the roll only, no face">Door Two — my name on the roll only, no face</option>
+          <option value="Door Three — anonymous, held in prayer (no name, no face)">Door Three — anonymous, held in prayer (no name, no face)</option>
+        </select>
+      </div>
+      <div>
+        <label for="door-face">If Door One — my face as <span class="tell-opt">(artwork is always shown to you first, and hung only on your approval)</span></label>
+        <select id="door-face" name="face">
+          <option value="My photograph, as it is">My photograph, as it is</option>
+          <option value="Farm-style artwork — low variance (unmistakably me)">Farm-style artwork — low variance (unmistakably me)</option>
+          <option value="Farm-style artwork — higher variance (softened likeness)">Farm-style artwork — higher variance (softened likeness)</option>
+          <option value="Not applicable — I chose Door Two or Three">Not applicable — I chose Door Two or Three</option>
+        </select>
+      </div>
+      <div>
+        <label for="door-msg">Anything else Jason should know <span class="tell-opt">(optional)</span></label>
+        <textarea id="door-msg" name="message" rows="5" placeholder="A word about yourself, a prayer request, anything on your heart&hellip;"></textarea>
+      </div>
+      <button type="submit" class="tell-btn">Write to Jason &#9993;</button>
+    </form>
+    <p class="tell-copy" style="margin-top:14px;">
+      Choosing Door One? Don&rsquo;t forget to <strong>attach your photo</strong>
+      to the email that opens — that&rsquo;s the picture we&rsquo;ll prepare for
+      the wall, in exactly the form you picked above.
+    </p>
+  </section>
+
+  <div class="voice">
+    <div class="v1">We plant. We water. God gives the increase.</div>
+  </div>
+
+  <footer class="report-foot">
+    <span class="faith">Kept with diligence — every face by permission, every name by its owner&rsquo;s choice.</span><br>
+    The counted record: <a href="../field-report/">The TruVINE Field Report</a> &middot;
+    The board: <a href="../where-seeds-landed/">Where the Seeds Have Landed</a> &middot;
+    Read and listen, free: <a href="https://word-of-god-risen.vercel.app/">word-of-god-risen.vercel.app</a> &middot;
+    Watch: <a href="https://www.youtube.com/@TruVINE365">youtube.com/@TruVINE365</a>
+  </footer>
+
+</div>
+
+<script>
+/* The Open Door letter: composed in the visitor's own mail app,
+   addressed straight to Jason — nothing is stored on this website.
+   It travels like a letter, from their hands to his. Same pattern
+   as the Tell-Jason panel on Will's page. */
+(function () {
+  var form = document.getElementById('door-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('door-name').value.trim();
+    var country = document.getElementById('door-country').value.trim();
+    var door = document.getElementById('door-choice').value;
+    var face = document.getElementById('door-face').value;
+    var msg = document.getElementById('door-msg').value.trim();
+    var lines = [];
+    lines.push("Hello Jason — I'd like a place on the Family Wall.");
+    lines.push("");
+    lines.push("My door: " + door);
+    if (door.indexOf("Door One") === 0) lines.push("My face as: " + face);
+    lines.push("Name to use: " + (name ? name : "(none — the quiet door, or ask me)"));
+    if (country) lines.push("My country: " + country);
+    if (msg) { lines.push(""); lines.push(msg); }
+    if (door.indexOf("Door One") === 0) {
+      lines.push("");
+      lines.push("(My photo is attached to this email.)");
+    }
+    window.location.href = "mailto:jnutt367@gmail.com"
+      + "?subject=" + encodeURIComponent("The Open Door — a place on the Family Wall")
+      + "&body=" + encodeURIComponent(lines.join("\n"));
+  });
+})();
+</script>
+</body>
+</html>
