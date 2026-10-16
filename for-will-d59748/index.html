@@ -353,6 +353,24 @@
     .live-dot { animation: none; }
     .cork { transform: none !important; transition: none; }
     figure.scene img { transform: none !important; }
+    /* The scene, whole on the cover page — never sliced, never cropped:
+       it simply stands a little smaller on paper, all of it in frame. */
+    .masthead h1 { font-size: 34px; }
+    .emblem-tile img { height: 58px; }
+    .masthead .subline { font-size: 17px; }
+    .masthead .warmline { font-size: 13.5px; margin-top: 3px; }
+    .dateline .d2 { font-size: 15px; }
+    figure.scene { margin-top: 8px; }
+    figure.scene .scene-frame { border: none; background: none; overflow: visible; text-align: center; }
+    figure.scene img {
+      max-height: 196mm; width: auto; max-width: 100%; margin: 0 auto;
+      border: 3px solid #C08A1E; border-radius: 14px;
+    }
+    /* Country bars, drawn the block way on paper so every bar lands true. */
+    .cb-row { display: block; }
+    .cb-name { display: inline-block; width: 36%; vertical-align: middle; }
+    .cb-track { display: inline-block; width: 43%; vertical-align: middle; }
+    .cb-n { display: inline-block; width: 16%; vertical-align: middle; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
