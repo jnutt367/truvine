@@ -131,6 +131,25 @@
   }
   .bigscreen strong { color: #10365C; }
 
+  /* ---- controller connected note (revealed by the gamepad script) ---- */
+  .pad-note {
+    background: #10365C; color: #F5EDD6; border: 3px solid #C08A1E; border-radius: 12px;
+    padding: 13px 16px; margin: 16px 0 0; font-size: 16.5px; line-height: 1.5; font-weight: 600;
+  }
+  .pad-note[hidden] { display: none; }
+
+  /* ---- gamepad mode: a focus ring you can read from the couch ---- */
+  body.pad-mode :focus {
+    outline: 6px solid #C08A1E; outline-offset: 4px; border-radius: 8px;
+    box-shadow: 0 0 0 11px rgba(192,138,30,.30), 0 0 26px rgba(192,138,30,.55);
+  }
+  body.pad-mode .opt, body.pad-mode .door { transition: transform .12s ease; }
+  body.pad-mode .opt:focus, body.pad-mode .door:focus { transform: scale(1.035); }
+  @media (prefers-reduced-motion: reduce) {
+    body.pad-mode .opt, body.pad-mode .door { transition: none; }
+    body.pad-mode .opt:focus, body.pad-mode .door:focus { transform: none; }
+  }
+
   /* ---- widescreen: the game opens its arms ---- */
   @media (min-width: 900px) {
     .wrap { max-width: 1080px; padding: 36px 26px 64px; }
@@ -162,6 +181,8 @@
       Gather all six, and see what the flock says.</p>
     <p class="bigscreen"><strong>Psst —</strong> when you get home, open this on the biggest screen
       you&rsquo;ve got. The film and the field fill the whole room.</p>
+    <p class="pad-note" id="padNote" hidden>🎮 Controller connected — drive with the D-pad or
+      stick, pick an answer with the A button.</p>
 
     <div class="gather-box">
       <div class="gather-row" id="gatherRow" role="img"
@@ -283,7 +304,8 @@
       <a class="door" href="../for-will-d59748/">← Back to your board</a>
       <a class="door alt" href="../for-will-field/">Step into the field →</a>
     </div>
-    <p class="fine">Made for Will, from Jason at Circle K. We plant. We water. God gives the increase.</p>
+    <p class="fine">Made for Will, from Jason at Circle K. We plant. We water. God gives the increase.<br>
+      Playing on a TV? A plugged-in game controller works here too — D-pad to choose, A to answer.</p>
   </main>
 </div>
 
@@ -335,6 +357,112 @@
       });
     });
   });
+})();
+</script>
+<script>
+/* ============ Gamepad support — progressive enhancement only ============
+   Standard Gamepad API (Xbox / PlayStation / Switch layout):
+   D-pad (12–15) or left stick moves a roving focus in reading order,
+   A / Cross (0) picks, B / Circle (1) scrolls back to the top.
+   No gamepad (or no API) and this page behaves exactly as it always has. */
+(function () {
+  if (!('getGamepads' in navigator)) return;
+  var note = document.getElementById('padNote');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DEAD = 0.35;               /* stick deadzone */
+  var STICK_DELAY = 420;         /* hold before the stick starts repeating */
+  var STICK_REPEAT = 180;        /* repeat cadence while held */
+  var engaged = false;           /* pad mode on (first real input seen) */
+  var prev = [];                 /* previous frame's button states, for edges */
+  var stickDir = 0, stickAt = 0; /* held stick direction + next repeat time */
+
+  function focusables() {
+    return Array.prototype.slice.call(
+      document.querySelectorAll('button.opt:not([disabled]), a.door')
+    ).filter(function (el) { return el.getClientRects().length > 0; });
+  }
+  function defaultTarget() {
+    var q = document.querySelector('.q:not(.done) .opt:not([disabled])');
+    if (q) return q;
+    var d = document.querySelector('.final.show .door');
+    if (d) return d;
+    var all = focusables();
+    return all.length ? all[0] : null;
+  }
+  function engage() {
+    if (engaged) return;
+    engaged = true;
+    document.body.classList.add('pad-mode');
+    if (note) note.hidden = false;
+    var ae = document.activeElement;
+    if (!ae || ae === document.body) {
+      var t = defaultTarget();
+      if (t) t.focus();
+    }
+  }
+  function move(dir) {
+    var els = focusables();
+    if (!els.length) return;
+    var i = els.indexOf(document.activeElement);
+    if (i === -1) { var t = defaultTarget(); if (t) t.focus(); return; }
+    var j = i + dir;
+    if (j < 0) j = 0;
+    if (j > els.length - 1) j = els.length - 1;
+    if (j !== i) els[j].focus();
+  }
+  function rehome() {
+    /* after an answer disables the focused button, focus drops to <body>;
+       settle it on the next kind place so the pad never loses its sheep */
+    var ae = document.activeElement;
+    if (!ae || ae === document.body || ae.disabled) {
+      var t = defaultTarget();
+      if (t) t.focus();
+    }
+  }
+  function activate() {
+    var el = document.activeElement;
+    if (el && (el.tagName === 'BUTTON' || el.tagName === 'A')) {
+      el.click();
+      window.setTimeout(rehome, 60);
+    }
+  }
+  function poll(now) {
+    window.requestAnimationFrame(poll);
+    if (document.hidden) { prev = []; stickDir = 0; return; }
+    var pads = navigator.getGamepads();
+    var gp = null;
+    for (var i = 0; i < pads.length; i++) {
+      if (pads[i] && pads[i].connected) { gp = pads[i]; break; }
+    }
+    if (!gp) { prev = []; stickDir = 0; return; }
+    var b = gp.buttons || [];
+    var edges = [], anyEdge = false;
+    for (var n = 0; n < b.length; n++) {
+      var p = !!(b[n] && b[n].pressed);
+      edges[n] = p && !prev[n];
+      if (edges[n]) anyEdge = true;
+      prev[n] = p;
+    }
+    /* left stick: dominant axis wins, past the deadzone = a direction */
+    var ax = gp.axes && gp.axes.length > 0 ? gp.axes[0] : 0;
+    var ay = gp.axes && gp.axes.length > 1 ? gp.axes[1] : 0;
+    var v = Math.abs(ay) >= Math.abs(ax) ? ay : ax;
+    var sdir = v < -DEAD ? -1 : (v > DEAD ? 1 : 0);
+    var stickMove = 0;
+    if (sdir !== 0) {
+      if (sdir !== stickDir) { stickMove = sdir; stickDir = sdir; stickAt = now + STICK_DELAY; }
+      else if (now >= stickAt) { stickMove = sdir; stickAt = now + STICK_REPEAT; }
+    } else stickDir = 0;
+
+    if (!engaged && (anyEdge || sdir !== 0)) engage();
+    if (!engaged) return;
+    if (edges[12] || edges[14]) move(-1);   /* D-pad up / left */
+    if (edges[13] || edges[15]) move(1);    /* D-pad down / right */
+    if (stickMove) move(stickMove);
+    if (edges[0]) activate();               /* A / Cross */
+    if (edges[1]) window.scrollTo(0, 0);    /* B / Circle: harmless, back to top */
+  }
+  window.requestAnimationFrame(poll);
 })();
 </script>
 </body>
