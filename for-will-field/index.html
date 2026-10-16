@@ -420,8 +420,8 @@ box(0.3, 5.2, 0.3, woodMat, 1.05, 2.2, -0.25, pinGroup);
 box(2.9, 0.34, 0.26, woodMat, 0, 5.15, -0.15, pinGroup);
 const portraitMat = new THREE.MeshBasicMaterial({ map: loadTex('assets/will-portrait.jpg') });
 portraitMat.color.set(0xfff6e6);
-const portrait = new THREE.Mesh(new THREE.PlaneGeometry(1.78, 3.15), portraitMat);
-portrait.position.set(0, 3.05, 0.02); portrait.rotation.z = -0.045;
+const portrait = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 3.4), portraitMat);
+portrait.position.set(0, 3.1, 0.02); portrait.rotation.z = -0.045;
 pinGroup.add(portrait);
 /* the gold pin */
 const pin = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8),
