@@ -336,6 +336,27 @@
   .field-teaser { margin-top: 16px; text-align: center; font-size: 16px; line-height: 1.55; color: #33413A; }
   .field-teaser a { color: #10365C; font-weight: 700; }
 
+  /* ---------- Tell Jason — a letter, written by hand ---------- */
+  .tell-copy { font-size: 16.5px; line-height: 1.6; color: #33413A; max-width: 720px; }
+  .tell-form { margin-top: 16px; max-width: 720px; display: grid; gap: 16px; }
+  .tell-form label { display: block; font-size: 16px; font-weight: 700; color: #10365C; margin-bottom: 6px; }
+  .tell-opt { font-size: 14px; font-weight: 600; color: #66707A; }
+  .tell-form input, .tell-form textarea {
+    width: 100%; font: inherit; font-size: 16.5px; line-height: 1.5;
+    color: #24313D; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 10px; padding: 12px 14px;
+  }
+  .tell-form textarea { resize: vertical; }
+  .tell-form input:focus-visible, .tell-form textarea:focus-visible, .tell-btn:focus-visible {
+    outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px;
+  }
+  .tell-btn {
+    justify-self: start; font: inherit; font-size: 17.5px; font-weight: 800;
+    color: #F5EDD6; background: #10365C; border: 2px solid #10365C;
+    border-radius: 12px; padding: 14px 26px; cursor: pointer;
+  }
+  .tell-btn:hover { background: #18582A; border-color: #18582A; }
+
   /* ---------- Dedication & footer ---------- */
   .dedication { text-align: center; margin-top: 44px; }
   .dedication .gold-rule { height: 3px; background: #C08A1E; border-radius: 2px; margin: 0 auto 24px; }
@@ -791,6 +812,27 @@
     </div>
   </section>
 
+  <!-- ================= TELL JASON — the door swings both ways: a letter from Will's own mail app; nothing is stored on this site ================= -->
+  <section class="panel" aria-labelledby="h-tell">
+    <div class="panel-head">
+      <span class="ptag tend">Write Back</span>
+      <h2 id="h-tell">Tell Jason</h2>
+      <span class="note">he reads every word himself</span>
+    </div>
+    <p class="tell-copy">Got an idea for a game that would honor God? A thought for the flock, or something on your heart? Write it here — your note opens in your own mail app, addressed straight to Jason. He reads every word himself. Nothing is stored on this website — it travels like a letter, from your hands to his.</p>
+    <form class="tell-form" id="tell-form">
+      <div>
+        <label for="tell-name">Your name <span class="tell-opt">(only if you&rsquo;d like)</span></label>
+        <input type="text" id="tell-name" name="name" autocomplete="name" placeholder="e.g. Will">
+      </div>
+      <div>
+        <label for="tell-msg">Your note for Jason</label>
+        <textarea id="tell-msg" name="message" rows="6" required placeholder="An idea, a thought, a prayer — whatever&rsquo;s on your heart&hellip;"></textarea>
+      </div>
+      <button type="submit" class="tell-btn">Write to Jason &#9993;</button>
+    </form>
+  </section>
+
   <!-- ================= THE DEDICATION — Jason's words, verbatim ================= -->
   <div class="dedication">
     <div class="gold-rule" aria-hidden="true"></div>
@@ -1000,6 +1042,25 @@
   }
   v.addEventListener('volumechange', function () {
     if (!v.muted && v.volume > 0) hideBtn();
+  });
+})();
+</script>
+<script>
+/* Tell Jason: the note is composed in Will's own mail app, addressed
+   straight to Jason — nothing is stored on this website. It travels
+   like a letter, from his hands to Jason's. */
+(function () {
+  var form = document.getElementById('tell-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('tell-name').value.trim();
+    var msg = document.getElementById('tell-msg').value.trim();
+    if (!msg) { document.getElementById('tell-msg').focus(); return; }
+    var body = msg + (name ? "\n\n— " + name : "");
+    window.location.href = "mailto:jnutt367@gmail.com"
+      + "?subject=" + encodeURIComponent("From Will — a note for the flock")
+      + "&body=" + encodeURIComponent(body);
   });
 })();
 </script>
