@@ -92,10 +92,15 @@
 
   /* ---------- Scene ---------- */
   figure.scene { margin-top: 14px; }
-  figure.scene img {
-    width: 100%; height: auto; border-radius: 14px;
-    border: 3px solid #C08A1E;
+  figure.scene .scene-frame {
+    overflow: hidden; border-radius: 14px; border: 3px solid #C08A1E;
+    background: #10365C;
   }
+  figure.scene img { width: 100%; height: auto; }
+  /* Gentle scroll drift (JS-added class, motion-safe): the image is
+     scaled a breath larger than its frame, so the drift can never
+     bare an edge — and never comes near the figure's head. */
+  figure.scene.drift-on img { transform: scale(1.05); will-change: transform; }
   figure.scene figcaption {
     margin-top: 10px; font-size: 15px; line-height: 1.5; color: #5A5342;
     font-style: italic; text-align: center;
@@ -132,6 +137,7 @@
   }
 
   /* ---------- Pinned to the board ---------- */
+  .pinned-tilt { perspective: 1200px; }
   .cork {
     background-color: #E9D5A8;
     background-image: radial-gradient(rgba(122, 90, 40, .16) 1.6px, transparent 1.7px);
@@ -139,14 +145,18 @@
     border: 10px solid #7A5A28; border-radius: 12px;
     padding: 30px 24px 26px;
     display: flex; gap: 26px; flex-wrap: wrap; justify-content: center;
+    align-items: flex-start;
+    transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.2, .8, .25, 1);
   }
   .pincard {
     position: relative; background: #FFFDF4; border: 1.5px solid #D8C491;
     border-radius: 6px; box-shadow: 0 8px 18px rgba(90, 66, 20, .22);
     padding: 26px 24px 20px;
   }
-  .pincard.guest { flex: 1 1 340px; transform: rotate(-.6deg); }
-  .pincard.photo { flex: 0 1 250px; transform: rotate(.8deg); text-align: center; }
+  .pincard.guest { flex: 1 1 340px; transform: rotate(-.6deg) translateZ(22px); }
+  .pincard.photo { flex: 0 1 252px; transform: rotate(.8deg) translateZ(22px); text-align: center; }
+  .photo-slot img { width: 100%; height: auto; border-radius: 4px; }
   .pin {
     position: absolute; top: -11px; left: 50%; margin-left: -11px;
     width: 22px; height: 22px; border-radius: 50%;
@@ -341,6 +351,8 @@
     a { text-decoration: none; color: #10365C; }
     .door .d-u { color: #8A6410; }
     .live-dot { animation: none; }
+    .cork { transform: none !important; transition: none; }
+    figure.scene img { transform: none !important; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -370,9 +382,11 @@
   <div class="rule" aria-hidden="true"></div>
 
   <!-- ================= THE SCENE — full natural frame, nothing cropped ================= -->
-  <figure class="scene">
+  <figure class="scene" id="scene-fig">
+    <div class="scene-frame">
     <img src="scene.jpg" width="1080" height="2177"
       alt="Jason in a green pasture at golden hour, wearing his faded blue Magic Basketball shirt, blue Orlando Magic cap and blue AND1 shorts, one hand resting on a tall wooden farm sign while sheep stream down the hill and gather around him. The sign reads: Rounding Up the Flock — 841 in the flock, +193 this week, 38 countries gathering, 154,544 views, with John 10:16 beneath.">
+    </div>
     <figcaption>The sign Jason is pointing at says what this whole page says:
       the flock is gathering — 841 strong, from 38 countries — and every single one counts.</figcaption>
   </figure>
@@ -384,7 +398,8 @@
       <h2 id="h-pinned">Pinned to the Board</h2>
       <span class="note">a place kept, not a claim made</span>
     </div>
-    <div class="cork">
+    <div class="pinned-tilt" id="pinned-tilt">
+    <div class="cork" id="cork">
       <div class="pincard guest">
         <span class="pin" aria-hidden="true"></span>
         <p class="pc-kicker">For our honored guest</p>
@@ -394,16 +409,13 @@
       </div>
       <figure class="pincard photo">
         <span class="pin" aria-hidden="true"></span>
-        <div class="photo-slot" role="img" aria-label="An empty pinned photo card — a quiet sunrise over green hills — waiting for Will's portrait">
-          <svg viewBox="0 0 200 130" aria-hidden="true" focusable="false">
-            <rect x="0" y="0" width="200" height="130" fill="#F7EBC8"/>
-            <circle cx="100" cy="58" r="21" fill="#E9BE5F"/>
-            <path d="M0 92 Q 50 66 104 88 T 200 84 V130 H0 Z" fill="#7FA463"/>
-            <path d="M0 106 Q 60 86 118 102 T 200 100 V130 H0 Z" fill="#2F6B3A"/>
-          </svg>
+        <div class="photo-slot">
+          <img src="will-portrait.jpg" width="1184" height="2096"
+            alt="Will, in front of his Circle K — drawn Pixar-style from Jason's photo of him">
         </div>
-        <figcaption>A place kept for Will&rsquo;s portrait.</figcaption>
+        <figcaption>Will — the flock&rsquo;s honored guest.</figcaption>
       </figure>
+    </div>
     </div>
   </section>
 
@@ -740,6 +752,62 @@
     });
   }, { threshold: 0.4 });
   els.forEach(function (el) { io.observe(el); });
+})();
+
+/* The depth layer — garnish, never the meal.
+   (1) A gentle scroll drift on the flock scene: the image sits a
+   breath larger than its frame and leans a few pixels with the
+   scroll. No layer separation was attempted — the shipped scene
+   is one painting, and the drift can never bare an edge or come
+   near the figure's head.
+   (2) The pinned board tilts a few degrees toward a fine pointer
+   and eases back to rest; touch scrolling is left alone.
+   Both switch fully off for reduced motion, coarse pointers,
+   small screens, and print. */
+(function () {
+  if (document.body.classList.contains("print")) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+
+  /* --- scene drift --- */
+  var fig = document.getElementById("scene-fig");
+  var img = fig ? fig.querySelector("img") : null;
+  if (fig && img && window.innerWidth > 640) {
+    fig.classList.add("drift-on");
+    var ticking = false;
+    function drift() {
+      ticking = false;
+      var r = fig.getBoundingClientRect();
+      var vh = window.innerHeight || 800;
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var centerDelta = (r.top + r.height / 2) - vh / 2;
+      var off = Math.max(-9, Math.min(9, -centerDelta * 0.012));
+      img.style.transform = "scale(1.05) translateY(" + off.toFixed(1) + "px)";
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(drift); }
+    }, { passive: true });
+    drift();
+  }
+
+  /* --- tilt board (fine pointers only) --- */
+  var wrap = document.getElementById("pinned-tilt");
+  var cork = document.getElementById("cork");
+  var fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+  if (wrap && cork && fine) {
+    wrap.addEventListener("pointermove", function (e) {
+      var r = cork.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      cork.style.transition = "transform .18s ease-out";
+      cork.style.transform =
+        "rotateX(" + (-py * 3.2).toFixed(2) + "deg) rotateY(" + (px * 4.2).toFixed(2) + "deg)";
+    });
+    wrap.addEventListener("pointerleave", function () {
+      cork.style.transition = "transform .7s cubic-bezier(.2, .8, .25, 1)";
+      cork.style.transform = "";
+    });
+  }
 })();
 
 /* The live strip. The Bible app counts itself; this page only listens.
