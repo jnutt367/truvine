@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  THE FIELD — FOR WILL ("Step into the Field")
+  A small 3D pasture at golden hour, built for Will from his
+  Circle K: the counted barn board standing in the grass —
+  841 in the flock · +193 this week · 38 countries gathering ·
+  154,544 views · John 10:16 — and Will's own portrait pinned
+  up beside it, because every single sheep in this flock gets
+  special treatment (Luke 15).
+  The board's face is the very panel from the shipped flock
+  poster (letter-true, counted Oct 15, 2026). Will's portrait
+  is the Pixar portrait drawn from Jason's photo of him.
+  Est. October 15, 2026. Companion to Will's Board:
+  ../for-will-d59748/
+  Performance law: low-poly, two image textures + procedural
+  canvas textures only, capped pixel ratio, no post-processing,
+  no shadow maps — it must run smooth on a mid-range phone.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>The Field — for Will · TruVINE</title>
+<style>
+  /* TruVINE palette — deep blue #10365C · vine green #2F6B3A ·
+     warm gold #C08A1E · light gold #D9B45C · cream #FBF4E1 · ink #24313D */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    font-family: "Quicksand", "Avenir Next", "Segoe UI", "Trebuchet MS",
+                 "Noto Sans", Verdana, sans-serif;
+    background: #1d2f22; color: #24313D; overflow: hidden;
+  }
+  .serif { font-family: "Noto Serif Display", "Playfair Display", Georgia, serif; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px;
+  }
+
+  /* ---------- Stage ---------- */
+  #stage { position: fixed; inset: 0; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+        touch-action: none; cursor: grab; }
+  #gl:active { cursor: grabbing; }
+
+  /* ---------- Overlay chrome ---------- */
+  .chrome { position: absolute; left: 0; right: 0; z-index: 5; pointer-events: none; }
+  .chrome .row { display: flex; align-items: flex-start; gap: 12px;
+                 padding: max(14px, env(safe-area-inset-top)) 16px 0; }
+  .title-card {
+    pointer-events: auto;
+    background: linear-gradient(180deg, rgba(252,246,229,.96), rgba(250,240,216,.94));
+    border: 2px solid #C08A1E; border-radius: 14px;
+    padding: 10px 16px 11px; box-shadow: 0 6px 24px rgba(16,32,20,.35);
+    max-width: min(430px, calc(100vw - 32px));
+  }
+  .title-card .over {
+    font-size: 11px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; color: #C08A1E;
+  }
+  .title-card h1 { font-size: 27px; line-height: 1.1; font-weight: 800; color: #10365C; margin-top: 2px; }
+  .title-card p { font-size: 13.5px; line-height: 1.45; color: #33413A; margin-top: 4px; }
+  .door {
+    pointer-events: auto; margin-left: auto; flex: 0 0 auto;
+    display: inline-block; text-decoration: none;
+    background: #10365C; color: #F5EDD6; font-weight: 700; font-size: 14.5px;
+    padding: 11px 16px; border-radius: 999px; border: 2px solid #D9B45C;
+    box-shadow: 0 6px 20px rgba(16,32,20,.4); white-space: nowrap;
+  }
+  .door:hover { background: #18507f; }
+  @media (max-width: 560px) {
+    .chrome .row { flex-wrap: wrap; }
+    .door { margin-left: 0; }
+    .title-card h1 { font-size: 23px; }
+  }
+  .footbar {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; pointer-events: none;
+    display: flex; justify-content: center; padding: 0 14px max(12px, env(safe-area-inset-bottom));
+  }
+  .meaning {
+    pointer-events: auto;
+    background: rgba(20, 34, 24, .72); color: #F5EDD6;
+    border: 1px solid rgba(217,180,92,.55); border-radius: 12px;
+    font-size: 13.5px; line-height: 1.5; text-align: center;
+    padding: 8px 14px; max-width: 640px; backdrop-filter: blur(3px);
+  }
+  .meaning strong { color: #D9B45C; }
+
+  /* ---------- Veil (loading) ---------- */
+  #veil {
+    position: absolute; inset: 0; z-index: 8; display: flex;
+    align-items: center; justify-content: center; text-align: center;
+    background: linear-gradient(180deg, #2c4a63 0%, #b4713d 78%, #d99a52 100%);
+    color: #FBF4E1; transition: opacity .7s ease; padding: 24px;
+  }
+  #veil.gone { opacity: 0; pointer-events: none; }
+  #veil .big { font-size: 30px; font-weight: 800; }
+  #veil p { margin-top: 8px; font-size: 15px; opacity: .92; }
+
+  /* ---------- Caption card (tap Will's portrait) ---------- */
+  #card {
+    position: absolute; z-index: 9; left: 50%; bottom: max(76px, env(safe-area-inset-bottom));
+    transform: translate(-50%, 18px); opacity: 0; pointer-events: none;
+    transition: opacity .35s ease, transform .35s ease;
+    width: min(430px, calc(100vw - 28px));
+    background: linear-gradient(180deg, #FCF6E5, #FAF0D8);
+    border: 3px solid #C08A1E; border-radius: 16px;
+    box-shadow: 0 18px 44px rgba(10, 22, 14, .5);
+    padding: 18px 20px 16px; text-align: center;
+  }
+  #card.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  #card .pin { font-size: 20px; }
+  #card h2 { font-size: 21px; color: #10365C; font-weight: 800; margin-top: 2px; }
+  #card p { font-size: 15.5px; line-height: 1.55; color: #33413A; margin-top: 7px; }
+  #card p em { color: #18582A; font-weight: 700; }
+  #card button {
+    margin-top: 12px; font: inherit; font-weight: 700; font-size: 14px;
+    background: #2F6B3A; color: #FBF4E1; border: 0; border-radius: 999px;
+    padding: 9px 20px; cursor: pointer;
+  }
+  #card button:hover { background: #18582A; }
+
+  /* ---------- Fallback (no WebGL) ---------- */
+  #fallback {
+    position: absolute; inset: 0; z-index: 7; overflow-y: auto;
+    background: #E7DCC0; padding: 26px 16px 40px;
+  }
+  #fallback .sheet {
+    max-width: 640px; margin: 0 auto; background: #FCF6E5;
+    border-radius: 14px; padding: 22px; box-shadow: 0 0 44px rgba(27,42,74,.18);
+  }
+  #fallback h1 { font-size: 28px; color: #10365C; font-weight: 800; }
+  #fallback p { font-size: 15.5px; line-height: 1.6; color: #33413A; margin-top: 10px; }
+  #fallback img { display: block; width: 100%; height: auto; border-radius: 10px; margin-top: 14px; }
+  #fallback .door { margin: 16px 0 0; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <canvas id="gl" aria-label="A 3D golden-hour pasture. A tall wooden barn board stands in the grass carrying the counted flock sign — Rounding Up the Flock: 841 in the flock, 193 more this week, 38 countries gathering, 154,544 views, with John 10:16. Beside it, Will's portrait is pinned to a smaller board. Sheep graze calmly around. Drag to look around."></canvas>
+
+  <!-- Overlay chrome -->
+  <div class="chrome">
+    <div class="row">
+      <div class="title-card">
+        <div class="over">TruVINE · Step into the Field</div>
+        <h1 class="serif">The Field — for Will</h1>
+        <p><strong>Drag to look around</strong> · pinch or scroll to lean in.<br>
+           Tap Will&rsquo;s portrait, pinned beside the board.</p>
+      </div>
+      <a class="door" href="../for-will-d59748/">&larr; Back to Will&rsquo;s Board</a>
+    </div>
+  </div>
+  <div class="footbar">
+    <p class="meaning">Evening in the field: the counted board — <strong>841 in the flock</strong> ·
+      <strong>38 countries</strong> · <strong>154,544 views</strong> — and one portrait pinned up
+      special, because <strong>every single sheep gets special treatment</strong>.</p>
+  </div>
+
+  <!-- Caption card -->
+  <div id="card" role="dialog" aria-modal="false" aria-labelledby="card-h" hidden>
+    <div class="pin" aria-hidden="true">📌</div>
+    <h2 id="card-h" class="serif">Pinned up with the flock</h2>
+    <p>Will — pinned up with the flock. <em>Every single sheep gets special treatment.</em> (Luke&nbsp;15)</p>
+    <button id="card-close" type="button">Back to the field</button>
+  </div>
+
+  <!-- Loading veil -->
+  <div id="veil">
+    <div>
+      <div class="big serif">The Field is opening&hellip;</div>
+      <p>Raising the board, gathering the sheep.</p>
+    </div>
+  </div>
+
+  <!-- Graceful fallback: no WebGL -->
+  <div id="fallback" hidden>
+    <div class="sheet">
+      <h1 class="serif">The Field — for Will</h1>
+      <p>This little 3D field needs WebGL, and this browser couldn&rsquo;t open it —
+         so here is the field as a picture instead: Jason beside the counted board,
+         the flock streaming in over the hill. The board reads: <strong>Rounding Up the
+         Flock — 841 in the flock, +193 this week, 38 countries gathering, 154,544
+         views</strong>, and John 10:16: <em>&ldquo;I have other sheep, which are not of
+         this fold. I must bring them also, and they will hear my voice.&rdquo;</em>
+         Will&rsquo;s portrait hangs pinned beside that board — every single sheep in
+         this flock gets special treatment (Luke 15).</p>
+      <img src="assets/flock-poster.jpg" alt="The flock poster: Jason in his blue Magic Basketball shirt and cap, shepherd's crook in hand, pointing to the counted board as sheep stream over the hill toward him at sunset.">
+      <a class="door" href="../for-will-d59748/">&larr; Back to Will&rsquo;s Board</a>
+    </div>
+  </div>
+</div>
+
+<p class="sr-only">For Will: a golden pasture at evening. The tall barn board carries the
+counted flock sign from the TruVINE Field Report family — 841 in the flock, 193 more this
+week, 38 countries gathering, 154,544 views — and Will's own Pixar portrait is pinned to a
+smaller board beside it, because every single sheep in this flock gets special treatment
+(Luke 15). Sheep graze around the boards. Drag to look around; tap Will's portrait for his card.</p>
+
+<button id="a11y-card-btn" class="sr-only" type="button">Hear Will&rsquo;s pinned card</button>
+
+<script nomodule>
+  document.getElementById('veil').hidden = true;
+  document.getElementById('fallback').hidden = false;
+</script>
+
+<script>
+  /* Watchdog: if the 3D module hasn't painted a frame in 7s
+     (old browser, blocked script, no WebGL), open the gate to
+     the picture fallback instead of trapping anyone at the veil.
+     If the scene does paint, it hides the fallback again. */
+  setTimeout(function () {
+    if (!window.__fieldReady) {
+      var v = document.getElementById('veil'); if (v) v.classList.add('gone');
+      var f = document.getElementById('fallback'); if (f) f.hidden = false;
+      var c = document.getElementById('gl'); if (c) c.style.display = 'none';
+    }
+  }, 7000);
+</script>
+
+<script type="module">
+import * as THREE from './assets/three.module.min.js';
+
+const veil = document.getElementById('veil');
+const fallbackEl = document.getElementById('fallback');
+const canvas = document.getElementById('gl');
+const card = document.getElementById('card');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function fallBack() {
+  veil.classList.add('gone');
+  fallbackEl.hidden = false;
+  canvas.style.display = 'none';
+}
+
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+} catch (e) { fallBack(); throw e; }
+if (!renderer.getContext()) { fallBack(); throw new Error('no webgl'); }
+
+/* ============================================================
+   Renderer / scene basics — performance law enforced here:
+   capped pixel ratio, no shadow maps, no post-processing.
+   ============================================================ */
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xf0b57e, 42, 130);
+
+const camera = new THREE.PerspectiveCamera(46, window.innerWidth / window.innerHeight, 0.1, 400);
+
+/* ---------- Sky: warm evening gradient dome + sun glow ---------- */
+function gradientTexture(top, mid, bot) {
+  const c = document.createElement('canvas'); c.width = 4; c.height = 512;
+  const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 512);
+  gr.addColorStop(0.0, top); gr.addColorStop(0.55, mid); gr.addColorStop(0.78, bot); gr.addColorStop(1.0, bot);
+  g.fillStyle = gr; g.fillRect(0, 0, 4, 512);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const sky = new THREE.Mesh(
+  new THREE.SphereGeometry(180, 24, 14),
+  new THREE.MeshBasicMaterial({ map: gradientTexture('#33507e', '#c97e4e', '#f7c873'), side: THREE.BackSide, fog: false })
+);
+scene.add(sky);
+
+/* soft sun glow sprite, low over the hills */
+function glowTexture() {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const g = c.getContext('2d');
+  const gr = g.createRadialGradient(64, 64, 2, 64, 64, 64);
+  gr.addColorStop(0, 'rgba(255,236,190,1)'); gr.addColorStop(0.35, 'rgba(255,205,120,.55)');
+  gr.addColorStop(1, 'rgba(255,190,100,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const sun = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), transparent: true, fog: false, depthWrite: false }));
+sun.position.set(-52, 17, -95); sun.scale.setScalar(52);
+scene.add(sun);
+
+/* a few soft evening clouds */
+const cloudTex = glowTexture();
+for (let i = 0; i < 5; i++) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: cloudTex, transparent: true, opacity: 0.35, color: 0xffd9c0, fog: false, depthWrite: false }));
+  s.position.set(-70 + i * 34 + (i % 2) * 9, 34 + (i % 3) * 6, -105 - (i % 2) * 18);
+  s.scale.set(38 + (i % 3) * 10, 8 + (i % 2) * 3, 1);
+  scene.add(s);
+}
+
+/* ---------- Light: warm evening ---------- */
+scene.add(new THREE.HemisphereLight(0xffd9a8, 0x4a7038, 1.12));
+const dir = new THREE.DirectionalLight(0xffbe78, 1.35);
+dir.position.set(-18, 22, -10);
+scene.add(dir);
+
+/* ---------- Ground: rolling hills, flat at the boards ---------- */
+function groundH(x, z) {
+  const d = Math.hypot(x, z);
+  const roll = Math.sin(x * 0.075) * Math.cos(z * 0.06) * 0.9 + Math.sin(x * 0.021 + 1.7) * Math.cos(z * 0.03) * 1.4;
+  const rim = Math.max(0, d - 30) * 0.16;
+  const calm = THREE.MathUtils.smoothstep(d, 5, 20); // 0 near boards -> 1 out in the field
+  return roll * calm + rim * rim * 0.12 + rim;
+}
+{
+  const geo = new THREE.PlaneGeometry(240, 240, 54, 54);
+  geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const cA = new THREE.Color(0x69a24b), cB = new THREE.Color(0x477a34), cC = new THREE.Color(0x9aa058);
+  const tmp = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i);
+    pos.setY(i, groundH(x, z));
+    const n = Math.sin(x * 0.35 + Math.sin(z * 0.3) * 2.1) * Math.cos(z * 0.31 + Math.sin(x * 0.22) * 1.7);
+    tmp.copy(cA).lerp(cB, THREE.MathUtils.clamp(0.5 + n * 0.55, 0, 1));
+    if (n > 0.62) tmp.lerp(cC, 0.35); // dry golden patches
+    colors[i * 3] = tmp.r; colors[i * 3 + 1] = tmp.g; colors[i * 3 + 2] = tmp.b;
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.computeVertexNormals();
+  scene.add(new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true })));
+}
+
+/* distant tree blobs */
+{
+  const trunkG = new THREE.CylinderGeometry(0.22, 0.3, 1.6, 5);
+  const blobG = new THREE.SphereGeometry(1.7, 7, 6);
+  const trunkM = new THREE.MeshLambertMaterial({ color: 0x6a4a2e });
+  const leafM = new THREE.MeshLambertMaterial({ color: 0x3c6034 });
+  const spots = [[-26, -30], [22, -38], [38, -16], [-40, -8], [14, -55], [-16, -52], [48, -34], [-52, -26]];
+  for (const [x, z] of spots) {
+    const y = groundH(x, z);
+    const tr = new THREE.Mesh(trunkG, trunkM); tr.position.set(x, y + 0.8, z); scene.add(tr);
+    const b1 = new THREE.Mesh(blobG, leafM); b1.position.set(x, y + 2.6, z); b1.scale.y = 0.82; scene.add(b1);
+    const b2 = new THREE.Mesh(blobG, leafM); b2.position.set(x + 1.1, y + 2.0, z + 0.4); b2.scale.setScalar(0.62); scene.add(b2);
+  }
+}
+
+/* ---------- Procedural wood texture ---------- */
+function woodTexture() {
+  const c = document.createElement('canvas'); c.width = 256; c.height = 256;
+  const g = c.getContext('2d');
+  g.fillStyle = '#7d5a36'; g.fillRect(0, 0, 256, 256);
+  for (let p = 0; p < 4; p++) {
+    const y0 = p * 64;
+    g.fillStyle = `rgba(${40 + p * 9},${24 + p * 6},10,0.20)`; g.fillRect(0, y0, 256, 64);
+    g.fillStyle = 'rgba(30,18,6,0.55)'; g.fillRect(0, y0, 256, 2);
+    for (let i = 0; i < 26; i++) {
+      g.strokeStyle = `rgba(46,28,10,${0.05 + Math.random() * 0.09})`;
+      g.lineWidth = 1 + Math.random() * 1.4;
+      g.beginPath();
+      const yy = y0 + 6 + Math.random() * 54;
+      g.moveTo(0, yy); g.bezierCurveTo(80, yy + 3, 170, yy - 3, 256, yy + 2); g.stroke();
+    }
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const woodTex = woodTexture();
+const woodMat = new THREE.MeshLambertMaterial({ map: woodTex });
+const woodDark = new THREE.MeshLambertMaterial({ color: 0x5d4126 });
+
+function box(w, h, d, mat, x, y, z, parent) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+  m.position.set(x, y, z); (parent || scene).add(m); return m;
+}
+/* soft ground shadow disc (no shadow maps — a simple dark ellipse) */
+function blobShadow(x, z, r, opacity) {
+  const m = new THREE.Mesh(
+    new THREE.CircleGeometry(r, 20),
+    new THREE.MeshBasicMaterial({ color: 0x1c2b14, transparent: true, opacity, depthWrite: false })
+  );
+  m.rotation.x = -Math.PI / 2;
+  m.position.set(x, groundH(x, z) + 0.03, z);
+  scene.add(m); return m;
+}
+
+/* ---------- THE BARN BOARD with the counted sign ---------- */
+const texLoader = new THREE.TextureLoader();
+function loadTex(url) {
+  const t = texLoader.load(url);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
+  return t;
+}
+const board = new THREE.Group(); scene.add(board);
+box(4.3, 7.3, 0.14, woodMat, 0, 4.55, -0.1, board);              // backing
+box(0.38, 9.0, 0.38, woodMat, -2.0, 4.0, -0.28, board);          // posts
+box(0.38, 9.0, 0.38, woodMat, 2.0, 4.0, -0.28, board);
+box(4.9, 0.42, 0.3, woodMat, 0, 8.35, -0.2, board);              // top rail
+box(4.9, 0.42, 0.3, woodMat, 0, 0.85, -0.2, board);              // low rail
+const braceL = box(0.24, 2.4, 0.24, woodDark, -1.85, 0.9, -0.5, board); braceL.rotation.z = 0.6;
+const braceR = box(0.24, 2.4, 0.24, woodDark, 1.85, 0.9, -0.5, board); braceR.rotation.z = -0.6;
+const signMat = new THREE.MeshBasicMaterial({ map: loadTex('assets/sign-panel.jpg') });
+signMat.color.set(0xfff3da); // warm evening tint; the panel itself stays letter-true
+const sign = new THREE.Mesh(new THREE.PlaneGeometry(3.35, 7.29), signMat);
+sign.position.set(0, 4.55, 0.0); board.add(sign);
+blobShadow(0, 0.6, 3.3, 0.15);
+
+/* ---------- WILL'S PORTRAIT, pinned beside the board ---------- */
+const pinGroup = new THREE.Group();
+pinGroup.position.set(-4.9, 0, 1.6);
+pinGroup.rotation.y = 0.42;
+scene.add(pinGroup);
+box(2.5, 4.3, 0.12, woodMat, 0, 2.85, -0.08, pinGroup);          // pin-board backing
+box(0.3, 5.2, 0.3, woodMat, -1.05, 2.2, -0.25, pinGroup);
+box(0.3, 5.2, 0.3, woodMat, 1.05, 2.2, -0.25, pinGroup);
+box(2.9, 0.34, 0.26, woodMat, 0, 5.15, -0.15, pinGroup);
+const portraitMat = new THREE.MeshBasicMaterial({ map: loadTex('assets/will-portrait.jpg') });
+portraitMat.color.set(0xfff6e6);
+const portrait = new THREE.Mesh(new THREE.PlaneGeometry(1.78, 3.15), portraitMat);
+portrait.position.set(0, 3.05, 0.02); portrait.rotation.z = -0.045;
+pinGroup.add(portrait);
+/* the gold pin */
+const pin = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8),
+  new THREE.MeshLambertMaterial({ color: 0xC08A1E, emissive: 0x664a08 }));
+pin.position.set(-0.12, 4.68, 0.1); pinGroup.add(pin);
+/* name label under the portrait */
+function labelTexture() {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 118;
+  const g = c.getContext('2d');
+  g.fillStyle = '#FBF4E1'; g.fillRect(0, 0, 512, 118);
+  g.strokeStyle = '#C08A1E'; g.lineWidth = 5; g.strokeRect(7, 7, 498, 104);
+  g.fillStyle = '#10365C'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = '800 54px Georgia, serif'; g.fillText('W I L L', 256, 44);
+  g.font = '700 27px Georgia, serif'; g.fillStyle = '#18582A';
+  g.fillText('— from Circle K —', 256, 88);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const label = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 0.39),
+  new THREE.MeshBasicMaterial({ map: labelTexture() }));
+label.position.set(0, 1.12, 0.02); label.rotation.z = 0.02; pinGroup.add(label);
+blobShadow(-4.9, 2.2, 2.2, 0.18);
+
+/* ---------- SHEEP: merged parts, 3 meshes each, calm bob ---------- */
+function mergeGeos(list) {
+  let total = 0;
+  const parts = list.map(([geo, x, y, z, sx, sy, sz]) => {
+    const g = geo.toNonIndexed();
+    g.applyMatrix4(new THREE.Matrix4().makeScale(sx || 1, sy || 1, sz || 1));
+    g.applyMatrix4(new THREE.Matrix4().makeTranslation(x, y, z));
+    total += g.attributes.position.count; return g;
+  });
+  const pos = new Float32Array(total * 3), nor = new Float32Array(total * 3);
+  let o = 0;
+  for (const g of parts) {
+    pos.set(g.attributes.position.array, o * 3);
+    nor.set(g.attributes.normal.array, o * 3);
+    o += g.attributes.position.count;
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  out.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+  return out;
+}
+const sph = new THREE.SphereGeometry(1, 10, 8);
+const cyl = new THREE.CylinderGeometry(0.055, 0.045, 0.52, 5);
+const woolGeo = mergeGeos([
+  [sph, 0, 0.78, 0, 0.62, 0.52, 0.78],          // body
+  [sph, 0, 0.92, -0.78, 0.3, 0.28, 0.3],        // tail puff
+  [sph, 0.3, 0.88, 0.18, 0.34, 0.3, 0.34],      // wool lumps
+  [sph, -0.3, 0.88, -0.2, 0.34, 0.3, 0.34],
+]);
+const headGeo = mergeGeos([
+  [sph, 0, 0.82, 0.86, 0.21, 0.24, 0.3],        // face
+  [sph, 0.24, 0.98, 0.8, 0.13, 0.07, 0.2],      // ears
+  [sph, -0.24, 0.98, 0.8, 0.13, 0.07, 0.2],
+  [sph, 0, 1.04, 0.78, 0.2, 0.12, 0.2],         // wool cap
+]);
+headGeo.translate(0, -0.8, -0.55); // pivot at the neck, so a graze nod bows the head instead of swinging it off the body
+const legsGeo = mergeGeos([
+  [cyl, 0.26, 0.26, 0.34], [cyl, -0.26, 0.26, 0.34],
+  [cyl, 0.26, 0.26, -0.36], [cyl, -0.26, 0.26, -0.36],
+]);
+const woolMat = new THREE.MeshLambertMaterial({ color: 0xf3ead8 });
+const faceMat = new THREE.MeshLambertMaterial({ color: 0x8a6f52 });
+const sheep = [];
+const sheepSpots = [
+  [4.6, 3.4, 0.7], [6.4, -1.4, -0.5], [-3.4, 5.6, 2.6], [2.2, 6.8, -2.2],
+  [-7.8, 4.4, 1.2], [8.6, 4.8, -1.1], [-6.2, -3.2, 2.9], [5.2, -5.4, 0.4],
+  [10.5, 0.6, -2.6], [-10.8, -0.6, 1.8], [1.4, -7.6, 2.4], [-2.8, -6.4, -0.8],
+  [12.5, -4.2, -1.9], [-12.5, 5.5, 2.2],
+];
+for (let i = 0; i < sheepSpots.length; i++) {
+  const [x, z, rot] = sheepSpots[i];
+  const grp = new THREE.Group();
+  const wool = new THREE.Mesh(woolGeo, woolMat);
+  const head = new THREE.Mesh(headGeo, faceMat);
+  head.position.set(0, 0.8, 0.55); // neck pivot (matches headGeo translate)
+  const legs = new THREE.Mesh(legsGeo, faceMat);
+  grp.add(wool, head, legs);
+  const s = 0.85 + ((i * 37) % 10) * 0.035;
+  grp.scale.setScalar(s);
+  grp.position.set(x, groundH(x, z), z);
+  grp.rotation.y = rot;
+  scene.add(grp);
+  sheep.push({ grp, head, phase: i * 1.37, graze: i % 3 === 0, baseY: groundH(x, z) });
+}
+
+/* ============================================================
+   Custom orbit: drag / pinch / wheel. Gentle auto-drift
+   until first touch. Reduced motion: a still, framed view.
+   ============================================================ */
+const view = { theta: 0.32, phi: 1.13, radius: 15.5, tTheta: 0.32, tPhi: 1.13, tRadius: 15.5 };
+const target = new THREE.Vector3(-0.8, 3.6, 0); // centered between the two boards
+/* Frame for the screen shape: a tall phone needs a wider eye
+   and a longer step back, or the pin-board leaves the frame. */
+let framedOnce = false;
+function frameForAspect() {
+  const a = window.innerWidth / window.innerHeight;
+  camera.aspect = a;
+  if (a < 0.75) camera.fov = 60; else if (a < 1.1) camera.fov = 54; else camera.fov = 46;
+  if (!framedOnce) {
+    framedOnce = true;
+    view.radius = view.tRadius = a < 0.75 ? 25 : (a < 1.1 ? 20 : 15.5);
+    view.phi = view.tPhi = a < 0.75 ? 1.36 : (a < 1.1 ? 1.28 : 1.22); // nearer eye level: sky + horizon in frame
+  }
+  camera.updateProjectionMatrix();
+}
+frameForAspect();
+let userDriven = false, interacting = false;
+const pointers = new Map();
+let pinchDist = 0, downX = 0, downY = 0, downT = 0, moved = false;
+
+canvas.addEventListener('pointerdown', e => {
+  canvas.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pointers.size === 1) { downX = e.clientX; downY = e.clientY; downT = performance.now(); moved = false; }
+  if (pointers.size === 2) {
+    const [a, b] = [...pointers.values()];
+    pinchDist = Math.hypot(a.x - b.x, a.y - b.y);
+  }
+  userDriven = true; interacting = true;
+});
+canvas.addEventListener('pointermove', e => {
+  if (!pointers.has(e.pointerId)) return;
+  const prev = pointers.get(e.pointerId);
+  const dx = e.clientX - prev.x, dy = e.clientY - prev.y;
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (Math.abs(e.clientX - downX) + Math.abs(e.clientY - downY) > 7) moved = true;
+  if (pointers.size === 1) {
+    view.tTheta = THREE.MathUtils.clamp(view.tTheta - dx * 0.005, -1.25, 1.25);
+    view.tPhi = THREE.MathUtils.clamp(view.tPhi - dy * 0.004, 0.92, 1.5);
+  } else if (pointers.size === 2) {
+    const [a, b] = [...pointers.values()];
+    const d = Math.hypot(a.x - b.x, a.y - b.y);
+    if (pinchDist > 0) view.tRadius = THREE.MathUtils.clamp(view.tRadius * (pinchDist / d), 8, 30);
+    pinchDist = d;
+  }
+});
+function endPointer(e) {
+  const wasTap = pointers.size === 1 && !moved && performance.now() - downT < 350;
+  pointers.delete(e.pointerId);
+  if (pointers.size === 0) interacting = false;
+  if (wasTap) handleTap(e.clientX, e.clientY);
+}
+canvas.addEventListener('pointerup', endPointer);
+canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('wheel', e => {
+  e.preventDefault(); userDriven = true;
+  view.tRadius = THREE.MathUtils.clamp(view.tRadius + e.deltaY * 0.02, 8, 30);
+}, { passive: false });
+
+/* ---------- Tap Will's portrait -> caption card ---------- */
+const ray = new THREE.Raycaster();
+const ndc = new THREE.Vector2();
+function handleTap(cx, cy) {
+  ndc.set((cx / window.innerWidth) * 2 - 1, -(cy / window.innerHeight) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  if (ray.intersectObjects([portrait, label, pin], false).length > 0) openCard();
+}
+function openCard() { card.hidden = false; requestAnimationFrame(() => card.classList.add('show')); }
+function closeCard() { card.classList.remove('show'); setTimeout(() => { card.hidden = true; }, 320); }
+document.getElementById('card-close').addEventListener('click', closeCard);
+document.getElementById('a11y-card-btn').addEventListener('click', openCard);
+
+/* ---------- Resize ---------- */
+window.addEventListener('resize', () => {
+  frameForAspect();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+window.__field = { renderer, scene, camera }; // build-verification hook
+
+/* ---------- Render loop ---------- */
+const clock = new THREE.Clock();
+let firstFrame = true;
+function frame() {
+  requestAnimationFrame(frame);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const t = clock.elapsedTime;
+  if (!userDriven && !reduceMotion) view.tTheta += dt * 0.045; // gentle drift until first touch
+  const ease = interacting ? 0.22 : 0.06;
+  view.theta += (view.tTheta - view.theta) * ease;
+  view.phi += (view.tPhi - view.phi) * ease;
+  view.radius += (view.tRadius - view.radius) * ease;
+  camera.position.set(
+    target.x + view.radius * Math.sin(view.phi) * Math.sin(view.theta),
+    target.y + view.radius * Math.cos(view.phi),
+    target.z + view.radius * Math.sin(view.phi) * Math.cos(view.theta)
+  );
+  camera.lookAt(target);
+  if (!reduceMotion) {
+    for (const s of sheep) {
+      s.grp.position.y = s.baseY + Math.sin(t * 0.7 + s.phase) * 0.03;
+      if (s.graze) s.head.rotation.x = 0.55 + Math.sin(t * 0.45 + s.phase) * 0.14; // slow graze nod
+    }
+  }
+  renderer.render(scene, camera);
+  if (firstFrame) {
+    firstFrame = false;
+    window.__fieldReady = true;
+    fallbackEl.hidden = true;      // the real field wins over any fallback
+    canvas.style.display = '';
+    veil.classList.add('gone');
+  }
+}
+/* Start once the photo textures arrive (so the board never
+   flashes blank) — with a safety start so no visitor is ever
+   trapped behind the veil. */
+let started = false;
+function start() { if (started) return; started = true; frame(); }
+THREE.DefaultLoadingManager.onLoad = start;
+THREE.DefaultLoadingManager.onError = start;
+setTimeout(start, 3000);
+</script>
+</body>
+</html>
