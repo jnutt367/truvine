@@ -138,6 +138,22 @@
   }
   .pad-note[hidden] { display: none; }
 
+  /* ---- Teddy introduces the game (a tap-to-play teaser; never autoplays) ---- */
+  .teaser {
+    background: #FFFFFF; border: 2px solid #D9B45C; border-radius: 14px;
+    padding: 18px 18px 14px; margin: 18px 0 0;
+  }
+  .teaser h2 {
+    font-family: "Noto Serif Display", Georgia, serif; color: #10365C;
+    font-size: 21px; margin: 0 0 4px; line-height: 1.3;
+  }
+  .teaser p { font-size: 15.5px; line-height: 1.55; margin: 0 0 12px; }
+  .teaser video {
+    width: 100%; max-width: 860px; height: auto; display: block; margin: 0 auto;
+    border-radius: 10px; background: #10365C;
+  }
+  @media (min-width: 900px) { .teaser h2 { font-size: 23px; } }
+
   /* ---- gamepad mode: a focus ring you can read from the couch ---- */
   body.pad-mode :focus {
     outline: 6px solid #C08A1E; outline-offset: 4px; border-radius: 8px;
@@ -183,6 +199,16 @@
       you&rsquo;ve got. The film and the field fill the whole room.</p>
     <p class="pad-note" id="padNote" hidden>🎮 Controller connected — drive with the D-pad or
       stick, pick an answer with the A button.</p>
+
+    <section class="teaser" aria-labelledby="teaser-h">
+      <h2 id="teaser-h">Teddy introduces the game</h2>
+      <p>Grandpa Teddy has a word about this little game before you start, Will — press play when you&rsquo;re ready.</p>
+      <video controls preload="metadata" poster="teaser-poster.jpg" width="1920" height="1080"
+             aria-label="Grandpa Teddy introduces Will&rsquo;s Flock Trivia — a short welcome film for the game">
+        <source src="teaser.mp4" type="video/mp4">
+        Your browser can&rsquo;t play this little film — but the game below works just the same.
+      </video>
+    </section>
 
     <div class="gather-box">
       <div class="gather-row" id="gatherRow" role="img"
