@@ -365,6 +365,31 @@
   }
   footer.report-foot .faith { font-weight: 700; color: #10365C; }
 
+  /* ---------- The big-screen note (a sticky-note by the film) ---------- */
+  .bigscreen-note {
+    max-width: 660px; margin: 16px auto 0; text-align: center;
+    background: #FBF3DC; border: 2px solid #D9B45C; border-radius: 12px;
+    padding: 12px 18px; font-size: 16px; line-height: 1.55; color: #33413A;
+  }
+  .bigscreen-note strong { color: #10365C; }
+
+  /* ---------- Widescreen: the board opens its arms ---------- */
+  @media screen and (min-width: 1100px) {
+    .sheet { max-width: 1240px; padding: 40px 48px 44px; }
+    .masthead h1 { font-size: 54px; }
+    /* the film uses the width — up to a cinema-comfortable 960, centered */
+    .film-sec figure { max-width: 960px; margin-left: auto; margin-right: auto; }
+    /* the hero scene and the pinned board, side by side */
+    .hero-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+      align-items: start; margin-top: 14px;
+    }
+    .hero-row figure.scene { margin-top: 0; }
+    .hero-row section.panel { margin-top: 0; }
+    /* every door, three across */
+    .doors { grid-template-columns: repeat(3, 1fr); }
+  }
+
   /* ---------- Print (the PDF twin) ---------- */
   @page { size: Letter; margin: 13mm; }
   @media print {
@@ -419,7 +444,7 @@
   <div class="rule" aria-hidden="true"></div>
 
   <!-- ================= TONIGHT — A FILM FOR WILL — the gift opens here (placeholder preview; the finished film takes this exact place, settings carry) ================= -->
-  <section class="panel" aria-labelledby="h-film">
+  <section class="panel film-sec" aria-labelledby="h-film">
     <div class="panel-head">
       <span class="ptag tend">Tonight</span>
       <h2 id="h-film">Tonight — a Film for Will</h2>
@@ -439,12 +464,15 @@
       <figcaption class="film-cap">Your welcome film is being finished tonight, Will —
         this preview holds its place until it lands.</figcaption>
     </figure>
+    <p class="bigscreen-note"><strong>Psst —</strong> when you get home, open this on the biggest screen
+      you&rsquo;ve got. The film and the field fill the whole room.</p>
     <p class="field-teaser">And there&rsquo;s a game made for you, too —
       <a href="../for-will-game/" aria-label="A Little Game — Will&rsquo;s Flock Trivia. Six gentle questions, one sheep at a time — there&rsquo;s no way to lose.">Will&rsquo;s Flock Trivia</a>,
       six gentle questions with a sheep gathering for every answer.</p>
   </section>
 
   <!-- ================= THE SCENE — full natural frame, nothing cropped ================= -->
+  <div class="hero-row">
   <figure class="scene" id="scene-fig">
     <div class="scene-frame">
     <img src="scene-full-board.jpg" width="1080" height="2177"
@@ -483,6 +511,7 @@
     <p class="field-teaser">This board stands in a golden field, too —
       <a href="../for-will-field/" aria-label="Step into the field — walk around the board in 3D">step into it and walk around it in 3D</a>.</p>
   </section>
+  </div><!-- /.hero-row -->
 
   <!-- ================= NEW HERE? — gentle accordions ================= -->
   <section class="panel" aria-labelledby="h-start">
