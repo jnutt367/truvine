@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Will's Flock Trivia — a little game for Will</title>
+<meta name="description" content="A gentle trivia game made for Will — six questions from his tour of the TruVINE farm. No losing here: every right answer gathers a sheep.">
+<style>
+  /* ============ WILL'S FLOCK TRIVIA — a game for one sheep ============
+     Field Report design family (cream / navy / green / gold).
+     deep blue #10365C · vine green #2F6B3A · deep green #18582A
+     warm gold #C08A1E · light gold #D9B45C · cream #FBF4E1 · ink #24313D */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: #E7DCC0; color: #24313D;
+    font-family: "Quicksand", "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #10365C; }
+  :focus-visible { outline: 3px solid #C08A1E; outline-offset: 3px; border-radius: 6px; }
+  .skip {
+    position: absolute; left: -9999px; top: 0; background: #10365C;
+    color: #F5EDD6; padding: 10px 18px; font-weight: 700; z-index: 10;
+  }
+  .skip:focus { left: 8px; top: 8px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 22px 14px 48px; }
+  .card {
+    background: linear-gradient(180deg, #FCF6E5 0%, #FAF0D8 100%);
+    border: 3px solid #C08A1E; border-radius: 18px;
+    padding: 26px 22px 30px; box-shadow: 0 10px 30px rgba(16,54,92,.18);
+  }
+  .ptag {
+    display: inline-block; font-weight: 700; letter-spacing: 2.5px; font-size: 12px;
+    text-transform: uppercase; color: #C08A1E;
+  }
+  h1 {
+    font-family: "Noto Serif Display", "Playfair Display", Georgia, serif;
+    color: #10365C; font-size: clamp(30px, 6.5vw, 44px); line-height: 1.08;
+    margin: 8px 0 10px; letter-spacing: .2px;
+  }
+  .lede { font-size: 17px; line-height: 1.55; margin: 0 0 6px; }
+  .lede strong { color: #10365C; }
+  .rule { height: 3px; background: #C08A1E; border-radius: 2px; margin: 20px 0 6px; }
+
+  /* ---- the gathering row ---- */
+  .gather-box {
+    background: #FFFFFF; border: 3px solid #18582A; border-radius: 14px;
+    padding: 14px 14px 10px; margin: 18px 0 4px; text-align: center;
+  }
+  .gather-row {
+    display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; min-height: 84px;
+  }
+  .slot {
+    width: 76px; height: 84px; border-radius: 12px; overflow: hidden;
+    border: 2px dashed #D9B45C; background: #FBF4E1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slot.waiting { opacity: .28; filter: grayscale(.7); border-style: dashed; }
+  .slot.gathered { border: 2px solid #18582A; opacity: 1; filter: none; }
+  @keyframes hop {
+    0% { transform: translateY(0); } 30% { transform: translateY(-16px); }
+    55% { transform: translateY(0); } 75% { transform: translateY(-7px); }
+    100% { transform: translateY(0); }
+  }
+  .slot.hop { animation: hop .8s ease; }
+  @media (prefers-reduced-motion: reduce) { .slot.hop { animation: none; } }
+  .gather-note { font-weight: 700; color: #18582A; margin: 8px 0 2px; font-size: 16px; }
+
+  /* ---- questions ---- */
+  .q {
+    background: #FFFFFF; border: 2px solid #D9B45C; border-radius: 14px;
+    padding: 18px 18px 14px; margin: 18px 0 0;
+  }
+  .q h2 {
+    font-family: "Noto Serif Display", Georgia, serif; color: #10365C;
+    font-size: 21px; margin: 0 0 4px; line-height: 1.3;
+  }
+  .q .qnum { color: #C08A1E; font-weight: 700; letter-spacing: 1.5px; font-size: 12px; text-transform: uppercase; }
+  .opts { list-style: none; margin: 12px 0 6px; padding: 0; display: grid; gap: 9px; }
+  .opts li { margin: 0; }
+  .opt {
+    width: 100%; text-align: left; font: inherit; font-weight: 600; cursor: pointer;
+    background: #FBF4E1; color: #24313D; border: 2px solid #C08A1E; border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .opt:hover { background: #F5EDD6; }
+  .opt[disabled] { cursor: default; opacity: .45; }
+  .opt.right { background: #18582A; border-color: #18582A; color: #F5EDD6; opacity: 1; }
+  .teach { display: none; margin: 10px 0 4px; font-size: 15.5px; line-height: 1.55; }
+  .teach.show { display: block; }
+  .teach.kind { color: #7A4E12; }
+  .teach.good { color: #18582A; font-weight: 600; }
+  .q.done { border-color: #18582A; }
+  .counted { display: none; font-weight: 700; color: #18582A; margin: 6px 0 0; }
+  .q.done .counted { display: block; }
+  /* no-JS: the answers stand printed, plain and complete */
+  .answers-print { margin: 10px 0 2px; font-size: 15.5px; line-height: 1.55; color: #18582A; }
+  .js .answers-print { display: none; }
+
+  /* ---- final card ---- */
+  .final {
+    display: none; background: #10365C; color: #F5EDD6; border-radius: 14px;
+    padding: 24px 20px; margin: 22px 0 0; text-align: center;
+  }
+  .final.show { display: block; }
+  .nojs-final { background: #10365C; color: #F5EDD6; border-radius: 14px; padding: 24px 20px; margin: 22px 0 0; text-align: center; }
+  .js .nojs-final { display: none; }
+  .final p, .nojs-final p {
+    font-family: "Noto Serif Display", Georgia, serif; font-size: 21px; line-height: 1.45; margin: 0 0 6px;
+  }
+  .doors { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+  .door {
+    display: inline-block; text-decoration: none; font-weight: 700;
+    padding: 12px 18px; border-radius: 10px; border: 2px solid #C08A1E;
+  }
+  .door.primary { background: #C08A1E; color: #10365C; }
+  .door.ghost { background: transparent; color: #F5EDD6; }
+  .foot-doors { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  .foot-doors .door { background: #10365C; color: #F5EDD6; border-color: #10365C; }
+  .foot-doors .door.alt { background: #FFFFFF; color: #10365C; border-color: #C08A1E; }
+  .fine { font-size: 13.5px; color: #5A6B7A; margin-top: 18px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<a class="skip" href="#game">Skip to the game</a>
+<div class="wrap">
+  <main class="card" id="game">
+    <span class="ptag">For Will · A Little Game</span>
+    <h1>Will&rsquo;s Flock Trivia</h1>
+    <p class="lede">Six questions from your tour of the farm, Will — and <strong>no losing here</strong>.
+      Every right answer gathers a sheep up top. Miss one, and we&rsquo;ll just tell you the story and let you tap again.
+      Gather all six, and see what the flock says.</p>
+
+    <div class="gather-box">
+      <div class="gather-row" id="gatherRow" role="img"
+           aria-label="A row where sheep gather, one for each right answer">
+        <div class="slot" data-slot="1"><img src="sheep.jpg" alt=""></div>
+        <div class="slot" data-slot="2"><img src="sheep.jpg" alt=""></div>
+        <div class="slot" data-slot="3"><img src="sheep.jpg" alt=""></div>
+        <div class="slot" data-slot="4"><img src="sheep.jpg" alt=""></div>
+        <div class="slot" data-slot="5"><img src="sheep.jpg" alt=""></div>
+        <div class="slot" data-slot="6"><img src="sheep.jpg" alt=""></div>
+      </div>
+      <p class="gather-note" id="gatherNote" aria-live="polite">Sheep gathered: 0 of 6</p>
+    </div>
+
+    <!-- Q1 -->
+    <section class="q" data-q="1" aria-labelledby="qh1">
+      <span class="qnum">Question 1 of 6</span>
+      <h2 id="qh1">How many are in the flock tonight?</h2>
+      <ul class="opts">
+        <li><button class="opt" data-correct="0">193</button></li>
+        <li><button class="opt" data-correct="1">841</button></li>
+        <li><button class="opt" data-correct="0">38</button></li>
+      </ul>
+      <p class="teach kind" data-teach="kind">Not quite — 193 joined this week, and 38 is the countries. The whole flock is bigger. Try again, friend.</p>
+      <p class="teach good" data-teach="good">That&rsquo;s right — <strong>841 in the flock</strong>, every one counted on the barn board — because every single one matters.</p>
+      <p class="answers-print"><strong>Answer: 841</strong> — the whole flock, counted on the barn board, because every single one matters.</p>
+      <p class="counted">✓ Counted — sheep 1 is in.</p>
+    </section>
+
+    <!-- Q2 -->
+    <section class="q" data-q="2" aria-labelledby="qh2">
+      <span class="qnum">Question 2 of 6</span>
+      <h2 id="qh2">In John 10:16, who does Jesus say He must bring?</h2>
+      <ul class="opts">
+        <li><button class="opt" data-correct="0">The ninety-nine already in the fold</button></li>
+        <li><button class="opt" data-correct="1">His other sheep</button></li>
+        <li><button class="opt" data-correct="0">Only the shepherds</button></li>
+      </ul>
+      <p class="teach kind" data-teach="kind">Close — but Jesus says there are more, outside the fold, and He must bring them too. Have another look.</p>
+      <p class="teach good" data-teach="good">That&rsquo;s right — <em>&ldquo;I have other sheep&hellip; I must bring them also. They will hear my voice. Then there will be one flock and one shepherd.&rdquo;</em></p>
+      <p class="answers-print"><strong>Answer: His other sheep</strong> — &ldquo;I must bring them also&hellip; there will be one flock and one shepherd.&rdquo; (John 10:16)</p>
+      <p class="counted">✓ Counted — sheep 2 is in.</p>
+    </section>
+
+    <!-- Q3 -->
+    <section class="q" data-q="3" aria-labelledby="qh3">
+      <span class="qnum">Question 3 of 6</span>
+      <h2 id="qh3">How many chapters are in the Audio Bible?</h2>
+      <ul class="opts">
+        <li><button class="opt" data-correct="0">376</button></li>
+        <li><button class="opt" data-correct="1">1,503</button></li>
+        <li><button class="opt" data-correct="0">1,189</button></li>
+      </ul>
+      <p class="teach kind" data-teach="kind">Not quite — 376 is how many videos are on the channel. The Audio Bible is the whole Book, read aloud. Try once more.</p>
+      <p class="teach good" data-teach="good">That&rsquo;s right — <strong>1,503 chapters</strong>, the whole Bible read aloud in Grandpa Teddy&rsquo;s voice, finished spine to spine, and free for anybody.</p>
+      <p class="answers-print"><strong>Answer: 1,503</strong> — the whole Bible, read aloud in Grandpa Teddy&rsquo;s voice, finished spine to spine.</p>
+      <p class="counted">✓ Counted — sheep 3 is in.</p>
+    </section>
+
+    <!-- Q4 -->
+    <section class="q" data-q="4" aria-labelledby="qh4">
+      <span class="qnum">Question 4 of 6</span>
+      <h2 id="qh4">What does the Bible app cost?</h2>
+      <ul class="opts">
+        <li><button class="opt" data-correct="1">Nothing — it&rsquo;s free</button></li>
+        <li><button class="opt" data-correct="0">$4.99 a month</button></li>
+        <li><button class="opt" data-correct="0">A donation is required</button></li>
+      </ul>
+      <p class="teach kind" data-teach="kind">No, friend — nothing at all. That&rsquo;s the whole point of this farm. Give it another tap.</p>
+      <p class="teach good" data-teach="good">That&rsquo;s right — <strong>free</strong>. The Word is free. Always has been; always will be. Read it or listen, it won&rsquo;t cost you a thing.</p>
+      <p class="answers-print"><strong>Answer: Nothing — it&rsquo;s free.</strong> The Word is free. Always has been; always will be.</p>
+      <p class="counted">✓ Counted — sheep 4 is in.</p>
+    </section>
+
+    <!-- Q5 -->
+    <section class="q" data-q="5" aria-labelledby="qh5">
+      <span class="qnum">Question 5 of 6</span>
+      <h2 id="qh5">From how many countries have neighbors watched?</h2>
+      <ul class="opts">
+        <li><button class="opt" data-correct="0">12</button></li>
+        <li><button class="opt" data-correct="0">50</button></li>
+        <li><button class="opt" data-correct="1">38</button></li>
+      </ul>
+      <p class="teach kind" data-teach="kind">Not quite — it&rsquo;s more than 12, and an honest count never rounds up to 50. The board tells it plain. Try again.</p>
+      <p class="teach good" data-teach="good">That&rsquo;s right — <strong>38 countries</strong>, neighbors who&rsquo;ve stopped a while to hear the Word, every one written down and counted.</p>
+      <p class="answers-print"><strong>Answer: 38</strong> — countries gathering, every one written down on the board and counted.</p>
+      <p class="counted">✓ Counted — sheep 5 is in.</p>
+    </section>
+
+    <!-- Q6 -->
+    <section class="q" data-q="6" aria-labelledby="qh6">
+      <span class="qnum">Question 6 of 6</span>
+      <h2 id="qh6">In Luke 15, when one sheep is lost, what does the Shepherd do?</h2>
+      <ul class="opts">
+        <li><button class="opt" data-correct="0">He waits at the gate</button></li>
+        <li><button class="opt" data-correct="1">He goes after the one until He finds it</button></li>
+        <li><button class="opt" data-correct="0">He counts the ninety-nine twice</button></li>
+      </ul>
+      <p class="teach kind" data-teach="kind">Not quite — He doesn&rsquo;t wait, and He doesn&rsquo;t settle for counting who&rsquo;s left. The one matters too much for that. Try again.</p>
+      <p class="teach good" data-teach="good">That&rsquo;s right — He leaves the ninety-nine and <strong>goes after the one until He finds it</strong> — then carries it home on His shoulders, rejoicing. Every single sheep gets special treatment.</p>
+      <p class="answers-print"><strong>Answer: He goes after the one until He finds it</strong> — then carries it home on His shoulders, rejoicing. (Luke 15)</p>
+      <p class="counted">✓ Counted — sheep 6 is in. The whole flock!</p>
+    </section>
+
+    <!-- final card (JS reveals it; no-JS readers see the copy below) -->
+    <div class="final" id="finalCard" tabindex="-1">
+      <p>That&rsquo;s the whole flock, Will — every single one counted.<br>Including the one this was made for.</p>
+      <div class="doors">
+        <a class="door primary" href="../for-will-d59748/">← Back to your board</a>
+        <a class="door ghost" href="../for-will-field/">Step into the field →</a>
+      </div>
+    </div>
+    <div class="nojs-final" aria-hidden="true">
+      <p>Six sheep, six stories — and every single one counted.<br>That&rsquo;s the Shepherd&rsquo;s way, Will.</p>
+    </div>
+
+    <div class="rule"></div>
+    <div class="foot-doors">
+      <a class="door" href="../for-will-d59748/">← Back to your board</a>
+      <a class="door alt" href="../for-will-field/">Step into the field →</a>
+    </div>
+    <p class="fine">Made for Will, from Jason at Circle K. We plant. We water. God gives the increase.</p>
+  </main>
+</div>
+
+<script>
+(function () {
+  document.documentElement.classList.add('js');
+  document.body.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var slots = Array.prototype.slice.call(document.querySelectorAll('.slot'));
+  slots.forEach(function (s) { s.classList.add('waiting'); });
+  var note = document.getElementById('gatherNote');
+  var finalCard = document.getElementById('finalCard');
+  var gathered = 0;
+
+  document.querySelectorAll('.q').forEach(function (q) {
+    var kind = q.querySelector('[data-teach="kind"]');
+    var good = q.querySelector('[data-teach="good"]');
+    q.querySelectorAll('.opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (q.classList.contains('done')) return;
+        if (btn.getAttribute('data-correct') === '1') {
+          q.classList.add('done');
+          q.querySelectorAll('.opt').forEach(function (b) {
+            b.disabled = true;
+            if (b === btn) b.classList.add('right');
+          });
+          kind.classList.remove('show');
+          good.classList.add('show');
+          var idx = parseInt(q.getAttribute('data-q'), 10) - 1;
+          var slot = slots[idx];
+          slot.classList.remove('waiting');
+          slot.classList.add('gathered');
+          if (!reduce) {
+            slot.classList.add('hop');
+            slot.addEventListener('animationend', function () { slot.classList.remove('hop'); }, { once: true });
+          }
+          gathered += 1;
+          note.textContent = 'Sheep gathered: ' + gathered + ' of 6';
+          if (gathered === 6) {
+            finalCard.classList.add('show');
+            note.textContent = 'Sheep gathered: 6 of 6 — the whole flock!';
+            finalCard.focus({ preventScroll: false });
+          }
+        } else {
+          btn.disabled = true;
+          good.classList.remove('show');
+          kind.classList.add('show');
+        }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
