@@ -129,6 +129,40 @@
   .wall-link a { color: var(--gold-bright); text-decoration: none; }
   .wall-link a:hover { text-decoration: underline; }
 
+  /* ---------- The answer — a letter, right here ----------
+     The Family Wall's own Tell-Jason letter, mirrored onto the
+     invitation: composed in her own mail app, addressed straight
+     to Jason — nothing is stored on this website. */
+  .answer-card {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .answer-card .tell-copy { font-size: 17px; line-height: 1.65; color: var(--ink); }
+  .answer-card + .standing { margin-top: 48px; }
+  .tell-form { margin-top: 22px; display: grid; gap: 18px; }
+  .tell-form label { display: block; font-size: 16px; font-weight: 700; color: #10365C; margin-bottom: 6px; }
+  .tell-opt { font-size: 14px; font-weight: 600; color: var(--muted-l); }
+  .tell-form input, .tell-form textarea, .tell-form select {
+    width: 100%; font: inherit; font-size: 16.5px; line-height: 1.5;
+    color: #24313D; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 10px; padding: 12px 14px;
+  }
+  .tell-form textarea { resize: vertical; }
+  .tell-form input:focus-visible, .tell-form textarea:focus-visible,
+  .tell-form select:focus-visible, .tell-btn:focus-visible {
+    outline: 3px solid var(--gold-deep); outline-offset: 3px; border-radius: 6px;
+  }
+  .tell-btn {
+    justify-self: start; font: inherit; font-size: 17.5px; font-weight: 800;
+    color: var(--cream); background: #10365C; border: 2px solid #10365C;
+    border-radius: 12px; padding: 14px 26px; cursor: pointer;
+  }
+  .tell-btn:hover { background: #18582A; border-color: #18582A; }
+  .tell-note { font-size: 16px; line-height: 1.6; color: var(--ink); }
+
   /* ---------- Closing ---------- */
   .closing { margin-top: 96px; text-align: center; }
   .closing .f-emblem { width: 74px; height: auto; background: #fff; border-radius: 12px; padding: 5px 7px; }
@@ -212,14 +246,51 @@
       </div>
     </section>
 
-    <section class="movement" aria-labelledby="yes-h">
+    <section class="movement" aria-labelledby="answer-h">
       <div class="sec-head">
-        <p class="kicker">What Happens Next</p>
-        <h2 id="yes-h" class="serif">If You Say Yes</h2>
-        <p class="sub">Plain steps, at your pace.</p>
+        <p class="kicker">Your Answer</p>
+        <h2 id="answer-h" class="serif">Answer Right Here</h2>
+        <p class="sub">You don&rsquo;t have to go anywhere else — your letter to Jason starts on this very page.</p>
         <div class="rule" aria-hidden="true"></div>
       </div>
+      <div class="answer-card">
+        <p class="tell-copy">Answering works the way warm things work in this family: you write Jason a letter. Fill this in, and it opens in your own mail app, addressed straight to him — nothing you write here is stored on this website. It travels like a letter, from your hands to his, and Jason reads every letter himself.</p>
+        <form class="tell-form" id="door-form">
+          <div>
+            <label for="door-name">The name to use on the wall or the roll <span class="tell-opt">(only if you&rsquo;d like one — leave blank for the quiet door)</span></label>
+            <input type="text" id="door-name" name="name" autocomplete="name" placeholder="Your first name, a nickname, or a description — your choice">
+          </div>
+          <div>
+            <label for="door-country">Your country <span class="tell-opt">(only if you&rsquo;d like it shown)</span></label>
+            <input type="text" id="door-country" name="country" autocomplete="country-name" placeholder="e.g. Philippines">
+          </div>
+          <div>
+            <label for="door-choice">Your door</label>
+            <select id="door-choice" name="door" required>
+              <option value="Door One — my photo on the wall">Door One — my photo on the wall</option>
+              <option value="Door Two — my name on the roll only, no face">Door Two — my name on the roll only, no face</option>
+              <option value="Door Three — anonymous, held in prayer (no name, no face)">Door Three — anonymous, held in prayer (no name, no face)</option>
+            </select>
+          </div>
+          <div>
+            <label for="door-face">If Door One — my face as <span class="tell-opt">(artwork is always shown to you first, and hung only on your approval)</span></label>
+            <select id="door-face" name="face">
+              <option value="My photograph, as it is">My photograph, as it is</option>
+              <option value="Farm-style artwork — low variance (unmistakably me)">Farm-style artwork — low variance (unmistakably me)</option>
+              <option value="Farm-style artwork — higher variance (softened likeness)">Farm-style artwork — higher variance (softened likeness)</option>
+              <option value="Not applicable — I chose Door Two or Three">Not applicable — I chose Door Two or Three</option>
+            </select>
+          </div>
+          <p class="tell-note">Choosing the photo door? When your letter opens in your mail app, just attach the picture you like before you send it — or tell Jason in the letter which photo, and he&rsquo;ll take it from there.</p>
+          <div>
+            <label for="door-msg">Anything else Jason should know <span class="tell-opt">(optional)</span></label>
+            <textarea id="door-msg" name="message" rows="5" placeholder="A word about yourself, a prayer request, anything on your heart&hellip;"></textarea>
+          </div>
+          <button type="submit" class="tell-btn">Send My Letter to Jason</button>
+        </form>
+      </div>
       <div class="standing">
+        <h3 class="serif">After You Write</h3>
         <ul>
           <li><strong>You pick a door</strong> — whichever one feels right to you: the photo, the name, or the quiet door.</li>
           <li><strong>If you pick the photo door, you choose the picture</strong> — one of you that you like, that you&rsquo;re happy to have hang.</li>
@@ -242,5 +313,39 @@
     <p>© 2026 Jason Nutt · TruVINE — All rights reserved.</p>
   </footer>
 </div>
+
+<script>
+/* The Open Door letter: composed in the visitor's own mail app,
+   addressed straight to Jason — nothing is stored on this website.
+   It travels like a letter, from their hands to his. Same pattern
+   as the Tell-Jason panel on Will's page. */
+(function () {
+  var form = document.getElementById('door-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('door-name').value.trim();
+    var country = document.getElementById('door-country').value.trim();
+    var door = document.getElementById('door-choice').value;
+    var face = document.getElementById('door-face').value;
+    var msg = document.getElementById('door-msg').value.trim();
+    var lines = [];
+    lines.push("Hello Jason — I'd like a place on the Family Wall.");
+    lines.push("");
+    lines.push("My door: " + door);
+    if (door.indexOf("Door One") === 0) lines.push("My face as: " + face);
+    lines.push("Name to use: " + (name ? name : "(none — the quiet door, or ask me)"));
+    if (country) lines.push("My country: " + country);
+    if (msg) { lines.push(""); lines.push(msg); }
+    if (door.indexOf("Door One") === 0) {
+      lines.push("");
+      lines.push("(My photo is attached to this email.)");
+    }
+    window.location.href = "mailto:jnutt367@gmail.com"
+      + "?subject=" + encodeURIComponent("The Open Door — a place on the Family Wall")
+      + "&body=" + encodeURIComponent(lines.join("\n"));
+  });
+})();
+</script>
 </body>
 </html>
