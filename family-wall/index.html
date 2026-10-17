@@ -139,6 +139,55 @@
   }
   .roll-note strong { color: #10365C; }
 
+  /* ---------- The Record scroll: a smaller scroll, hung below ----------
+     The Roll above is the feature — names to come, still blank.
+     This little scroll is its servant: the record so far, what the
+     Lord has already done. Quieter parchment, humbler type, and
+     every figure real HTML text so it can be tended and updated. */
+  .record-panel { margin-top: 44px; }
+  .record-scroll {
+    position: relative; max-width: 660px; margin: 16px auto 0;
+    background: linear-gradient(180deg, #F8EFCE 0%, #F3E5BC 55%, #EFDCAC 100%);
+    border-left: 2px solid #D8C491; border-right: 2px solid #D8C491;
+    box-shadow: 0 10px 22px rgba(90, 66, 20, .16);
+    padding: 26px 30px 24px; text-align: center;
+  }
+  /* the wooden rods the scroll hangs from — top and bottom */
+  .record-scroll::before, .record-scroll::after {
+    content: ""; position: absolute; left: -13px; right: -13px; height: 13px;
+    border-radius: 7px;
+    background: linear-gradient(180deg, #A87F3E 0%, #7A5A28 55%, #5E4419 100%);
+    box-shadow: 0 2px 5px rgba(60, 42, 10, .35);
+  }
+  .record-scroll::before { top: -7px; }
+  .record-scroll::after { bottom: -7px; }
+  .record-scroll h2 {
+    font-family: "Noto Serif Display", Georgia, serif;
+    font-size: 21px; font-weight: 700; letter-spacing: .4px; color: #10365C;
+  }
+  .record-scroll .rec-lede {
+    margin-top: 7px; font-size: 15px; line-height: 1.55; color: #33413A;
+  }
+  .record-stats {
+    margin-top: 14px; display: flex; justify-content: center;
+    gap: 12px 30px; flex-wrap: wrap;
+  }
+  .record-stats .stat { min-width: 104px; }
+  .record-stats .num { font-size: 22px; font-weight: 800; color: #10365C; }
+  .record-stats .lab {
+    margin-top: 1px; font-size: 12.5px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase; color: #5A5342;
+  }
+  .record-scroll .rec-reach {
+    margin-top: 14px; font-size: 15px; line-height: 1.55; color: #33413A;
+  }
+  .record-scroll .rec-posture {
+    margin-top: 8px; font-family: "Noto Serif Display", Georgia, serif;
+    font-style: italic; font-size: 15.5px; line-height: 1.55; color: #18582A;
+  }
+  .record-scroll .rec-link { margin-top: 12px; font-size: 14.5px; font-weight: 700; }
+  @media (max-width: 640px) { .record-scroll { padding: 22px 18px 20px; } }
+
   /* ---------- Doors ---------- */
   .doors { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 6px; }
   @media (max-width: 860px) { .doors { grid-template-columns: 1fr; } }
@@ -453,6 +502,47 @@
       to the email that opens — that&rsquo;s the picture we&rsquo;ll prepare for
       the wall, in exactly the form you picked above.
     </p>
+  </section>
+
+  <!-- ================= THE RECORD SO FAR =================
+       A smaller scroll hung below the Roll: testimony, not trophy.
+       Figures are the verified Field Report counts, kept as plain
+       text so they can be tended honestly. House rule: subscribers
+       print as "840+" — never a bare count the record can't hold. -->
+  <section class="panel record-panel" aria-labelledby="h-record">
+    <div class="record-scroll">
+      <h2 id="h-record">The Record So Far</h2>
+      <p class="rec-lede">
+        The Roll above waits for names to come. This smaller scroll is a
+        testimony to what the Lord has already done — the field, as it
+        stands today:
+      </p>
+      <div class="record-stats">
+        <div class="stat">
+          <div class="num">154,877</div>
+          <div class="lab">Views</div>
+        </div>
+        <div class="stat">
+          <div class="num">376</div>
+          <div class="lab">Videos</div>
+        </div>
+        <div class="stat">
+          <div class="num">840+</div>
+          <div class="lab">Subscribers</div>
+        </div>
+      </div>
+      <p class="rec-reach">
+        Family tuning in from the <strong>United States</strong>, the
+        <strong>Philippines</strong>, <strong>Indonesia</strong>, and
+        <strong>Kenya</strong>.
+      </p>
+      <p class="rec-posture">
+        Counted with gratitude — every one a person, every person prayed for.
+      </p>
+      <p class="rec-link">
+        <a href="https://jnutt367.github.io/truvine/field-report/">Read the full TruVINE Field Report</a>
+      </p>
+    </div>
   </section>
 
   <div class="voice">
