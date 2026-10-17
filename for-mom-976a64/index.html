@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>For Mom — a note from Jason · TruVINE</title>
+<meta name="description" content="A private note from Jason for his mom: an invitation to the TruVINE Family Wall — a film to see before the world does, the three doors explained plain, and what happens if she says yes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,600;0,800;1,600&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background:
+      radial-gradient(1200px 620px at 50% -120px, #17452C 0%, rgba(23,69,44,0) 60%),
+      var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 72px; }
+
+  /* ---------- Title plate ---------- */
+  .plate { text-align: center; padding: 64px 0 8px; }
+  .plate .emblem-tile {
+    display: inline-block; background: #FFFFFF; border: 3px solid var(--gold-deep);
+    border-radius: 22px; padding: 14px 20px;
+    box-shadow: 0 18px 44px rgba(0,0,0,.45);
+  }
+  .plate .emblem-tile img { width: 300px; max-width: 62vw; height: auto; display: block; }
+  .overline {
+    margin-top: 34px; font-size: 13.5px; font-weight: 800; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .plate h1 {
+    margin-top: 10px; font-size: clamp(52px, 9vw, 84px); line-height: 1.05;
+    font-weight: 800; color: var(--cream);
+  }
+  .plate .rule {
+    width: 120px; height: 3px; background: var(--gold-deep);
+    margin: 26px auto 0; border-radius: 2px;
+  }
+  .invitation {
+    margin: 26px auto 0; max-width: 34em;
+    font-size: clamp(20px, 3.4vw, 25px); line-height: 1.5; font-style: italic; color: var(--cream);
+  }
+  .invitation-by { margin-top: 14px; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted-d); }
+
+  /* ---------- Movements ---------- */
+  section.movement { margin-top: 84px; }
+  .sec-head { text-align: center; margin-bottom: 30px; }
+  .sec-head .kicker {
+    font-size: 12.5px; font-weight: 800; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .sec-head h2 { margin-top: 8px; font-size: clamp(32px, 5.4vw, 44px); font-weight: 800; color: var(--cream); line-height: 1.15; }
+  .sec-head .sub { margin-top: 8px; font-size: 17px; color: var(--muted-d); }
+  .sec-head .rule { width: 74px; height: 2px; background: var(--gold-deep); margin: 18px auto 0; border-radius: 2px; }
+
+  /* ---------- The letter ---------- */
+  .letter {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .letter p { font-size: 18.5px; line-height: 1.75; }
+  .letter p + p { margin-top: 18px; }
+  .letter .sign { margin-top: 26px; font-size: 20px; }
+
+  /* ---------- Parchment frames ---------- */
+  .frame {
+    background: var(--parchment);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(12px, 3vw, 30px);
+    box-shadow: 0 20px 48px rgba(0,0,0,.42);
+  }
+  .frame.film { max-width: 430px; margin: 0 auto; }
+  .film-embed { border: 1px solid #E4D9B8; border-radius: 8px; overflow: hidden; background: #000; }
+  .film-embed iframe { width: 100%; aspect-ratio: 9 / 16; border: 0; display: block; }
+  .board-link { margin-top: 22px; text-align: center; font-style: italic; font-size: 18.5px; }
+  .board-link a { color: var(--gold-bright); text-decoration: none; }
+  .board-link a:hover { text-decoration: underline; }
+
+  /* ---------- Plain prose (the wall, the steps) ---------- */
+  .standing { max-width: 800px; margin: 0 auto; }
+  .standing h3 {
+    margin-top: 34px; font-size: 24px; color: var(--gold-bright);
+  }
+  .standing h3:first-child { margin-top: 0; }
+  .standing p { margin-top: 10px; font-size: 18px; line-height: 1.7; color: var(--cream); }
+  .standing ul { margin-top: 12px; list-style: none; }
+  .standing li {
+    padding: 10px 0 10px 22px; position: relative;
+    font-size: 17.5px; border-bottom: 1px solid var(--green-700);
+  }
+  .standing li:last-child { border-bottom: none; }
+  .standing li::before {
+    content: ""; position: absolute; left: 2px; top: 21px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+  }
+  .standing li strong { color: var(--gold-bright); }
+  .standing .heart {
+    margin-top: 40px; text-align: center; font-size: 21px; font-style: italic; color: var(--cream);
+  }
+  .wall-link { margin-top: 30px; text-align: center; font-style: italic; font-size: 18.5px; }
+  .wall-link a { color: var(--gold-bright); text-decoration: none; }
+  .wall-link a:hover { text-decoration: underline; }
+
+  /* ---------- Closing ---------- */
+  .closing { margin-top: 96px; text-align: center; }
+  .closing .f-emblem { width: 74px; height: auto; background: #fff; border-radius: 12px; padding: 5px 7px; }
+  .closing .prepared { margin-top: 16px; font-size: 16.5px; color: var(--muted-d); }
+  footer { margin-top: 34px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer p { font-size: 15px; color: var(--muted-d); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .plate, section.movement, .closing { animation: rise .7s ease-out both; }
+    section.movement:nth-of-type(2) { animation-delay: .05s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="plate">
+    <div class="emblem-tile">
+      <img src="assets/emblem.png" alt="The TruVINE emblem — a green vine cross inside a blue triangle" width="780" height="551">
+    </div>
+    <p class="overline">TruVINE · A Note From Jason</p>
+    <h1 class="serif">For Mom</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="invitation serif">&ldquo;Before our little invitation film goes out to the whole world, I wanted its first invitations to go to family.&rdquo;</p>
+    <p class="invitation-by">Family first — yours belongs up front</p>
+  </header>
+
+  <main id="main">
+
+    <section class="movement" aria-labelledby="letter-h">
+      <div class="sec-head">
+        <p class="kicker">First</p>
+        <h2 id="letter-h" class="serif">The Note</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="letter">
+        <p>Mom — we've built a Family Wall for TruVINE, a place where the flock can take their place with the family, and before our little invitation film goes out to the whole world, I wanted its first invitations to go to family.</p>
+        <p>You're the one who raised me, and none of this would be standing without you — so yours belongs right up front.</p>
+        <p>There are three doors and none of them is lesser: a photo on the wall, just your name on the roll, or the quiet door — anonymous, counted, and held in prayer exactly the same. There's no pressure and no wrong answer, and whatever you pick can change any time; just say so.</p>
+        <p>And like Jude's movie, you get to see the film before the world does. I wanted you to have it first.</p>
+        <p class="sign">— Jason</p>
+      </div>
+    </section>
+
+    <section class="movement" aria-labelledby="film-h">
+      <div class="sec-head">
+        <p class="kicker">The Invitation</p>
+        <h2 id="film-h" class="serif">The Film</h2>
+        <p class="sub">This is the film that will do the inviting — you get to see it before the world does.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="frame film">
+        <div class="film-embed">
+          <iframe src="https://www.youtube-nocookie.com/embed/_hOZ906A5gY" title="The Door Is Open — The TruVINE Family Wall: the short film that will invite the world to the Family Wall" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+      <p class="board-link serif">If the film doesn&rsquo;t load here, <a href="https://youtu.be/_hOZ906A5gY">watch &ldquo;The Door Is Open&rdquo; on YouTube</a> — it&rsquo;s unlisted, so only someone with the link can see it.</p>
+    </section>
+
+    <section class="movement" aria-labelledby="wall-h">
+      <div class="sec-head">
+        <p class="kicker">What It Is</p>
+        <h2 id="wall-h" class="serif">The Family Wall</h2>
+        <p class="sub">The flock&rsquo;s wall — and its three doors.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="standing">
+        <p>The Family Wall is a page of ours where the TruVINE family hangs together — the faces and names of folks from all over God&rsquo;s earth who watch the films, read the Word with us, and belong here. Jesus said He has other sheep, and He must bring them too, until there&rsquo;s one flock with one Shepherd. This wall is our little way of making room for that flock.</p>
+        <p>Counting the flock is good, and we count it carefully. But a family isn&rsquo;t a number — a family has faces, and names, and room at the table. So we built a wall with room, and it stands empty until real people say yes. No made-up faces, no strangers borrowed for decoration — an honest wall, waiting.</p>
+
+        <h3 class="serif">The Three Doors — None of Them Lesser</h3>
+        <ul>
+          <li><strong>Door One — your photo on the wall.</strong> Your face hangs with the family, under the name you choose — your own picture as it is, or farm-style artwork made from it, in the form you choose.</li>
+          <li><strong>Door Two — your name on the roll.</strong> Counted and named, with no face shown. Some folks are private; private is honored here.</li>
+          <li><strong>Door Three — the quiet door.</strong> No name, no face, nothing public at all. You&rsquo;re counted by the Shepherd, loved exactly as much, and held in prayer. Anonymous is not absent — anonymous is family, kept safe.</li>
+        </ul>
+        <p>None of the doors locks. Whatever you pick can change at any time, in either direction — one word from you, and it&rsquo;s done, no questions asked. And joining is never a form that disappears into a computer: it&rsquo;s a letter, and Jason reads every single letter himself.</p>
+        <p class="wall-link serif"><a href="https://jnutt367.github.io/truvine/family-wall/">See the Family Wall for yourself — the wall, the three doors, and the promises in full →</a></p>
+      </div>
+    </section>
+
+    <section class="movement" aria-labelledby="yes-h">
+      <div class="sec-head">
+        <p class="kicker">What Happens Next</p>
+        <h2 id="yes-h" class="serif">If You Say Yes</h2>
+        <p class="sub">Plain steps, at your pace.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="standing">
+        <ul>
+          <li><strong>You pick a door</strong> — whichever one feels right to you: the photo, the name, or the quiet door.</li>
+          <li><strong>If you pick the photo door, you choose the picture</strong> — one of you that you like, that you&rsquo;re happy to have hang.</li>
+          <li><strong>Farm-style artwork may be made from it — and nothing hangs until you approve it.</strong> You see the artwork with your own eyes first, and only your yes puts it on the wall.</li>
+          <li><strong>Then Jason hangs the family himself</strong> — family up front, before the film ever invites the world.</li>
+        </ul>
+        <p>And if you&rsquo;d rather not — that&rsquo;s a complete answer too, and it changes nothing. There&rsquo;s no wrong answer here.</p>
+        <p class="heart serif">Family first — and yours belongs right up front.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="closing">
+    <img class="f-emblem" src="assets/emblem.png" alt="" width="780" height="551">
+    <p class="prepared">Prepared for Mom — take all the time you want.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Jason Nutt · TruVINE — All rights reserved.</p>
+  </footer>
+</div>
+</body>
+</html>
