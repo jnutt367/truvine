@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet the Cast of Mark — The TruVINE Studio</title>
+<meta name="description" content="Meet the cast of TruVINE's animated Gospel of Mark: one cast of characters drawn once, kept true, and brought to life by hand while Grandpa Teddy reads the Word of God word for word.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@600;800&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px 64px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; padding: 30px 0 6px; }
+  .emblem-tile {
+    background: #FFFFFF; border: 3px solid var(--gold-deep); border-radius: 18px;
+    padding: 8px 12px; flex: 0 0 auto;
+  }
+  .emblem-tile img { width: 104px; height: auto; display: block; }
+  .masthead .titles { flex: 1 1 340px; min-width: 260px; }
+  .overline {
+    font-size: 13px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .masthead h1 { margin-top: 4px; font-size: 44px; line-height: 1.1; font-weight: 800; color: var(--cream); }
+  .masthead .declaration { margin-top: 8px; font-size: 18px; font-weight: 600; color: var(--muted-d); max-width: 34em; }
+  .masthead .declaration strong { color: var(--gold-bright); font-weight: 800; }
+  .topnav { display: flex; gap: 8px 22px; flex-wrap: wrap; margin-top: 18px; padding-top: 14px; border-top: 2px solid var(--green-700); }
+  .topnav a { font-weight: 700; font-size: 15.5px; text-decoration: none; color: var(--cream); }
+  .topnav a:hover { color: var(--gold-bright); text-decoration: underline; }
+
+  /* ---------- Hero ---------- */
+  .hero { margin-top: 26px; }
+  .hero figure {
+    border: 3px solid var(--gold-deep); border-radius: 20px; overflow: hidden;
+    background: var(--green-900);
+  }
+  .hero img { width: 100%; height: auto; display: block; }
+  .hero figcaption {
+    padding: 10px 16px; font-size: 14.5px; color: var(--muted-d); background: var(--green-900);
+  }
+  .epigraph {
+    margin-top: 26px; text-align: center; font-size: 24px; line-height: 1.45;
+    color: var(--cream); font-style: italic;
+  }
+  .epigraph .ref { display: block; margin-top: 6px; font-size: 15px; font-style: normal; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .why {
+    margin: 26px auto 0; max-width: 46em; font-size: 18.5px; line-height: 1.65; color: var(--cream);
+  }
+  .why strong { color: var(--gold-bright); }
+
+  /* ---------- Panels ---------- */
+  section.panel { margin-top: 56px; }
+  .panel-head { border-bottom: 2px solid var(--gold-deep); padding-bottom: 10px; margin-bottom: 10px; }
+  .panel-head h2 { font-size: 27px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cream); }
+  .panel-head .note { margin-top: 4px; font-size: 16.5px; color: var(--muted-d); max-width: 52em; }
+  .panel-body { font-size: 17.5px; line-height: 1.65; color: var(--cream); max-width: 52em; }
+  .panel-body + .panel-body { margin-top: 12px; }
+
+  /* ---------- Cast cards ---------- */
+  .cast-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px; margin-top: 24px;
+  }
+  .card {
+    background: var(--parchment); color: var(--ink); border-radius: 18px; overflow: hidden;
+    border: 2px solid var(--gold-deep); display: flex; flex-direction: column;
+  }
+  .card img { width: 100%; height: auto; display: block; }
+  .card .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card h3 { font-size: 24px; line-height: 1.2; color: var(--green-900); }
+  .card .who { font-size: 16.5px; line-height: 1.55; font-weight: 600; }
+  .card .moment { font-size: 16px; line-height: 1.55; color: var(--muted-l); }
+  .card .moment .m-label {
+    display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
+    text-transform: uppercase; color: var(--gold-deep); margin-right: 6px;
+  }
+  .card blockquote {
+    margin-top: auto; border-left: 4px solid var(--gold-deep); padding: 4px 0 4px 12px;
+    font-size: 16.5px; line-height: 1.5; font-style: italic; color: var(--green-900);
+  }
+  .card blockquote .ref {
+    display: block; margin-top: 4px; font-size: 13px; font-style: normal; font-weight: 800;
+    letter-spacing: 1.6px; text-transform: uppercase; color: var(--gold-deep);
+  }
+
+  /* ---------- Steps ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 24px; }
+  .step {
+    background: var(--green-800); border: 2px solid var(--green-700); border-radius: 18px; padding: 22px;
+  }
+  .step .num {
+    display: inline-block; background: var(--gold); color: var(--green-950);
+    font-weight: 800; font-size: 15px; padding: 4px 14px; border-radius: 999px; letter-spacing: 1px;
+  }
+  .step h3 { margin-top: 12px; font-size: 22px; color: var(--cream); }
+  .step p { margin-top: 8px; font-size: 16.5px; line-height: 1.6; color: var(--muted-d); }
+
+  /* ---------- Crew door ---------- */
+  .door {
+    margin-top: 24px; background: var(--green-800); border: 3px solid var(--gold-deep);
+    border-radius: 20px; padding: 30px 28px; text-align: center;
+  }
+  .door h3 { font-size: 27px; color: var(--cream); }
+  .door p { margin: 12px auto 0; max-width: 42em; font-size: 17.5px; line-height: 1.65; color: var(--muted-d); }
+  .door .btn {
+    display: inline-block; margin-top: 22px; background: var(--gold); color: var(--green-950);
+    font-weight: 800; font-size: 18px; text-decoration: none; padding: 14px 30px; border-radius: 999px;
+  }
+  .door .btn:hover { background: var(--gold-bright); }
+  .door .fineprint { margin-top: 16px; font-size: 14.5px; color: var(--muted-d); }
+
+  /* ---------- Footer ---------- */
+  footer { margin-top: 64px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer .f-emblem { width: 64px; height: auto; background: #fff; border-radius: 10px; padding: 4px 6px; }
+  footer p { margin-top: 10px; font-size: 15px; color: var(--muted-d); }
+  footer .f-links { margin-top: 8px; display: flex; gap: 8px 24px; justify-content: center; flex-wrap: wrap; }
+  footer .f-links a { font-weight: 700; text-decoration: none; }
+  footer .f-links a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .masthead h1 { font-size: 34px; }
+    .epigraph { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="emblem-tile">
+      <img src="assets/emblem.png" alt="The TruVINE emblem — a green vine cross inside a blue triangle" width="780" height="551">
+    </div>
+    <div class="titles">
+      <p class="overline">The TruVINE Studio</p>
+      <h1 class="serif">Meet the Cast of Mark</h1>
+      <p class="declaration"><strong>Jesus is in this work, and He has full authority over it.</strong> Everything on this wall was prayed over first and built second.</p>
+    </div>
+    <nav class="topnav" aria-label="On this page">
+      <a href="#cast">The Cast</a>
+      <a href="#film">The Film</a>
+      <a href="#how">How We Build</a>
+      <a href="#crew-door">The Crew Door</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <figure>
+        <img src="assets/hero-baptism.jpg" alt="Jesus standing in the Jordan River just after his baptism, looking up as a white dove hovers in a shaft of sunlight above him; John the Baptist stands beside him in the water, also looking up" width="1600" height="904">
+        <figcaption>The baptism at the Jordan (Mark 1:9–11) — a frame from the film itself. The dove comes down on Jesus; John, the baptizer, stands beside Him in wonder.</figcaption>
+      </figure>
+      <p class="epigraph serif">&ldquo;The beginning of the Good News of Jesus Christ, the Son of God.&rdquo; <span class="ref">Mark 1:1 (WEB)</span></p>
+      <p class="why">Most animated films invent a new face for Jesus every time the camera turns. We did the opposite. <strong>One cast of characters was drawn once</strong> — these faces — and locked, so the same Jesus who is baptized in Mark will walk through John and Genesis after it. Every scene in every film is graded against these sheets before it is allowed to move, and the pictures are brought to life by hand while <strong>Grandpa Teddy reads the Word of God word for word</strong>. What you see below is the company of Mark chapter 1, exactly as they appear in the film.</p>
+    </div>
+
+    <section class="panel" id="cast" aria-labelledby="cast-h">
+      <div class="panel-head">
+        <h2 id="cast-h">The Cast</h2>
+        <p class="note">Portraits are taken from the locked character sheets and the film&rsquo;s own frames — never re-invented. Each card tells who they are, their moment in Mark chapter 1, and the Scripture that carries it (World English Bible).</p>
+      </div>
+      <div class="cast-grid">
+
+        <article class="card">
+          <img src="assets/cast-jesus.jpg" alt="Character portrait of Jesus from the locked Mark cast sheet — long dark hair, a full beard, a gentle expression, wearing a cream tunic and an olive mantle" width="760" height="760">
+          <div class="card-body">
+            <h3 class="serif">Jesus</h3>
+            <p class="who">The Son of God — teacher and healer, the Servant at the center of Mark&rsquo;s Gospel.</p>
+            <p class="moment"><span class="m-label">His moment</span>At the Jordan he is baptized; the heavens open, the Spirit descends on him like a dove, and the Father speaks.</p>
+            <blockquote>&ldquo;You are my beloved Son, in whom I am well pleased.&rdquo; <span class="ref">Mark 1:11</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-john-baptist.jpg" alt="Character portrait of John the Baptist from the locked Mark cast sheet — wild dark hair and beard, a weathered face, wearing camel hair with a leather belt" width="760" height="760">
+          <div class="card-body">
+            <h3 class="serif">John the Baptist</h3>
+            <p class="who">The voice of one crying in the wilderness, sent to make the way ready for the Lord.</p>
+            <p class="moment"><span class="m-label">His moment</span>Clothed in camel&rsquo;s hair at the Jordan, he preaches repentance, baptizes Jesus, and points beyond himself.</p>
+            <blockquote>&ldquo;I baptized you in water, but he will baptize you in the Holy Spirit.&rdquo; <span class="ref">Mark 1:8</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-peter.jpg" alt="Character portrait of Simon Peter from the locked Mark cast sheet — curly dark hair, a short beard touched with gray, a warm and earnest expression, wearing a plain fisherman's tunic" width="760" height="760">
+          <div class="card-body">
+            <h3 class="serif">Simon Peter</h3>
+            <p class="who">A Galilean fisherman — bold and quick to follow, the first name whenever the twelve are listed.</p>
+            <p class="moment"><span class="m-label">His moment</span>Casting his net into the sea when Jesus called — he left his nets and followed, and his home in Capernaum became Jesus&rsquo; base.</p>
+            <blockquote>&ldquo;Come after me, and I will make you into fishers for men.&rdquo; <span class="ref">Mark 1:17</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-andrew.jpg" alt="Character portrait of Andrew from the locked Mark cast sheet — wavy dark hair, light stubble, a bright open smile, wearing a plain fisherman's tunic" width="760" height="760">
+          <div class="card-body">
+            <h3 class="serif">Andrew</h3>
+            <p class="who">Simon&rsquo;s brother and fishing partner, called in the same hour on the same shore.</p>
+            <p class="moment"><span class="m-label">His moment</span>At work beside his brother on the Sea of Galilee when Jesus passed by and called them both.</p>
+            <blockquote>&ldquo;&hellip;he saw Simon and Andrew the brother of Simon casting a net into the sea, for they were fishermen.&rdquo; <span class="ref">Mark 1:16</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-james.jpg" alt="Character portrait of James, son of Zebedee, from the locked Mark cast sheet — thick curly dark hair and a heavy beard, a strong and serious expression, wearing a fisherman's tunic" width="760" height="760">
+          <div class="card-body">
+            <h3 class="serif">James</h3>
+            <p class="who">Son of Zebedee, a fisherman of the same shore, called with his brother John.</p>
+            <p class="moment"><span class="m-label">His moment</span>In the boat with his father, mending the nets, when Jesus called — and he went.</p>
+            <blockquote>&ldquo;&hellip;he saw James the son of Zebedee, and John, his brother, who were also in the boat mending the nets.&rdquo; <span class="ref">Mark 1:19</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-john-apostle.jpg" alt="Character portrait of John the apostle from the locked Mark cast sheet — a young man with long wavy dark hair and no beard, a gentle expression, wearing a clean light tunic" width="760" height="760">
+          <div class="card-body">
+            <h3 class="serif">John</h3>
+            <p class="who">James&rsquo;s younger brother, the other son of Zebedee — among the first to follow.</p>
+            <p class="moment"><span class="m-label">His moment</span>Called beside his brother, he left his father in the boat and went after Jesus.</p>
+            <blockquote>&ldquo;&hellip;they left their father, Zebedee, in the boat with the hired servants, and went after him.&rdquo; <span class="ref">Mark 1:20</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-man-set-free.jpg" alt="Film frame: the man set free, seated calm and whole on a synagogue bench in a shaft of light, the congregation looking on in amazement" width="700" height="689">
+          <div class="card-body">
+            <h3 class="serif">The Man Set Free</h3>
+            <p class="who">A man bound by an unclean spirit, whom Jesus met in the synagogue at Capernaum.</p>
+            <p class="moment"><span class="m-label">His moment</span>He cried out among the congregation — and at Jesus&rsquo; word the spirit came out of him, and he sat free while everyone marveled.</p>
+            <blockquote>&ldquo;Be quiet, and come out of him!&rdquo; <span class="ref">Mark 1:25</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-mother-in-law.jpg" alt="Film frame: Peter's mother-in-law seated up in bed, the fever gone, holding Jesus' hand as he raises her up" width="700" height="758">
+          <div class="card-body">
+            <h3 class="serif">Peter&rsquo;s Mother-in-Law</h3>
+            <p class="who">Simon&rsquo;s wife&rsquo;s mother, lying sick with a fever in the house at Capernaum.</p>
+            <p class="moment"><span class="m-label">Her moment</span>Jesus took her by the hand and raised her up — the fever left her, and she rose and served them.</p>
+            <blockquote>&ldquo;He came and took her by the hand, and raised her up. The fever left her, and she served them.&rdquo; <span class="ref">Mark 1:31</span></blockquote>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="assets/cast-healed-leper.jpg" alt="Film frame: the healed leper, tears of gratitude on his face, his hands raised open as he looks at his cleansed skin" width="700" height="879">
+          <div class="card-body">
+            <h3 class="serif">The Healed Leper</h3>
+            <p class="who">A man with leprosy who came to Jesus kneeling, believing he could be made clean.</p>
+            <p class="moment"><span class="m-label">His moment</span>Moved with compassion, Jesus stretched out his hand and touched him — and immediately the leprosy departed.</p>
+            <blockquote>&ldquo;If you want to, you can make me clean.&rdquo; <span class="ref">Mark 1:40</span></blockquote>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="panel" id="film" aria-labelledby="film-h">
+      <div class="panel-head">
+        <h2 id="film-h">The Film</h2>
+      </div>
+      <p class="panel-body">The first film from this cast is <strong>The Gospel of Mark, chapter 1</strong> — the whole chapter, told scene by scene in the places it happened: the Jordan, the wilderness, the Sea of Galilee, the synagogue and the house at Capernaum. Grandpa Teddy narrates the chapter word for word; no character&rsquo;s lines are invented, and nothing appears on screen that the text does not say.</p>
+      <p class="panel-body"><strong>Where it stands:</strong> the film is built and is in final review. Nothing from this studio is published until it has been watched, tested against Scripture, and blessed — we would rather hold a film than hurry one. When it is released, it will appear on the TruVINE channel, and the same cast will carry on into John and Genesis.</p>
+    </section>
+
+    <section class="panel" id="how" aria-labelledby="how-h">
+      <div class="panel-head">
+        <h2 id="how-h">How We Build</h2>
+        <p class="note">Three steps, in order, every time. Plainly put: the picture obeys the Word — never the other way around.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">Step 1</span>
+          <h3 class="serif">The Sheet</h3>
+          <p>The cast is drawn once and locked. These character sheets are the standard for every film that follows — a face, once crowned, is never re-invented.</p>
+        </div>
+        <div class="step">
+          <span class="num">Step 2</span>
+          <h3 class="serif">The Crown</h3>
+          <p>Every scene begins as still pictures, composed against the text of Scripture. Jason reviews and crowns the true ones; only crowned stills may move.</p>
+        </div>
+        <div class="step">
+          <span class="num">Step 3</span>
+          <h3 class="serif">The Desk</h3>
+          <p>At the animation desk, crowned stills are layered and moved by hand — light breathing, water shimmering, mist passing. Almost no AI video is used; the motion stays exactly where we put it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="crew-door" aria-labelledby="door-h">
+      <div class="panel-head">
+        <h2 id="door-h">The Crew Door</h2>
+      </div>
+      <div class="door">
+        <h3 class="serif">Build with us?</h3>
+        <p>This studio is small, and the work is prayed over more than it is hurried. If the Lord puts it on your heart to build with us — grading stills, checking captions, praying over production nights, lending your eyes to a thumbnail — raise your hand with a letter. Tell us who you are and where your heart is in the work.</p>
+        <a class="btn" href="mailto:jnutt367@gmail.com?subject=Raising%20my%20hand%20%E2%80%94%20the%20TruVINE%20crew&amp;body=Hello%20Jason%2C%0A%0AMy%20name%20is%20%0A%0AThe%20part%20of%20the%20work%20on%20my%20heart%20is%20%0A%0A">Raise your hand — write a letter</a>
+        <p class="fineprint">Letters arrive in Jason&rsquo;s own inbox and are read by a person. There are no sign-ups, no accounts, and no lists — just a door, and a welcome on the other side of it.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img class="f-emblem" src="assets/emblem.png" alt="" width="780" height="551">
+    <p>TruVINE — telling the story well, one chapter at a time.</p>
+    <div class="f-links">
+      <a href="https://www.youtube.com/@TruVINE365">TruVINE on YouTube</a>
+      <a href="../family-wall/">The Family Wall</a>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

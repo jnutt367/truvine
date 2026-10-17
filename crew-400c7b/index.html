@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Crew Room — The TruVINE Studio</title>
+<meta name="description" content="The working room of the TruVINE studio crew: the production board, the standards we build by, open ways to serve, and the crew roll.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@600;800&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px; }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px 64px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; padding: 30px 0 6px; }
+  .emblem-tile {
+    background: #FFFFFF; border: 3px solid var(--gold-deep); border-radius: 18px;
+    padding: 8px 12px; flex: 0 0 auto;
+  }
+  .emblem-tile img { width: 104px; height: auto; display: block; }
+  .masthead .titles { flex: 1 1 340px; min-width: 260px; }
+  .overline {
+    font-size: 13px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .masthead h1 { margin-top: 4px; font-size: 42px; line-height: 1.1; font-weight: 800; color: var(--cream); }
+  .masthead .sub { margin-top: 8px; font-size: 17.5px; font-weight: 600; color: var(--muted-d); max-width: 36em; }
+  .quiet-note {
+    margin-top: 22px; background: var(--green-800); border: 2px solid var(--green-700);
+    border-left: 6px solid var(--gold-deep); border-radius: 12px; padding: 14px 18px;
+    font-size: 16px; color: var(--muted-d); max-width: 52em;
+  }
+  .quiet-note strong { color: var(--cream); }
+
+  /* ---------- Panels ---------- */
+  section.panel { margin-top: 52px; }
+  .panel-head { border-bottom: 2px solid var(--gold-deep); padding-bottom: 10px; margin-bottom: 16px; }
+  .panel-head h2 { font-size: 26px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cream); }
+  .panel-head .note { margin-top: 4px; font-size: 16.5px; color: var(--muted-d); max-width: 52em; }
+
+  .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .job {
+    background: var(--parchment); color: var(--ink); border: 2px solid var(--gold-deep);
+    border-radius: 16px; padding: 20px;
+  }
+  .job h3 { font-size: 21px; color: var(--green-900); line-height: 1.25; }
+  .job .state {
+    display: inline-block; margin-top: 10px; background: var(--green-800); color: var(--gold-bright);
+    font-size: 13px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .job p { margin-top: 10px; font-size: 16px; line-height: 1.55; color: var(--muted-l); }
+
+  ul.standards { list-style: none; display: grid; gap: 12px; max-width: 56em; }
+  ul.standards li {
+    background: var(--green-800); border: 2px solid var(--green-700); border-radius: 14px;
+    padding: 14px 18px; font-size: 16.5px; line-height: 1.55; color: var(--muted-d);
+  }
+  ul.standards li strong { color: var(--cream); }
+
+  .needs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .need {
+    background: var(--green-800); border: 2px solid var(--green-700); border-radius: 16px; padding: 20px;
+  }
+  .need h3 { font-size: 20px; color: var(--gold-bright); }
+  .need p { margin-top: 8px; font-size: 16px; line-height: 1.55; color: var(--muted-d); }
+  .serve-note { margin-top: 18px; font-size: 16.5px; color: var(--muted-d); max-width: 52em; }
+
+  table.roll { width: 100%; border-collapse: collapse; background: var(--parchment); border-radius: 16px; overflow: hidden; }
+  table.roll caption { text-align: left; font-size: 16.5px; color: var(--muted-d); padding-bottom: 10px; }
+  table.roll th, table.roll td { text-align: left; padding: 14px 18px; font-size: 16.5px; color: var(--ink); }
+  table.roll thead th { background: var(--green-800); color: var(--cream); font-size: 14px; letter-spacing: 1.4px; text-transform: uppercase; }
+  table.roll tbody tr + tr td { border-top: 1px solid #E3D9BC; }
+  table.roll .seat-name { font-weight: 700; color: var(--green-900); }
+  table.roll .unnamed { color: var(--muted-l); font-style: italic; }
+
+  footer { margin-top: 64px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer p { margin-top: 10px; font-size: 15px; color: var(--muted-d); }
+  footer .f-links { margin-top: 8px; display: flex; gap: 8px 24px; justify-content: center; flex-wrap: wrap; }
+  footer .f-links a { font-weight: 700; text-decoration: none; }
+  footer .f-links a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) { .masthead h1 { font-size: 33px; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="emblem-tile">
+      <img src="../cast/assets/emblem.png" alt="The TruVINE emblem — a green vine cross inside a blue triangle" width="780" height="551">
+    </div>
+    <div class="titles">
+      <p class="overline">The TruVINE Studio</p>
+      <h1 class="serif">The Crew Room</h1>
+      <p class="sub">The working room of the crew: what&rsquo;s in production, the standards we build by, and the seats at the table. <strong style="color: var(--gold-bright);">Jesus has full authority over all of it.</strong></p>
+    </div>
+  </header>
+
+  <p class="quiet-note"><strong>A quiet door, kept honestly:</strong> this room is shared hand-to-hand with the crew and isn&rsquo;t linked from the public wall — if you&rsquo;re reading it, someone who loves this work handed you the address. Treat it the way you&rsquo;d treat a friend&rsquo;s workshop: come in welcome, and let what&rsquo;s shared here travel only as its owners desire.</p>
+
+  <main id="main">
+    <section class="panel" aria-labelledby="board-h">
+      <div class="panel-head">
+        <h2 id="board-h">Production Board</h2>
+        <p class="note">States only, kept current as the work moves. Nothing here is a promise of a date — the shepherd&rsquo;s review sets the pace.</p>
+      </div>
+      <div class="board">
+        <article class="job">
+          <h3 class="serif">The Gospel of Mark — Chapter 1</h3>
+          <span class="state">Built · In final review</span>
+          <p>The full chapter animated from the locked cast. A polish pass (v11b) is in production alongside the review. Nothing publishes until Jason has watched and blessed it.</p>
+        </article>
+        <article class="job">
+          <h3 class="serif">Daily Encouragement</h3>
+          <span class="state">In review</span>
+          <p>The Romans 8:28 episode — &ldquo;Nothing Is Wasted&rdquo; — is built and in review. New verses are worked the same way: the word first, the picture obedient to it.</p>
+        </article>
+        <article class="job">
+          <h3 class="serif">Next in order</h3>
+          <span class="state">As the shepherd directs</span>
+          <p>The same cast carries on through the Gospel of John, then Genesis — each book&rsquo;s chapter audio and overview produced together, in order, as the shepherd directs.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="standards-h">
+      <div class="panel-head">
+        <h2 id="standards-h">The Standards</h2>
+        <p class="note">The whole rulebook, in plain speech. If a piece of work can&rsquo;t pass these, it doesn&rsquo;t ship — no matter how beautiful it is.</p>
+      </div>
+      <ul class="standards">
+        <li><strong>Scripture is the test.</strong> Every scene, event, and detail is verified against the Word before it is built — and the narration is Grandpa Teddy reading that Word word for word. Teddy is the only voice; no character&rsquo;s lines are invented.</li>
+        <li><strong>The cast comes from the sheets, always.</strong> Every figure is taken from the locked character sheets. A face once crowned is never re-invented, and no footage from outside the canon supplies a face or a body.</li>
+        <li><strong>Jason crowns before anything moves.</strong> Every scene begins as stills. The true ones are crowned; the rest are rebuilt. Animation is crown-gated, and stills are never rationed when the story needs more of them.</li>
+        <li><strong>Desk animation first.</strong> Crowned stills are layered and moved by hand — light, water, atmosphere. AI video generation is the exception: small, named, and counted before it is spent.</li>
+        <li><strong>Sound is measured, not hoped for.</strong> Every film is normalized to &minus;16 LUFS and verified for narration sync before it is shown as final.</li>
+        <li><strong>Nothing publishes without Jason&rsquo;s review.</strong> Not to YouTube, not anywhere. A build is a candidate until the shepherd has watched it and given the word.</li>
+        <li><strong>The People Principle.</strong> A person&rsquo;s story belongs to them. Stories, names, and faces are shared only as their owners desire — asked plainly, re-asked when the use grows, and revocable. Crew are named only as they wish to be named.</li>
+      </ul>
+    </section>
+
+    <section class="panel" aria-labelledby="needs-h">
+      <div class="panel-head">
+        <h2 id="needs-h">Open Needs — Ways to Serve</h2>
+        <p class="note">Real seats, honestly described. Most are small and quiet; all of them matter.</p>
+      </div>
+      <div class="needs">
+        <article class="need">
+          <h3 class="serif">Stills graders</h3>
+          <p>Patient eyes that compare each new still against the character sheets — likeness, garments, and whether the picture says what the verse says.</p>
+        </article>
+        <article class="need">
+          <h3 class="serif">Caption checkers</h3>
+          <p>Careful readers who follow the narration against the captions and the chapter text, catching a wrong word before a viewer ever sees it.</p>
+        </article>
+        <article class="need">
+          <h3 class="serif">Prayer cover</h3>
+          <p>Intercessors who hold production nights before the Lord — the first work of this studio is prayer, and it is never the leftover work.</p>
+        </article>
+        <article class="need">
+          <h3 class="serif">Thumbnail eyes</h3>
+          <p>Honest first-glance critics: does this frame tell the truth about the video, at a glance, on a small screen? If it looks like garbage, we don&rsquo;t ship it.</p>
+        </article>
+      </div>
+      <p class="serve-note">If one of these seats has your name on it in your heart, <a href="../cast/#crew-door">raise your hand at the Crew Door on the public wall</a> and say which one — letters arrive in Jason&rsquo;s own inbox.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="roll-h">
+      <div class="panel-head">
+        <h2 id="roll-h">Crew Roll</h2>
+      </div>
+      <table class="roll">
+        <caption>By the People Principle, the roll names only those who desire to be named. Seats are real whether or not a name is written beside them yet.</caption>
+        <thead>
+          <tr><th scope="col">Seat</th><th scope="col">Name</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shepherd &amp; Director</td><td class="seat-name">Jason Nutt</td></tr>
+          <tr><td>Stills graders</td><td class="unnamed">(name added as they desire)</td></tr>
+          <tr><td>Caption checkers</td><td class="unnamed">(name added as they desire)</td></tr>
+          <tr><td>Prayer cover</td><td class="unnamed">(name added as they desire)</td></tr>
+          <tr><td>Thumbnail eyes</td><td class="unnamed">(name added as they desire)</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>TruVINE — telling the story well, one chapter at a time.</p>
+    <div class="f-links">
+      <a href="../cast/">Meet the Cast of Mark (public wall)</a>
+      <a href="../family-wall/">The Family Wall</a>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
