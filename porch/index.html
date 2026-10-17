@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Front Porch · TruVINE</title>
+<meta name="description" content="The front porch of the TruVINE farmhouse: every public page of the family's work, hung in one place — the Family Wall, the cast of the Gospel films, the Field Report, the Bible in Grandpa Teddy's voice, the store, and the channel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@600;800&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px 64px; }
+
+  /* ---------- Masthead ---------- */
+  .masthead { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; padding: 30px 0 6px; }
+  .emblem-tile {
+    background: #FFFFFF; border: 3px solid var(--gold-deep); border-radius: 18px;
+    padding: 8px 12px; flex: 0 0 auto;
+  }
+  .emblem-tile img { width: 104px; height: auto; display: block; }
+  .masthead .titles { flex: 1 1 340px; min-width: 260px; }
+  .overline {
+    font-size: 13px; font-weight: 800; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .masthead h1 { margin-top: 4px; font-size: 44px; line-height: 1.1; font-weight: 800; color: var(--cream); }
+  .masthead .declaration { margin-top: 8px; font-size: 18px; font-weight: 600; color: var(--muted-d); max-width: 34em; }
+  .masthead .declaration strong { color: var(--gold-bright); font-weight: 800; }
+  .topnav { display: flex; gap: 8px 22px; flex-wrap: wrap; margin-top: 18px; padding-top: 14px; border-top: 2px solid var(--green-700); }
+  .topnav a { font-weight: 700; font-size: 15.5px; text-decoration: none; color: var(--cream); }
+  .topnav a:hover { color: var(--gold-bright); text-decoration: underline; }
+
+  /* ---------- Hero ---------- */
+  .hero { margin-top: 26px; }
+  .hero figure {
+    border: 3px solid var(--gold-deep); border-radius: 20px; overflow: hidden;
+    background: var(--green-900);
+  }
+  .hero img { width: 100%; height: auto; display: block; }
+  .hero figcaption {
+    padding: 10px 16px; font-size: 14.5px; color: var(--muted-d); background: var(--green-900);
+  }
+  .why {
+    margin: 26px auto 0; max-width: 46em; font-size: 18.5px; line-height: 1.65; color: var(--cream);
+  }
+  .why strong { color: var(--gold-bright); }
+
+  /* ---------- Panels ---------- */
+  section.panel { margin-top: 56px; }
+  .panel-head { border-bottom: 2px solid var(--gold-deep); padding-bottom: 10px; margin-bottom: 10px; }
+  .panel-head h2 { font-size: 27px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cream); }
+  .panel-head .note { margin-top: 4px; font-size: 16.5px; color: var(--muted-d); max-width: 52em; }
+
+  /* ---------- Hangings (framed cards on the rail) ---------- */
+  .rail {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px; margin-top: 24px;
+  }
+  .frame {
+    background: var(--parchment); color: var(--ink); border-radius: 18px;
+    border: 3px solid var(--gold-deep); padding: 22px 22px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+    box-shadow: inset 0 0 0 3px var(--parchment), inset 0 0 0 5px #E4D193;
+  }
+  .frame .nail {
+    width: 12px; height: 12px; border-radius: 50%; margin: 0 auto;
+    background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold-deep));
+  }
+  .frame h3 { font-size: 24px; line-height: 1.2; text-align: center; }
+  .frame h3 a { color: var(--green-900); text-decoration: none; }
+  .frame h3 a:hover { color: var(--gold-deep); text-decoration: underline; }
+  .frame .what { font-size: 16.5px; line-height: 1.55; text-align: center; color: var(--muted-l); flex: 1; }
+  .frame .go {
+    text-align: center; font-weight: 800; font-size: 15px;
+    letter-spacing: 1.6px; text-transform: uppercase;
+  }
+  .frame .go a { color: var(--gold-deep); text-decoration: none; }
+  .frame .go a:hover { text-decoration: underline; }
+
+  /* ---------- Closing ---------- */
+  .closing {
+    margin-top: 56px; text-align: center; font-size: 24px; line-height: 1.45;
+    color: var(--cream); font-style: italic;
+  }
+
+  /* ---------- Footer ---------- */
+  footer { margin-top: 64px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer .f-emblem { width: 64px; height: auto; background: #fff; border-radius: 10px; padding: 4px 6px; }
+  footer p { margin-top: 10px; font-size: 15px; color: var(--muted-d); }
+  footer .f-links { margin-top: 8px; display: flex; gap: 8px 24px; justify-content: center; flex-wrap: wrap; }
+  footer .f-links a { font-weight: 700; text-decoration: none; }
+  footer .f-links a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .masthead h1 { font-size: 34px; }
+    .closing { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="emblem-tile">
+      <img src="assets/emblem.png" alt="The TruVINE emblem — a green vine cross inside a blue triangle" width="780" height="551">
+    </div>
+    <div class="titles">
+      <p class="overline">TruVINE</p>
+      <h1 class="serif">The Front Porch</h1>
+      <p class="declaration"><strong>Jesus is in this work, and He has full authority over it.</strong> Everything hung here was prayed over first and built second.</p>
+    </div>
+    <nav class="topnav" aria-label="On this page">
+      <a href="#rail">Hung on the Rail</a>
+      <a href="https://jnutt367.github.io/truvine/family-wall/">The Family Wall</a>
+      <a href="https://jnutt367.github.io/truvine/cast/">Meet the Cast</a>
+      <a href="https://jnutt367.github.io/truvine/field-report/">The Field Report</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <figure>
+        <img src="assets/hero-porch.jpg" alt="Grandpa Teddy standing on the farmhouse front porch at golden hour, smiling with his eyes closed and one hand raised in a wave of welcome; the wooden porch rail, hanging lanterns, and potted flowers are beside him, and the vineyard rolls away behind him toward the setting sun" width="1600" height="900">
+        <figcaption>Grandpa Teddy on the farmhouse porch, waving you in — a still from the family&rsquo;s own films.</figcaption>
+      </figure>
+      <p class="why">Every farmhouse has a front porch — the place where the family gathers, where news is shared, and where anything worth showing the neighbors gets hung up for all to see. This is ours. <strong>The public rundown lives on the porch:</strong> everything this family makes for the public — the wall, the cast, the reports, the reading — hangs here in one place, framed on the rail. If it isn&rsquo;t public, it isn&rsquo;t hung here. Pull up a chair.</p>
+    </div>
+
+    <section class="panel" id="rail" aria-labelledby="rail-h">
+      <div class="panel-head">
+        <h2 id="rail-h">Hung on the Rail</h2>
+        <p class="note">Six frames, hung in the open. Each one is a door into a room of the house — take them in any order you like.</p>
+      </div>
+      <div class="rail">
+
+        <article class="frame">
+          <div class="nail" aria-hidden="true"></div>
+          <h3 class="serif"><a href="https://jnutt367.github.io/truvine/family-wall/">The Family Wall</a></h3>
+          <p class="what">The roll of the family — add your name, your photo, your prayer.</p>
+          <p class="go"><a href="https://jnutt367.github.io/truvine/family-wall/">Visit the Wall</a></p>
+        </article>
+
+        <article class="frame">
+          <div class="nail" aria-hidden="true"></div>
+          <h3 class="serif"><a href="https://jnutt367.github.io/truvine/cast/">Meet the Cast — The Studio</a></h3>
+          <p class="what">The public rundown: the cast of the Gospel films, and how we build.</p>
+          <p class="go"><a href="https://jnutt367.github.io/truvine/cast/">Meet the Cast</a></p>
+        </article>
+
+        <article class="frame">
+          <div class="nail" aria-hidden="true"></div>
+          <h3 class="serif"><a href="https://jnutt367.github.io/truvine/field-report/">The Field Report</a></h3>
+          <p class="what">The garden report: what the Lord is growing, in plain numbers.</p>
+          <p class="go"><a href="https://jnutt367.github.io/truvine/field-report/">Read the Report</a></p>
+        </article>
+
+        <article class="frame">
+          <div class="nail" aria-hidden="true"></div>
+          <h3 class="serif"><a href="https://word-of-god-risen.vercel.app/">Word of God Risen</a></h3>
+          <p class="what">Read and hear the whole Bible, in Grandpa Teddy&rsquo;s voice.</p>
+          <p class="go"><a href="https://word-of-god-risen.vercel.app/">Open the Bible</a></p>
+        </article>
+
+        <article class="frame">
+          <div class="nail" aria-hidden="true"></div>
+          <h3 class="serif"><a href="https://truvine.printify.me/">The Store</a></h3>
+          <p class="what">The stand at the gate: the family&rsquo;s goods.</p>
+          <p class="go"><a href="https://truvine.printify.me/">Visit the Store</a></p>
+        </article>
+
+        <article class="frame">
+          <div class="nail" aria-hidden="true"></div>
+          <h3 class="serif"><a href="https://www.youtube.com/@TruVINE365">The Channel</a></h3>
+          <p class="what">The films and Shorts themselves.</p>
+          <p class="go"><a href="https://www.youtube.com/@TruVINE365">Watch on YouTube</a></p>
+        </article>
+
+      </div>
+    </section>
+
+    <p class="closing serif">Everything hung here is for the family of God — come and see.</p>
+  </main>
+
+  <footer>
+    <img class="f-emblem" src="assets/emblem.png" alt="" width="780" height="551">
+    <p>TruVINE — telling the story well, one chapter at a time.</p>
+    <div class="f-links">
+      <a href="https://jnutt367.github.io/truvine/family-wall/">The Family Wall</a>
+      <a href="https://jnutt367.github.io/truvine/cast/">Meet the Cast — The Studio</a>
+      <a href="https://jnutt367.github.io/truvine/field-report/">The Field Report</a>
+      <a href="https://www.youtube.com/@TruVINE365">TruVINE on YouTube</a>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
