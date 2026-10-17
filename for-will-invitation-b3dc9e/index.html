@@ -98,6 +98,9 @@
     box-shadow: 0 20px 48px rgba(0,0,0,.42);
   }
   .frame.film { max-width: 430px; margin: 0 auto; }
+  .frame.portrait { max-width: 430px; margin: 0 auto; }
+  .frame.portrait img { width: 100%; height: auto; display: block; border-radius: 10px; }
+  .portrait-cap { margin-top: 16px; text-align: center; font-style: italic; font-size: 18.5px; color: var(--ink); }
   .film-embed { border: 1px solid #E4D9B8; border-radius: 8px; overflow: hidden; background: #000; }
   .film-embed iframe { width: 100%; aspect-ratio: 9 / 16; border: 0; display: block; }
   .board-link { margin-top: 22px; text-align: center; font-style: italic; font-size: 18.5px; }
@@ -208,6 +211,18 @@
         <p>Your place has been kept since the first night, brother. It would mean a lot to have the first sheep on the wall.</p>
         <p class="sign">— Jason</p>
       </div>
+    </section>
+
+    <section class="movement" aria-labelledby="portrait-h">
+      <div class="sec-head">
+        <p class="kicker">Made For You</p>
+        <h2 id="portrait-h" class="serif">Your Portrait</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <figure class="frame portrait">
+        <img src="assets/will-portrait.jpg" alt="Pixar-style portrait of Will — a young man with a round, full face, heavy straight dark brows, warm brown eyes, and dark wavy hair worn down — wearing his red Circle K polo with a white undershirt at the collar and grinning warmly on a wooden farmhouse porch at golden hour, with a split-rail fence, green pasture, and rolling hills behind him" width="880" height="1760">
+        <figcaption class="portrait-cap serif">Made for you, Will — the first sheep&rsquo;s portrait.</figcaption>
+      </figure>
     </section>
 
     <section class="movement" aria-labelledby="film-h">
