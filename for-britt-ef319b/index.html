@@ -110,6 +110,99 @@
   .app-btn:hover { background: var(--gold-bright); }
   .app-btn small { display: block; margin-top: 4px; font-size: 15.5px; font-weight: 700; }
 
+  /* ---------- Teddy helper ---------- */
+  #teddy-helper { scroll-margin-top: 24px; }
+  .helper-card {
+    max-width: 800px; margin: 36px auto 0;
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(24px, 4.5vw, 40px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    display: flex; gap: 26px; align-items: flex-start;
+  }
+  .helper-card img {
+    width: 168px; height: 168px; flex: 0 0 auto;
+    object-fit: cover; border-radius: 50%;
+    border: 3px solid var(--gold-deep);
+    background: var(--green-900);
+  }
+  .bubble {
+    position: relative; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .bubble::before {
+    content: ""; position: absolute; left: -11px; top: 44px;
+    width: 18px; height: 18px; background: #FFFFFF;
+    border-left: 2px solid #D8C491; border-bottom: 2px solid #D8C491;
+    transform: rotate(45deg);
+  }
+  .bubble .bubble-name {
+    font-size: 13px; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold-deep);
+  }
+  .bubble p { margin-top: 8px; font-size: 18.5px; line-height: 1.7; }
+  .bubble p strong { color: #10365C; }
+  @media (max-width: 640px) {
+    .helper-card { flex-direction: column; align-items: center; text-align: left; }
+    .bubble::before {
+      left: 50%; top: -11px; margin-left: -9px;
+      border-left: 2px solid #D8C491; border-top: 2px solid #D8C491;
+      border-bottom: none;
+    }
+  }
+
+  /* ---------- Our story — Teddy points it out ---------- */
+  .story-row {
+    max-width: 800px; margin: 30px auto 0;
+    display: flex; gap: 22px; align-items: center;
+  }
+  .story-row img {
+    width: 132px; height: 132px; flex: 0 0 auto;
+    object-fit: cover; border-radius: 50%;
+    border: 3px solid var(--gold-deep); background: var(--green-900);
+  }
+  .story-bubble {
+    position: relative; flex: 1;
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 16px;
+    padding: 18px 22px;
+  }
+  .story-bubble::before {
+    content: ""; position: absolute; left: -11px; top: 50%; margin-top: -9px;
+    width: 18px; height: 18px; background: var(--green-900);
+    border-left: 2px solid var(--gold-deep); border-bottom: 2px solid var(--gold-deep);
+    transform: rotate(45deg);
+  }
+  .story-bubble p { font-size: 19px; line-height: 1.6; font-style: italic; color: var(--cream); }
+  .story-btn-wrap { margin-top: 28px; text-align: center; }
+  @media (max-width: 640px) {
+    .story-row { flex-direction: column; text-align: left; }
+    .story-bubble::before {
+      left: 50%; top: -11px; margin-top: 0; margin-left: -9px;
+      border-left: 2px solid var(--gold-deep); border-top: 2px solid var(--gold-deep);
+      border-bottom: none;
+    }
+  }
+
+  /* ---------- Corner Teddy — a quiet way back to the helper ---------- */
+  .teddy-corner {
+    position: fixed; left: 14px; bottom: 14px; z-index: 40;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 999px;
+    padding: 6px 16px 6px 6px; text-decoration: none;
+    box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  }
+  .teddy-corner img {
+    width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--gold); display: block; background: var(--green-800);
+  }
+  .teddy-corner span { font-size: 15.5px; font-weight: 800; color: var(--cream); white-space: nowrap; }
+  .teddy-corner:hover { background: var(--green-800); }
+  @media (max-width: 640px) {
+    .wrap { padding-bottom: 150px; }
+    .teddy-corner span { font-size: 14.5px; }
+  }
+
   /* ---------- Plain prose ---------- */
   .standing { max-width: 800px; margin: 0 auto; }
   .standing h3 {
@@ -259,6 +352,15 @@
       <p class="action-close">Everything else on this page is just the story &mdash; read it whenever you like, or not at all. The three steps above are the whole thing.</p>
     </section>
 
+    <!-- ================= TEDDY HELPER ================= -->
+    <section class="helper-card" id="teddy-helper" aria-label="Grandpa Teddy shows Britt how">
+      <img src="assets/teddy-guide.webp" alt="Grandpa Teddy pointing the way" width="512" height="512">
+      <div class="bubble">
+        <p class="bubble-name">Grandpa Teddy</p>
+        <p>Well hey there, Britt! Jason asked me to show you around. See that big gold button up above? That opens the Bible. <strong>Tap a book, tap a chapter, tap LISTEN</strong> — and I&rsquo;ll read to you. And down below I&rsquo;ll show you how to put my picture right on your home screen, so I&rsquo;m always one tap away.</p>
+      </div>
+    </section>
+
     <section class="movement" aria-labelledby="letter-h">
       <div class="sec-head">
         <p class="kicker">First</p>
@@ -319,6 +421,26 @@
           <a class="door-btn" href="https://jnutt367.github.io/truvine/come-and-hear/">Visit the Page</a>
         </div>
       </div>
+    </section>
+
+    <section class="movement" aria-labelledby="story-h">
+      <div class="sec-head">
+        <p class="kicker">Come and Hear</p>
+        <h2 id="story-h" class="serif">Our Story</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="standing">
+        <p>This one is different from the others, Britt. It&rsquo;s the film that tells how this whole ministry got started — a seed planted, a family watered by the Word, and the Lord giving the increase — and where He&rsquo;s taking it next. It&rsquo;s called <em>Come and Hear</em>, and Jason wanted you to have it from him.</p>
+      </div>
+      <div class="story-row">
+        <img src="assets/teddy-guide.webp" alt="Grandpa Teddy pointing the way to our story" width="512" height="512">
+        <div class="story-bubble">
+          <p>&ldquo;This one&rsquo;s our story, Britt — how this whole farm got started. It&rsquo;s about 3 minutes, and I read the whole way.&rdquo;</p>
+        </div>
+      </div>
+      <p class="story-btn-wrap">
+        <a class="door-btn" href="https://jnutt367.github.io/truvine/come-and-hear/">Watch Our Story — about 3 minutes</a>
+      </p>
     </section>
 
     <section class="movement" aria-labelledby="family-h">
@@ -437,6 +559,11 @@
     <p>© 2026 Jason Nutt · TruVINE — All rights reserved.</p>
   </footer>
 </div>
+
+<a class="teddy-corner" href="#teddy-helper" aria-label="Teddy shows you how — go to Grandpa Teddy's helper note">
+  <img src="assets/teddy-guide.webp" alt="" width="512" height="512">
+  <span>Teddy shows you how</span>
+</a>
 
 <script>
 /* The Open Door letter: composed in the visitor's own mail app,
