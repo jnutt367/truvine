@@ -128,6 +128,12 @@
     min-height: 110px; display: flex; align-items: center; justify-content: center;
     font-size: 30px; color: #C08A1E;
   }
+  .wframe.photo { display: flex; flex-direction: column; }
+  .wframe img {
+    width: 100%; height: 100%; flex: 1 1 auto; min-height: 0;
+    object-fit: cover; object-position: center top; display: block;
+    border-radius: 4px;
+  }
   .wframe figcaption { margin-top: 9px; font-size: 14px; font-weight: 600; color: #5A5342; font-style: italic; }
   .wall-note {
     margin-top: 18px; text-align: center; font-size: 16.5px; line-height: 1.6; color: #33413A;
@@ -138,6 +144,12 @@
     border-radius: 12px; padding: 16px 20px; font-size: 16px; line-height: 1.6; color: #33413A;
   }
   .roll-note strong { color: #10365C; }
+  .roll-names {
+    margin: 12px 0 0; padding: 10px 0 0; list-style: none;
+    border-top: 1.5px solid #D8C491;
+    font-size: 17px; font-weight: 700; color: #10365C;
+  }
+  .roll-names li { padding: 2px 0; }
 
   /* ---------- The Record scroll: a smaller scroll, hung below ----------
      The Roll above is the feature — names to come, still blank.
@@ -463,25 +475,25 @@
   <section class="panel" id="wall" aria-labelledby="h-wall">
     <div class="panel-head">
       <span class="ptag">The Wall</span>
-      <h2 id="h-wall">The Wall, Waiting</h2>
+      <h2 id="h-wall">The Wall — The First Yeses</h2>
       <span class="note">hung only by free yeses</span>
     </div>
-    <div class="wall-board" role="img" aria-label="An empty family wall with six picture frames kept ready — the wall is waiting for its first yeses.">
-      <div class="wall-frames" aria-hidden="true">
-        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Room for you</figcaption></figure>
-        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Waiting for its first yes</figcaption></figure>
-        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>A place kept</figcaption></figure>
-        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Yours, if you&rsquo;d like it</figcaption></figure>
-        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Room at the table</figcaption></figure>
-        <figure class="wframe"><div class="slot">&#10026;</div><figcaption>Kept with love</figcaption></figure>
+    <div class="wall-board" role="img" aria-label="The family wall: the first two family portraits now hang here — Jason and Sharon, each placed by their own free yes — with four frames still kept ready and room remaining for the family still to come.">
+      <div class="wall-frames">
+        <figure class="wframe photo"><img src="jason-portrait.jpg" alt="Jason — farm-style artwork portrait approved by Jason, wearing the I Can Do All Things tee and his navy Magic cap, on the farm porch"><figcaption>Jason</figcaption></figure>
+        <figure class="wframe photo"><img src="sharon-portrait.jpg" alt="Sharon — farm-style artwork portrait approved by Sharon, wearing the Be Still and Know hoodie, on the farm porch"><figcaption>Sharon</figcaption></figure>
+        <figure class="wframe" aria-hidden="true"><div class="slot">&#10026;</div><figcaption>A place kept</figcaption></figure>
+        <figure class="wframe" aria-hidden="true"><div class="slot">&#10026;</div><figcaption>Yours, if you&rsquo;d like it</figcaption></figure>
+        <figure class="wframe" aria-hidden="true"><div class="slot">&#10026;</div><figcaption>Room at the table</figcaption></figure>
+        <figure class="wframe" aria-hidden="true"><div class="slot">&#10026;</div><figcaption>Kept with love</figcaption></figure>
       </div>
       <p class="wall-note">
-        <strong>The first family photo day is coming — the wall is waiting for
-        its first yeses.</strong> When family arrives, they&rsquo;ll hang here in
-        gentle waves, every single one placed by their own free &ldquo;yes,&rdquo;
-        and every single one seen first by its owner&rsquo;s own eyes. No fake
-        faces, no stock strangers — an empty wall with room is more honest
-        than a crowded one that isn&rsquo;t real.
+        <strong>The first family has come home.</strong> Jason and Sharon hang
+        here by their own free yes, each in the form they chose, each portrait
+        seen and approved by its owner&rsquo;s own eyes before it was hung.
+        Room remains — an open wall with room is more honest than a crowded
+        one that isn&rsquo;t real, and every future face will arrive the same
+        way these did: by permission, and by love.
       </p>
     </div>
     <div class="roll-note">
@@ -491,6 +503,9 @@
       at all — by design, and by their own word. They are counted in our hearts
       and our prayers, and that count is kept by the Shepherd, not posted on a
       page.
+      <ul class="roll-names">
+        <li>Ian</li>
+      </ul>
     </div>
   </section>
 
