@@ -433,6 +433,11 @@
   .ld-bartrack { fill: #E9DFC2; }
   .ld-bar-us { fill: #2F6B3A; }
   .ld-bar-ke { fill: #C08A1E; }
+  .ld-bar-a { fill: #2F6B3A; }
+  .ld-bar-b { fill: #C08A1E; }
+  .ld-bar-c { fill: #10365C; }
+  .ld-bar-d { fill: #7FA36B; }
+  .ld-bar-e { fill: #D9B45C; }
   .ld-barcount { font-size: 17px; font-weight: 800; fill: #33413A; }
   .ld-pf { font-size: 15.5px; font-weight: 600; fill: #33413A; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -919,12 +924,12 @@
     <div class="panel-head">
       <span class="ptag tend">The Reach</span>
       <h2 id="h-landed">Where the Seeds Have Landed</h2>
-      <span class="note">true proportions — Oct 14, 2026</span>
+      <span class="note">true proportions — October 18, 2026</span>
     </div>
     <div class="chart">
       <h3>The map so far — every country, drawn to scale</h3>
       <p class="chart-note">Not a scoreboard — a planting record. Each bar is sized by the readers who actually showed up.</p>
-      <!-- COUNTRIES LEDGER — appended by dated dashboard reads.
+      <!-- COUNTRIES LEDGER — the Reach bars' record of sources.
            Oct 14, 2026 (first read): one planted marker per country —
            United States (Word of God Risen · the Portfolio), Kenya
            (Word of God Risen). Oct 14, 2026 (follow-up read, Countries
@@ -932,12 +937,21 @@
            into true-proportion furrow bars — Word of God Risen, last
            7 days (Oct 7–14): United States 65 of 66 visitors (98%),
            Kenya 1 of 66 (2%); the Portfolio, same window: United
-           States 12 of 12 (100%). Bar length stays proportional to
-           visitor count, track = the stated total. A future read
-           updates the bars, the counts, the sr-only list, and the
-           read dates together, and keeps every earlier reading
-           standing in the log (GOAL.md). -->
-      <svg class="ld-svg" viewBox="0 0 1096 478" role="img" aria-label="A field at first light with two planted markers — United States and Kenya — and below them two furrows drawn to scale: Word of God Risen visitors by country, last 7 days. United States, 65 visitors, 98 percent. Kenya, 1 visitor, 2 percent. The Portfolio, same days: United States, 12 visitors, 100 percent." xmlns="http://www.w3.org/2000/svg">
+           States 12 of 12 (100%). Those visitor figures now stand
+           preserved as their own separate note beneath the bars —
+           visitors and readers are different counts, never blended.
+           Oct 18, 2026 (the wiring): the bars are regenerated daily
+           by the Field Report heartbeat engine from Word of God
+           Risen's own Body Heartbeat (GET word-of-god-risen.vercel
+           .app/api/heartbeat) — READERS by country for the current
+           UTC day (the only span the heartbeat reports by country;
+           a country is counted only when a reader's visit carries
+           one), with the heartbeat's all-time totals (chapters read
+           / heard / listens finished since Oct 15, 2026) guarded
+           under the failure law and printed as the totals line.
+           The region between the REACH-BARS markers is written by
+           fr-lib.mjs (renderReach) — never by hand. -->
+      <svg class="ld-svg" viewBox="0 0 1096 478" role="img" aria-label="A field at first light with two planted markers — United States and Kenya — from the first traffic read, and below them furrows drawn to scale: Word of God Risen readers by country, today. Australia, 1 reader, 100 percent. Body Heartbeat totals since October 15, 2026: 20 chapters read, 7 heard, 5 listens finished." xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="1096" height="196" class="ld-sky"/>
         <circle cx="962" cy="54" r="30" fill="#D9B45C" opacity="0.55"/>
         <path d="M0 168 Q 240 128 520 158 T 1096 148 V196 H0 Z" class="ld-hill"/>
@@ -965,26 +979,22 @@
           <text x="768" y="256" class="ld-country" text-anchor="middle">Kenya</text>
           <text x="768" y="282" class="ld-detail" text-anchor="middle">Word of God Risen</text>
         </g>
-        <text x="24" y="338" class="ld-bar-title">Word of God Risen — visitors by country · last 7 days (Oct 7–14)</text>
-        <text x="24" y="386" class="ld-rowname">United States</text>
+        <!-- REACH-BARS:BEGIN -->
+        <text x="24" y="338" class="ld-bar-title">Word of God Risen — readers by country · today (Oct 18)</text>
+        <text x="24" y="386" class="ld-rowname">Australia</text>
         <rect x="216" y="362" width="694" height="26" class="ld-bartrack"/>
-        <rect x="216" y="362" width="683" height="26" class="ld-bar-us"/>
-        <text x="920" y="386" class="ld-barcount">65 visitors · 98%</text>
-        <text x="24" y="430" class="ld-rowname">Kenya</text>
-        <rect x="216" y="406" width="694" height="26" class="ld-bartrack"/>
-        <rect x="216" y="406" width="11" height="26" class="ld-bar-ke"/>
-        <text x="920" y="430" class="ld-barcount">1 visitor · 2%</text>
-        <text x="24" y="464" class="ld-pf">The Portfolio — same days: United States · 12 visitors · 100%</text>
+        <rect x="216" y="362" width="694" height="26" class="ld-bar-a"/>
+        <text x="920" y="386" class="ld-barcount">1 reader · 100%</text>
+        <text x="24" y="426" class="ld-pf">Since October 15, 2026 — 20 chapters read · 7 heard · 5 listens finished</text>
       </svg>
       <ul class="sr-only">
-        <li>Word of God Risen, visitors by country, last 7 days: United States — 65 visitors, 98 percent; Kenya — 1 visitor, 2 percent</li>
-        <li>The Portfolio, same days: United States — 12 visitors, 100 percent</li>
+        <li>Word of God Risen, readers by country, today (October 18, 2026): Australia — 1 reader, 100 percent</li>
+        <li>Body Heartbeat totals since October 15, 2026: 20 chapters read, 7 chapters heard, 5 listens finished, 0 books finished</li>
+        <li>An earlier, different measure — site visitors in one week (October 7 to 14, 2026), read from the Vercel dashboard: United States — 65 visitors, 98 percent; Kenya — 1 visitor, 2 percent. The Portfolio, same days: United States — 12 visitors, 100 percent. Visitors and readers are counted separately and never blended</li>
       </ul>
-      <p class="ld-cap">Drawn to scale from the count itself — Word of God Risen visitors by country,
-        last 7 days (Oct 7&ndash;14, 2026), read from Jason&rsquo;s Vercel dashboard (Countries, View All),
-        October 14, 2026: United States 65 of 66 (98%), Kenya 1 of 66 (2%). The Portfolio, same days:
-        United States 12 of 12 (100%). One reader is still a planting — so the smallest seed stands
-        at its true size, and nothing is drawn bigger than the truth.</p>
+      <p class="ld-cap">Drawn to scale from the count itself — Word of God Risen readers by country today, counted by the app&rsquo;s own Body Heartbeat (aggregate only — no individual reader is ever tracked). The heartbeat counts a country only when a reader&rsquo;s visit carries one, so the bars name the countries it could see; the totals count every chapter read or heard since October 15, 2026, seen and unseen alike. One reader is still a planting — so the smallest seed stands at its true size, and nothing is drawn bigger than the truth.</p>
+      <p class="ld-cap">An earlier, different measure — site visitors in one week (Oct 7&ndash;14, 2026), read from Jason&rsquo;s Vercel dashboard (Countries, View All), October 14, 2026: United States 65 of 66 visitors (98%), Kenya 1 of 66 (2%); the Portfolio, same days: United States 12 of 12 (100%). Visitors and readers are counted separately on this page, and never blended.</p>
+        <!-- REACH-BARS:END -->
     </div>
   </section>
 
@@ -1231,7 +1241,26 @@
         }
       ]
     }
-  ]
+  ],
+  "reach": {
+    "asOf": "2026-10-18",
+    "since": "2026-10-15",
+    "hbToday": "2026-10-18",
+    "totals": {
+      "chaptersRead": 20,
+      "chaptersHeard": 7,
+      "listensCompleted": 5,
+      "booksFinished": 0
+    },
+    "countries": [
+      {
+        "code": "AU",
+        "read": 1,
+        "heard": 0,
+        "total": 1
+      }
+    ]
+  }
 }
 </script>
 </body>
