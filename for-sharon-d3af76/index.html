@@ -129,6 +129,31 @@
   .wall-link a { color: var(--gold-bright); text-decoration: none; }
   .wall-link a:hover { text-decoration: underline; }
 
+  /* ---------- Action first: the three steps ---------- */
+  .action-card {
+    max-width: 800px; margin: 64px auto 0;
+    background: var(--parchment); color: var(--ink);
+    border: 3px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 48px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  }
+  .action-card h2 {
+    text-align: center; font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.18; color: #10365C;
+  }
+  .action-steps { list-style: none; margin-top: 24px; display: grid; gap: 18px; }
+  .action-steps li { font-size: 19px; line-height: 1.65; }
+  .action-steps strong { color: #10365C; }
+  .action-close { margin-top: 22px; font-size: 17.5px; line-height: 1.65; font-weight: 600; }
+  .action-btn {
+    display: block; margin-top: 24px; text-align: center;
+    background: #10365C; color: var(--cream); border: 2px solid #10365C;
+    border-radius: 12px; padding: 16px 22px;
+    font-size: 19px; font-weight: 800; text-decoration: none;
+  }
+  .action-btn:hover { background: #18582A; border-color: #18582A; }
+  .picture-reminder { font-size: 17px; line-height: 1.6; color: #10365C; }
+
   /* ---------- The answer — a letter, right here ----------
      The Family Wall's own Tell-Jason letter, mirrored onto the
      invitation: composed in her own mail app, addressed straight
@@ -194,6 +219,19 @@
   </header>
 
   <main id="main">
+
+    <!-- ================= START HERE — THE THREE STEPS ================= -->
+    <section class="action-card" aria-labelledby="action-h">
+      <h2 id="action-h" class="serif">Here&rsquo;s All You Do &mdash; It Takes a Minute</h2>
+      <ol class="action-steps">
+        <li><strong>Step 1:</strong> <strong>Your info here.</strong> Write your name and a few words in the letter below.</li>
+        <li><strong>Step 2:</strong> <strong>Your picture here.</strong> When you tap the button, your mail opens with your letter ready &mdash; attach a picture you like before you send it. No picture handy? Just say which photo, and Jason will handle it.</li>
+        <li><strong>Step 3:</strong> <strong>Up on the wall.</strong> Jason reads every letter himself and hangs you on the Family Wall by hand.</li>
+      </ol>
+      <p class="action-close">Everything else on this page is just the story &mdash; read it whenever you like, or not at all. The three steps above are the whole thing.</p>
+      <a class="action-btn" href="#door-form">Start Here — Write My Letter</a>
+    </section>
+
 
     <section class="movement" aria-labelledby="letter-h">
       <div class="sec-head">
@@ -329,6 +367,7 @@
             <label for="door-msg">Anything else Jason should know <span class="tell-opt">(optional)</span></label>
             <textarea id="door-msg" name="message" rows="5" placeholder="A word about yourself, a prayer request, anything on your heart&hellip;"></textarea>
           </div>
+          <p class="picture-reminder">📷 <strong>Don&rsquo;t forget your picture &mdash; when your mail opens, attach a picture you like to that email before you send it.</strong></p>
           <button type="submit" class="tell-btn">Send My Letter to Jason</button>
         </form>
       </div>
@@ -400,6 +439,8 @@
       lines.push("");
       lines.push("(My photo is attached to this email.)");
     }
+    lines.push("");
+    lines.push("Picture: (attach a picture you like to this email — or write here which photo to use: )");
     window.location.href = "mailto:jnutt367@gmail.com"
       + "?subject=" + encodeURIComponent("The Open Door — a place on the Family Wall")
       + "&body=" + encodeURIComponent(lines.join("\n"));

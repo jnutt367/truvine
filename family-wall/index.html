@@ -228,6 +228,26 @@
      same circles, same rhythm — steps, not salesmanship. */
   .path-link { margin-top: 7px; font-size: 16px; font-weight: 700; }
 
+  /* ---------- Action first: the three steps ---------- */
+  .action-card {
+    background: #FFFDF4; border: 3px solid #C08A1E; border-radius: 18px;
+    padding: 26px 28px; box-shadow: 0 12px 28px rgba(90, 66, 20, .16);
+  }
+  .action-card .panel-head { margin-bottom: 18px; }
+  .action-steps { list-style: none; display: grid; gap: 16px; max-width: 760px; }
+  .action-steps li { font-size: 19px; line-height: 1.6; color: #33413A; }
+  .action-steps strong { color: #10365C; }
+  .action-close { margin-top: 20px; max-width: 760px; font-size: 17.5px; line-height: 1.6; font-weight: 600; color: #33413A; }
+  .story-divider {
+    margin-top: 44px; padding-top: 18px; border-top: 2px solid #D9B45C;
+    text-align: center; font-size: 17px; font-weight: 800; letter-spacing: .4px; color: #18582A;
+  }
+  .picture-reminder { font-size: 17px; line-height: 1.55; color: #10365C; }
+  @media (max-width: 640px) {
+    .action-card { padding: 22px 18px; }
+    .action-steps li { font-size: 18px; }
+  }
+
   /* ---------- The letter (Tell-Jason pattern) ---------- */
   .tell-copy { font-size: 16.5px; line-height: 1.6; color: #33413A; max-width: 720px; }
   .tell-form { margin-top: 16px; max-width: 720px; display: grid; gap: 16px; }
@@ -296,6 +316,119 @@
     </div>
   </header>
   <div class="rule" aria-hidden="true"></div>
+
+  <!-- ================= START HERE — THE THREE STEPS ================= -->
+  <section class="panel action-card" aria-labelledby="h-action">
+    <div class="panel-head">
+      <h2 id="h-action">Here&rsquo;s All You Do &mdash; It Takes a Minute</h2>
+    </div>
+    <ol class="action-steps">
+      <li><strong>Step 1:</strong> <strong>Your info here.</strong> Write your name and a few words in the letter below.</li>
+      <li><strong>Step 2:</strong> <strong>Your picture here.</strong> When you tap the button, your mail opens with your letter ready &mdash; attach a picture you like before you send it. No picture handy? Just say which photo, and Jason will handle it.</li>
+      <li><strong>Step 3:</strong> <strong>Up on the wall.</strong> Jason reads every letter himself and hangs you on the Family Wall by hand.</li>
+    </ol>
+    <p class="action-close">Everything else on this page is just the story &mdash; read it whenever you like, or not at all. The three steps above are the whole thing.</p>
+  </section>
+
+  <!-- ================= HOW TO JOIN — a letter, never a form ================= -->
+  <section class="panel" aria-labelledby="h-join">
+    <div class="panel-head">
+      <span class="ptag tend">Join</span>
+      <h2 id="h-join">Write to Jason — a Letter, Not a Form</h2>
+      <span class="note">he reads every word himself</span>
+    </div>
+    <p class="tell-copy">
+      Joining works the way everything warm works here: you write Jason a
+      letter. Fill this in, and it opens in your own mail app, addressed
+      straight to him — if you chose Door One, attach your photo to that
+      email. Jason reads every letter himself, and your place is prepared by
+      hand, with the same care as everything on this wall. Nothing you write
+      here is stored on this website — it travels like a letter, from your
+      hands to his.
+    </p>
+    <form class="tell-form" id="door-form">
+      <div>
+        <label for="door-name">The name to use on the wall or the roll <span class="tell-opt">(only if you&rsquo;d like one — leave blank for the quiet door)</span></label>
+        <input type="text" id="door-name" name="name" autocomplete="name" placeholder="Your first name, a nickname, or a description — your choice">
+      </div>
+      <div>
+        <label for="door-country">Your country <span class="tell-opt">(only if you&rsquo;d like it shown)</span></label>
+        <input type="text" id="door-country" name="country" autocomplete="country-name" placeholder="e.g. Philippines">
+      </div>
+      <div>
+        <label for="door-choice">Your door</label>
+        <select id="door-choice" name="door" required>
+          <option value="Door One — my photo on the wall">Door One — my photo on the wall</option>
+          <option value="Door Two — my name on the roll only, no face">Door Two — my name on the roll only, no face</option>
+          <option value="Door Three — anonymous, held in prayer (no name, no face)">Door Three — anonymous, held in prayer (no name, no face)</option>
+        </select>
+      </div>
+      <div>
+        <label for="door-face">If Door One — my face as <span class="tell-opt">(artwork is always shown to you first, and hung only on your approval)</span></label>
+        <select id="door-face" name="face">
+          <option value="My photograph, as it is">My photograph, as it is</option>
+          <option value="Farm-style artwork — low variance (unmistakably me)">Farm-style artwork — low variance (unmistakably me)</option>
+          <option value="Farm-style artwork — higher variance (softened likeness)">Farm-style artwork — higher variance (softened likeness)</option>
+          <option value="garment">Farm-style artwork — wearing a TruVINE garment I choose</option>
+          <option value="Not applicable — I chose Door Two or Three">Not applicable — I chose Door Two or Three</option>
+        </select>
+      </div>
+      <p class="tell-copy">Want to wear the family colors? Pick any garment from the store and we&rsquo;ll make your artwork in it — look through the store here: <a href="https://truvine.printify.me/">truvine.printify.me</a></p>
+      <div id="door-garment-wrap" hidden>
+        <label for="door-garment">Which garment? <span class="tell-opt">(choose from the store — your artwork will be made wearing it)</span></label>
+        <select id="door-garment" name="garment">
+          <option value="">Choose a garment&hellip;</option>
+          <optgroup label="Hoodies">
+            <option value="TruVINE Hoodie – The Lord Is My Shepherd | Psalm 23:1">TruVINE Hoodie – The Lord Is My Shepherd | Psalm 23:1</option>
+            <option value="TruVINE Hoodie – I Am the True Vine | John 15:5">TruVINE Hoodie – I Am the True Vine | John 15:5</option>
+            <option value="TruVINE Hoodie – Harvest Blessings | Matthew 9:37">TruVINE Hoodie – Harvest Blessings | Matthew 9:37</option>
+            <option value="TruVINE Hoodie – Peace Be Still | Mark 4:39">TruVINE Hoodie – Peace Be Still | Mark 4:39</option>
+            <option value="TruVINE Hoodie – Be Still and Know | Psalm 46:10">TruVINE Hoodie – Be Still and Know | Psalm 46:10</option>
+            <option value="TruVINE Hoodie – Unto Us a Child Is Born | Isaiah 9:6">TruVINE Hoodie – Unto Us a Child Is Born | Isaiah 9:6</option>
+          </optgroup>
+          <optgroup label="T-Shirts &amp; Tees">
+            <option value="TruVINE T-Shirt – Grandpa Teddy in the Vineyard">TruVINE T-Shirt – Grandpa Teddy in the Vineyard</option>
+            <option value="TruVINE T-Shirt – Abide in the Vine | John 15:4">TruVINE T-Shirt – Abide in the Vine | John 15:4</option>
+            <option value="TruVINE T-Shirt – Walk by Faith | 2 Corinthians 5:7">TruVINE T-Shirt – Walk by Faith | 2 Corinthians 5:7</option>
+            <option value="TruVINE T-Shirt – Trust in the Lord | Proverbs 3:5">TruVINE T-Shirt – Trust in the Lord | Proverbs 3:5</option>
+            <option value="TruVINE T-Shirt – Come to Me, All Who Are Weary | Matthew 11:28">TruVINE T-Shirt – Come to Me, All Who Are Weary | Matthew 11:28</option>
+            <option value="TruVINE T-Shirt – I Can Do All Things | Philippians 4:13">TruVINE T-Shirt – I Can Do All Things | Philippians 4:13</option>
+            <option value="TruVINE T-Shirt – I Can Do All Things Through Christ | Philippians 4:13">TruVINE T-Shirt – I Can Do All Things Through Christ | Philippians 4:13</option>
+            <option value="TruVINE T-Shirt – With God, All Things Work Together | Romans 8:28">TruVINE T-Shirt – With God, All Things Work Together | Romans 8:28</option>
+            <option value="TruVINE Garment-Dyed Tee – All Things Work Together | Romans 8:28">TruVINE Garment-Dyed Tee – All Things Work Together | Romans 8:28</option>
+            <option value="TruVINE T-Shirt – Faith Over Fear | 2 Timothy 1:7">TruVINE T-Shirt – Faith Over Fear | 2 Timothy 1:7</option>
+            <option value="TruVINE T-Shirt – As God's Chosen People | Colossians 3:12">TruVINE T-Shirt – As God's Chosen People | Colossians 3:12</option>
+            <option value="TruVINE T-Shirt – Give Thanks | Psalm 107:1">TruVINE T-Shirt – Give Thanks | Psalm 107:1</option>
+            <option value="TruVINE T-Shirt – Joy to the World | Luke 2:11">TruVINE T-Shirt – Joy to the World | Luke 2:11</option>
+            <option value="TruVINE T-Shirt – Your Favorite Verse (Personalized)">TruVINE T-Shirt – Your Favorite Verse (Personalized)</option>
+            <option value="TruVINE Everyday Tee – Rooted in Christ | Colossians 2:7">TruVINE Everyday Tee – Rooted in Christ | Colossians 2:7</option>
+            <option value="TruVINE Premium Tee – Spreading the Gospel | Mark 16:15">TruVINE Premium Tee – Spreading the Gospel | Mark 16:15</option>
+            <option value="TruVINE Youth Tee – Let No One Despise Your Youth | 1 Timothy 4:12">TruVINE Youth Tee – Let No One Despise Your Youth | 1 Timothy 4:12</option>
+          </optgroup>
+          <optgroup label="Hats &amp; More to Wear">
+            <option value="TruVINE Trucker Cap – With God, All Things Are Possible | Matthew 19:26">TruVINE Trucker Cap – With God, All Things Are Possible | Matthew 19:26</option>
+            <option value="TruVINE Leather Patch Dad Hat – Jesus Is the True Vine | John 15:5">TruVINE Leather Patch Dad Hat – Jesus Is the True Vine | John 15:5</option>
+            <option value="TruVINE Performance Jersey – Nothing Is Impossible | Matthew 19:26">TruVINE Performance Jersey – Nothing Is Impossible | Matthew 19:26</option>
+            <option value="TruVINE Baby Bodysuit – A Precious Gift | Psalm 127:3">TruVINE Baby Bodysuit – A Precious Gift | Psalm 127:3</option>
+          </optgroup>
+          <option value="Another garment from the store — I'll name it in my note below">Another garment from the store — I'll name it in my note below</option>
+        </select>
+      </div>
+      <div>
+        <label for="door-msg">Anything else Jason should know <span class="tell-opt">(optional)</span></label>
+        <textarea id="door-msg" name="message" rows="5" placeholder="A word about yourself, a prayer request, anything on your heart&hellip;"></textarea>
+      </div>
+      <p class="picture-reminder">📷 <strong>Don&rsquo;t forget your picture &mdash; when your mail opens, attach a picture you like to that email before you send it.</strong></p>
+      <button type="submit" class="tell-btn">Write to Jason &#9993;</button>
+    </form>
+    <p class="tell-copy" style="margin-top:14px;">
+      Choosing Door One? Don&rsquo;t forget to <strong>attach your photo</strong>
+      to the email that opens — that&rsquo;s the picture we&rsquo;ll prepare for
+      the wall, in exactly the form you picked above.
+    </p>
+  </section>
+
+  <p class="story-divider">The whole story &mdash; for whenever you have time.</p>
 
   <!-- ================= THE INVITATION ================= -->
   <section class="panel" aria-labelledby="h-invite">
@@ -529,102 +662,6 @@
     </p>
   </section>
 
-  <!-- ================= HOW TO JOIN — a letter, never a form ================= -->
-  <section class="panel" aria-labelledby="h-join">
-    <div class="panel-head">
-      <span class="ptag tend">Join</span>
-      <h2 id="h-join">Write to Jason — a Letter, Not a Form</h2>
-      <span class="note">he reads every word himself</span>
-    </div>
-    <p class="tell-copy">
-      Joining works the way everything warm works here: you write Jason a
-      letter. Fill this in, and it opens in your own mail app, addressed
-      straight to him — if you chose Door One, attach your photo to that
-      email. Jason reads every letter himself, and your place is prepared by
-      hand, with the same care as everything on this wall. Nothing you write
-      here is stored on this website — it travels like a letter, from your
-      hands to his.
-    </p>
-    <form class="tell-form" id="door-form">
-      <div>
-        <label for="door-name">The name to use on the wall or the roll <span class="tell-opt">(only if you&rsquo;d like one — leave blank for the quiet door)</span></label>
-        <input type="text" id="door-name" name="name" autocomplete="name" placeholder="Your first name, a nickname, or a description — your choice">
-      </div>
-      <div>
-        <label for="door-country">Your country <span class="tell-opt">(only if you&rsquo;d like it shown)</span></label>
-        <input type="text" id="door-country" name="country" autocomplete="country-name" placeholder="e.g. Philippines">
-      </div>
-      <div>
-        <label for="door-choice">Your door</label>
-        <select id="door-choice" name="door" required>
-          <option value="Door One — my photo on the wall">Door One — my photo on the wall</option>
-          <option value="Door Two — my name on the roll only, no face">Door Two — my name on the roll only, no face</option>
-          <option value="Door Three — anonymous, held in prayer (no name, no face)">Door Three — anonymous, held in prayer (no name, no face)</option>
-        </select>
-      </div>
-      <div>
-        <label for="door-face">If Door One — my face as <span class="tell-opt">(artwork is always shown to you first, and hung only on your approval)</span></label>
-        <select id="door-face" name="face">
-          <option value="My photograph, as it is">My photograph, as it is</option>
-          <option value="Farm-style artwork — low variance (unmistakably me)">Farm-style artwork — low variance (unmistakably me)</option>
-          <option value="Farm-style artwork — higher variance (softened likeness)">Farm-style artwork — higher variance (softened likeness)</option>
-          <option value="garment">Farm-style artwork — wearing a TruVINE garment I choose</option>
-          <option value="Not applicable — I chose Door Two or Three">Not applicable — I chose Door Two or Three</option>
-        </select>
-      </div>
-      <p class="tell-copy">Want to wear the family colors? Pick any garment from the store and we&rsquo;ll make your artwork in it — look through the store here: <a href="https://truvine.printify.me/">truvine.printify.me</a></p>
-      <div id="door-garment-wrap" hidden>
-        <label for="door-garment">Which garment? <span class="tell-opt">(choose from the store — your artwork will be made wearing it)</span></label>
-        <select id="door-garment" name="garment">
-          <option value="">Choose a garment&hellip;</option>
-          <optgroup label="Hoodies">
-            <option value="TruVINE Hoodie – The Lord Is My Shepherd | Psalm 23:1">TruVINE Hoodie – The Lord Is My Shepherd | Psalm 23:1</option>
-            <option value="TruVINE Hoodie – I Am the True Vine | John 15:5">TruVINE Hoodie – I Am the True Vine | John 15:5</option>
-            <option value="TruVINE Hoodie – Harvest Blessings | Matthew 9:37">TruVINE Hoodie – Harvest Blessings | Matthew 9:37</option>
-            <option value="TruVINE Hoodie – Peace Be Still | Mark 4:39">TruVINE Hoodie – Peace Be Still | Mark 4:39</option>
-            <option value="TruVINE Hoodie – Be Still and Know | Psalm 46:10">TruVINE Hoodie – Be Still and Know | Psalm 46:10</option>
-            <option value="TruVINE Hoodie – Unto Us a Child Is Born | Isaiah 9:6">TruVINE Hoodie – Unto Us a Child Is Born | Isaiah 9:6</option>
-          </optgroup>
-          <optgroup label="T-Shirts &amp; Tees">
-            <option value="TruVINE T-Shirt – Grandpa Teddy in the Vineyard">TruVINE T-Shirt – Grandpa Teddy in the Vineyard</option>
-            <option value="TruVINE T-Shirt – Abide in the Vine | John 15:4">TruVINE T-Shirt – Abide in the Vine | John 15:4</option>
-            <option value="TruVINE T-Shirt – Walk by Faith | 2 Corinthians 5:7">TruVINE T-Shirt – Walk by Faith | 2 Corinthians 5:7</option>
-            <option value="TruVINE T-Shirt – Trust in the Lord | Proverbs 3:5">TruVINE T-Shirt – Trust in the Lord | Proverbs 3:5</option>
-            <option value="TruVINE T-Shirt – Come to Me, All Who Are Weary | Matthew 11:28">TruVINE T-Shirt – Come to Me, All Who Are Weary | Matthew 11:28</option>
-            <option value="TruVINE T-Shirt – I Can Do All Things | Philippians 4:13">TruVINE T-Shirt – I Can Do All Things | Philippians 4:13</option>
-            <option value="TruVINE T-Shirt – I Can Do All Things Through Christ | Philippians 4:13">TruVINE T-Shirt – I Can Do All Things Through Christ | Philippians 4:13</option>
-            <option value="TruVINE T-Shirt – With God, All Things Work Together | Romans 8:28">TruVINE T-Shirt – With God, All Things Work Together | Romans 8:28</option>
-            <option value="TruVINE Garment-Dyed Tee – All Things Work Together | Romans 8:28">TruVINE Garment-Dyed Tee – All Things Work Together | Romans 8:28</option>
-            <option value="TruVINE T-Shirt – Faith Over Fear | 2 Timothy 1:7">TruVINE T-Shirt – Faith Over Fear | 2 Timothy 1:7</option>
-            <option value="TruVINE T-Shirt – As God's Chosen People | Colossians 3:12">TruVINE T-Shirt – As God's Chosen People | Colossians 3:12</option>
-            <option value="TruVINE T-Shirt – Give Thanks | Psalm 107:1">TruVINE T-Shirt – Give Thanks | Psalm 107:1</option>
-            <option value="TruVINE T-Shirt – Joy to the World | Luke 2:11">TruVINE T-Shirt – Joy to the World | Luke 2:11</option>
-            <option value="TruVINE T-Shirt – Your Favorite Verse (Personalized)">TruVINE T-Shirt – Your Favorite Verse (Personalized)</option>
-            <option value="TruVINE Everyday Tee – Rooted in Christ | Colossians 2:7">TruVINE Everyday Tee – Rooted in Christ | Colossians 2:7</option>
-            <option value="TruVINE Premium Tee – Spreading the Gospel | Mark 16:15">TruVINE Premium Tee – Spreading the Gospel | Mark 16:15</option>
-            <option value="TruVINE Youth Tee – Let No One Despise Your Youth | 1 Timothy 4:12">TruVINE Youth Tee – Let No One Despise Your Youth | 1 Timothy 4:12</option>
-          </optgroup>
-          <optgroup label="Hats &amp; More to Wear">
-            <option value="TruVINE Trucker Cap – With God, All Things Are Possible | Matthew 19:26">TruVINE Trucker Cap – With God, All Things Are Possible | Matthew 19:26</option>
-            <option value="TruVINE Leather Patch Dad Hat – Jesus Is the True Vine | John 15:5">TruVINE Leather Patch Dad Hat – Jesus Is the True Vine | John 15:5</option>
-            <option value="TruVINE Performance Jersey – Nothing Is Impossible | Matthew 19:26">TruVINE Performance Jersey – Nothing Is Impossible | Matthew 19:26</option>
-            <option value="TruVINE Baby Bodysuit – A Precious Gift | Psalm 127:3">TruVINE Baby Bodysuit – A Precious Gift | Psalm 127:3</option>
-          </optgroup>
-          <option value="Another garment from the store — I'll name it in my note below">Another garment from the store — I'll name it in my note below</option>
-        </select>
-      </div>
-      <div>
-        <label for="door-msg">Anything else Jason should know <span class="tell-opt">(optional)</span></label>
-        <textarea id="door-msg" name="message" rows="5" placeholder="A word about yourself, a prayer request, anything on your heart&hellip;"></textarea>
-      </div>
-      <button type="submit" class="tell-btn">Write to Jason &#9993;</button>
-    </form>
-    <p class="tell-copy" style="margin-top:14px;">
-      Choosing Door One? Don&rsquo;t forget to <strong>attach your photo</strong>
-      to the email that opens — that&rsquo;s the picture we&rsquo;ll prepare for
-      the wall, in exactly the form you picked above.
-    </p>
-  </section>
 
   <!-- ================= THE RECORD SO FAR =================
        A smaller scroll hung below the Roll: testimony, not trophy.
@@ -726,6 +763,8 @@
       lines.push("");
       lines.push("(My photo is attached to this email.)");
     }
+    lines.push("");
+    lines.push("Picture: (attach a picture you like to this email — or write here which photo to use: )");
     window.location.href = "mailto:jnutt367@gmail.com"
       + "?subject=" + encodeURIComponent("The Open Door — a place on the Family Wall")
       + "&body=" + encodeURIComponent(lines.join("\n"));
