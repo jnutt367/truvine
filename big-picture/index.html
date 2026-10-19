@@ -158,10 +158,55 @@
   }
   .wframe figcaption{font-family:Georgia,serif; font-size:clamp(24px,2.4vw,40px); color:var(--cream); margin-top:1.6vh}
   .wframe .wd{font-size:clamp(16px,1.5vw,25px); color:var(--sage); line-height:1.4; margin-top:.7vh; max-width:15em}
+  /* ---------- scripture spine, new slides & QR door (pass 3, Oct 19 2026) ---------- */
+  .verse{
+    font-family:Georgia,serif; font-style:italic;
+    font-size:clamp(17px,1.65vw,29px); line-height:1.4; color:var(--gold);
+    max-width:48em; margin-bottom:2.6vh;
+  }
+  .verse .vref{
+    font-style:normal; font-size:.72em; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--cream-dim); white-space:nowrap;
+  }
+  .vinebox{width:min(1180px,92vw); margin-top:2.5vh}
+  .vinebox svg{width:100%; height:auto; display:block}
+  .creedlines{
+    font-family:Georgia,serif; font-weight:700;
+    font-size:clamp(30px,3.6vw,62px); line-height:1.3; color:var(--cream);
+  }
+  .ahead{display:flex; flex-direction:column; gap:2.2vh; width:min(980px,88vw); margin-top:4vh; text-align:left}
+  .arow{
+    display:flex; align-items:center; gap:2vw;
+    background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:2.4vh 2vw;
+  }
+  .arow .at{font-family:Georgia,serif; font-size:clamp(23px,2.3vw,40px); color:var(--cream); line-height:1.25}
+  .chip{
+    flex:0 0 auto; font-size:clamp(13px,1.05vw,18px); font-weight:700; letter-spacing:.22em;
+    color:#0c1f16; background:linear-gradient(180deg,#e8bc60,var(--gold));
+    border-radius:999px; padding:.7vh 1.1em;
+  }
+  .qrrow{display:flex; gap:3vw; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:3.2vh}
+  .qrpanel{background:#f5edd8; border-radius:18px; padding:14px; box-shadow:0 18px 50px rgba(0,0,0,.5)}
+  .qrpanel img{width:clamp(120px,16.5vh,196px); height:auto; display:block}
+  .qrtext{text-align:left; max-width:20em}
+  .qrtext .qt{font-family:Georgia,serif; font-size:clamp(24px,2.5vw,42px); line-height:1.25; color:var(--cream)}
+  .qrtext .qd{font-size:clamp(17px,1.6vw,27px); color:var(--cream-dim); line-height:1.45; margin-top:1vh}
+  @media (max-width:760px){ .qrtext{text-align:center} }
   /* ---------- dwell progress bar ---------- */
-  #dwellbar{position:fixed; left:0; right:0; bottom:0; height:4px; background:rgba(245,237,216,.12); z-index:45; display:none}
+  #dwellbar{position:fixed; left:0; right:0; bottom:0; height:18px; z-index:45; display:none}
   .js #dwellbar{display:block}
-  #dwellfill{height:100%; width:0; background:linear-gradient(90deg,var(--gold-soft),var(--gold))}
+  #dwelltrack{position:absolute; left:0; right:0; top:8px; height:3px; background:rgba(245,237,216,.12)}
+  #dwellfill{position:absolute; left:0; top:8px; height:3px; width:0; border-radius:2px; background:linear-gradient(90deg,#7fae7c,var(--gold-soft),var(--gold))}
+  #vineleaves{position:absolute; inset:0; pointer-events:none}
+  .vleaf{
+    position:absolute; top:0; width:13px; height:13px; margin-left:-6px;
+    background:linear-gradient(135deg,#c4d6b8,#5f8f5a);
+    border-radius:2px 80% 2px 80%;
+    opacity:0; transform:rotate(-24deg) scale(.3); transition:opacity .6s ease, transform .6s ease;
+  }
+  .vleaf.flip{border-radius:80% 2px 80% 2px; transform:rotate(24deg) scale(.3)}
+  .vleaf.grown{opacity:.95; transform:rotate(-24deg) scale(1)}
+  .vleaf.flip.grown{transform:rotate(24deg) scale(1)}
   /* ---------- gentle motion (never under reduced-motion) ---------- */
   .js .slide.active .film img{animation:kenburns var(--dwell,9s) ease-out forwards}
   @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.06)}}
@@ -205,6 +250,7 @@
   <!-- 3 · THE AUDIO BIBLE -->
   <section class="slide" data-dwell="9">
     <div class="kicker">The Audio Bible</div>
+    <p class="verse">&ldquo;so is my word that goes out of my mouth: it will not return to me void, but it will accomplish that which I please&hellip;&rdquo; <span class="vref">Isaiah 55:11</span></p>
     <div class="biblewrap">
       <img class="teddy" src="teddy-portrait.webp" alt="Grandpa Teddy — the narrator of the farm and the Book: white beard, straw hat, and overalls, smiling in the garden">
       <div class="bibletext">
@@ -223,6 +269,7 @@
   <!-- 4 · THE REACH -->
   <section class="slide" data-dwell="10">
     <div class="kicker">The Reach</div>
+    <p class="verse">&ldquo;Those which were sown on the good ground are those who hear the word, accept it, and bear fruit&hellip;&rdquo; <span class="vref">Mark 4:20</span></p>
     <h2 style="margin-bottom:3.5vh">Where the seeds have landed</h2>
     <div class="reachwrap">
       <div class="mapbox" role="img" aria-label="World map with the United States and Australia lit gold — the countries where chapters have been counted read so far">
@@ -252,9 +299,26 @@
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
 
-  <!-- 5 · THE GROWTH -->
+
+  <!-- 5 · ONE TRUE MOMENT -->
+  <section class="slide" data-dwell="10">
+    <div class="kicker">One True Moment</div>
+    <h2>The Word reached <span class="gold">Kenya</span></h2>
+    <p class="body" style="margin-top:3vh">October 14, 2026 — the site counters opened for the first time, and readers were arriving by way of YouTube. Planted among the countries reached that first week: <strong>Kenya</strong>.</p>
+    <div class="statrow">
+      <div class="stat"><div class="n">66</div><div class="l">visitors at Word of God Risen in a single week</div></div>
+      <div class="stat"><div class="n">1,157</div><div class="l">page views in that same week</div></div>
+      <div class="stat"><div class="n">1</div><div class="l">new country planted among the reached — Kenya</div></div>
+    </div>
+    <p class="footnote" style="margin-top:4vh">Told exactly as the Field Report recorded it — the first traffic read, October 14, 2026.</p>
+
+    <img class="bug" src="truvine-emblem.png" alt="">
+  </section>
+
+  <!-- 6 · THE GROWTH -->
   <section class="slide" data-dwell="9">
     <div class="kicker">The Growth</div>
+    <p class="verse">&ldquo;I planted. Apollos watered. But God gave the increase.&rdquo; <span class="vref">1 Corinthians 3:6</span></p>
     <h2>Counted fresh, day by day</h2>
     <div class="growth">
       <div class="gcol">
@@ -279,7 +343,43 @@
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
 
-  <!-- 6 · THE FILMS -->
+
+  <!-- 7 · THE SEASON VINE -->
+  <section class="slide" data-dwell="10">
+    <div class="kicker">The Season Vine</div>
+    <h2>The season, on one vine</h2>
+    <div class="vinebox" role="img" aria-label="A vine timeline of October 2026: on October 8 the Audio Bible was completed; October 15 the store opened; October 17 the Mark film was released; October 18 Come and Hear was released and the Family Wall was hung; October 19 the channel crossed 900 subscribers">
+      <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M40,150 C300,132 520,166 760,148 C920,136 1050,142 1160,150" fill="none" stroke="#7fae7c" stroke-width="5" stroke-linecap="round"/>
+        <path d="M300,141 c10,-12 24,-14 32,-6 c-8,10 -22,10 -32,6 Z" fill="#a9bfa5"/>
+        <path d="M560,158 c10,10 24,12 32,4 c-8,-10 -22,-10 -32,-4 Z" fill="#a9bfa5"/>
+        <path d="M830,142 c10,-12 24,-14 32,-6 c-8,10 -22,10 -32,6 Z" fill="#a9bfa5"/>
+        <g font-family="Georgia, serif" text-anchor="middle">
+          <text x="135" y="82" font-size="30" font-weight="700" fill="#d9a441">OCT 8</text>
+          <text x="135" y="112" font-size="24" fill="#f5edd8">The Audio Bible, complete</text>
+          <circle cx="135" cy="146" r="13" fill="#d9a441"/><circle cx="135" cy="146" r="6" fill="#f5edd8"/>
+          <text x="727" y="200" font-size="30" font-weight="700" fill="#d9a441">OCT 15</text>
+          <text x="727" y="230" font-size="24" fill="#f5edd8">The store opens</text>
+          <circle cx="727" cy="152" r="13" fill="#d9a441"/><circle cx="727" cy="152" r="6" fill="#f5edd8"/>
+          <text x="896" y="82" font-size="30" font-weight="700" fill="#d9a441">OCT 17</text>
+          <text x="896" y="112" font-size="24" fill="#f5edd8">Mark, chapter 1 — the film</text>
+          <circle cx="896" cy="142" r="13" fill="#d9a441"/><circle cx="896" cy="142" r="6" fill="#f5edd8"/>
+          <text x="981" y="200" font-size="30" font-weight="700" fill="#d9a441">OCT 18</text>
+          <text x="981" y="230" font-size="24" fill="#f5edd8">Come and Hear</text>
+          <text x="981" y="258" font-size="24" fill="#f5edd8">+ the Wall hung</text>
+          <circle cx="981" cy="140" r="13" fill="#d9a441"/><circle cx="981" cy="140" r="6" fill="#f5edd8"/>
+          <text x="1065" y="82" font-size="30" font-weight="700" fill="#d9a441">OCT 19</text>
+          <text x="1065" y="112" font-size="24" fill="#f5edd8">900 crossed</text>
+          <circle cx="1065" cy="144" r="13" fill="#d9a441"/><circle cx="1065" cy="144" r="6" fill="#f5edd8"/>
+        </g>
+      </svg>
+    </div>
+    <p class="body" style="margin-top:3.5vh">On the same vine, the daily count: <strong>841 subscribers on Oct 13 &rarr; 904 on Oct 19</strong> &middot; views <strong>154,398 &rarr; 155,860</strong> — every point from the Field Report&rsquo;s growth vine.</p>
+
+    <img class="bug" src="truvine-emblem.png" alt="">
+  </section>
+
+  <!-- 8 · THE FILMS -->
   <section class="slide" data-dwell="9">
     <div class="kicker">The Films</div>
     <h2>Two films, one weekend</h2>
@@ -299,9 +399,10 @@
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
 
-  <!-- 7 · THE DOORS -->
+  <!-- 9 · THE DOORS -->
   <section class="slide" data-dwell="8">
     <div class="kicker">The Doors</div>
+    <p class="verse">&ldquo;I am the door. If anyone enters in by me, he will be saved, and will go in and go out and will find pasture.&rdquo; <span class="vref">John 10:9</span></p>
     <h2>Every door free, every door open</h2>
     <div class="doors">
       <div class="door"><div class="dt">Word of God Risen</div><div class="dd">The Bible app — installs right onto the home screen. Tap a book, tap a chapter, tap Listen, and Teddy reads to you.</div></div>
@@ -314,7 +415,18 @@
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
 
-  <!-- 8 · THE FAMILY WALL -->
+
+  <!-- 10 · THE CREED -->
+  <section class="slide" data-dwell="9">
+    <div class="kicker">The Creed</div>
+    <h2>What it costs: <span class="gold">nothing.</span></h2>
+    <p class="creedlines" style="margin-top:4.5vh">No account. No password.<br>Nothing to pay.</p>
+    <p class="houseline" style="margin-top:4.5vh">The Word of God, read aloud, free — always.</p>
+
+    <img class="bug" src="truvine-emblem.png" alt="">
+  </section>
+
+  <!-- 11 · THE FAMILY WALL -->
   <section class="slide" data-dwell="10">
     <div class="kicker">The Family Wall</div>
     <h2>Welcomed, not processed</h2>
@@ -341,7 +453,7 @@
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
 
-  <!-- 9 · THE STORE & THE WORK -->
+  <!-- 12 · THE STORE & THE WORK -->
   <section class="slide" data-dwell="9">
     <div class="kicker">The Store &amp; the Work</div>
     <h2>The work of his hands</h2>
@@ -355,18 +467,40 @@
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
 
-  <!-- 10 · THE CLOSE -->
+
+  <!-- 13 · WHAT'S AHEAD -->
+  <section class="slide" data-dwell="9">
+    <div class="kicker">Still to Come</div>
+    <h2>What&rsquo;s Ahead</h2>
+    <div class="ahead">
+      <div class="arow"><span class="chip">Ahead</span><div class="at">The Gospel continues — Mark, chapter 2</div></div>
+      <div class="arow"><span class="chip">Ahead</span><div class="at">Revelation — being read now, then filmed</div></div>
+      <div class="arow"><span class="chip">Ahead</span><div class="at">The Christmas season</div></div>
+    </div>
+    <p class="footnote" style="margin-top:4vh">Named in faith, not yet in hand — this slide is the road ahead, not the record.</p>
+
+    <img class="bug" src="truvine-emblem.png" alt="">
+  </section>
+
+  <!-- 14 · THE CLOSE -->
   <section class="slide" data-dwell="12">
-    <img class="emblem" src="truvine-emblem.png" alt="" style="width:clamp(120px,15vw,230px); margin-bottom:4vh">
+    <img class="emblem" src="truvine-emblem.png" alt="" style="width:clamp(90px,10vw,150px); margin-bottom:2.4vh">
     <blockquote>&ldquo;Not to us, Yahweh, not to us, but to your name give glory, for your loving kindness, and for your truth&rsquo;s sake.&rdquo;</blockquote>
     <div class="ref">Psalm 115:1 · WEB</div>
-    <p class="houseline" style="margin-top:5vh">We plant. We water. God gives the increase.</p>
-    <p class="body" style="margin-top:2.5vh">Faithfulness over numbers — if one seed is planted a day, that&rsquo;s good enough.</p>
+    <p class="houseline" style="margin-top:3.2vh">We plant. We water. God gives the increase.</p>
+    <p class="body" style="margin-top:2vh">Faithfulness over numbers — if one seed is planted a day, that&rsquo;s good enough.</p>
+    <div class="qrrow">
+      <div class="qrpanel"><img src="qr-start-here.png" alt="QR code linking to Start Here, the TruVINE welcome page"></div>
+      <div class="qrtext">
+        <div class="qt">Take the Bible home with you.</div>
+        <div class="qd">Point your camera — Start Here will walk you in, and Teddy will read to you.</div>
+      </div>
+    </div>
   </section>
 
 </main>
 
-<div id="dwellbar" aria-hidden="true"><div id="dwellfill"></div></div>
+<div id="dwellbar" aria-hidden="true"><div id="dwelltrack"></div><div id="dwellfill"></div><div id="vineleaves"></div></div>
 <div id="counter" aria-hidden="true"></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="paused" aria-hidden="true">Paused — space to continue</div>
@@ -381,6 +515,21 @@
   var counter = document.getElementById('counter');
   var pausedNote = document.getElementById('paused');
   var fill = document.getElementById('dwellfill');
+  /* progress vine: a leaf grows at each slide boundary the show has passed */
+  var leavesWrap = document.getElementById('vineleaves');
+  var leaves = [];
+  if (leavesWrap){
+    for (var li = 1; li < slides.length; li++){
+      var lf = document.createElement('span');
+      lf.className = 'vleaf' + (li % 2 ? ' flip' : '');
+      lf.style.left = (li / slides.length * 100) + '%';
+      leavesWrap.appendChild(lf);
+      leaves.push({ el: lf, at: li / slides.length });
+    }
+  }
+  function paintLeaves(frac){
+    leaves.forEach(function(l){ l.el.classList.toggle('grown', frac + 1e-9 >= l.at); });
+  }
   var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var dots = slides.map(function(_, i){
     var d = document.createElement('span'); d.className = 'dot'; progress.appendChild(d); return d;
@@ -396,8 +545,10 @@
   function paintBar(){
     if (!fill) return;
     var dur = durations[idx] || 1;
+    var frac = (idx + Math.min(slideElapsed, dur) / dur) / slides.length;
     fill.style.transition = 'none';
-    fill.style.width = Math.min(100, (slideElapsed / dur) * 100) + '%';
+    fill.style.width = Math.min(100, frac * 100) + '%';
+    paintLeaves(frac);
   }
   function startDwell(){
     stopDwell();
@@ -407,7 +558,7 @@
     if (fill){
       void fill.offsetWidth; /* reflow, so the run starts from the painted width */
       fill.style.transition = 'width ' + remaining + 'ms linear';
-      fill.style.width = '100%';
+      fill.style.width = ((idx + 1) / slides.length * 100) + '%';
     }
     dwellTimer = setTimeout(function(){
       dwellTimer = null;
