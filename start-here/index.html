@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Start Here — Welcome to the Farm · TruVINE</title>
+<meta name="description" content="New to TruVINE? Start here: hear the whole Bible read out loud by Grandpa Teddy, watch the films, visit the Family Wall, and find every door on the farm.">
+<link rel="canonical" href="https://jnutt367.github.io/truvine/start-here/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Start Here — Welcome to the Farm · TruVINE">
+<meta property="og:description" content="The whole Bible read out loud, Bible films, the Family Wall, and every TruVINE door in one warm place.">
+<meta property="og:url" content="https://jnutt367.github.io/truvine/start-here/">
+<meta property="og:image" content="https://jnutt367.github.io/truvine/start-here/assets/emblem-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,600;0,800;1,600&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background:
+      radial-gradient(1200px 620px at 50% -120px, #17452C 0%, rgba(23,69,44,0) 60%),
+      var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 84px; }
+
+  /* ---------- Welcome plate ---------- */
+  .plate { text-align: center; padding: 46px 0 4px; }
+  .plate .emblem { width: 238px; max-width: 56vw; height: auto; display: inline-block; }
+  .overline {
+    margin-top: 24px; font-size: 13.5px; font-weight: 800; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .plate h1 {
+    margin-top: 10px; font-size: clamp(48px, 9vw, 82px); line-height: 1.05;
+    font-weight: 800; color: var(--cream);
+  }
+  .plate .rule {
+    width: 120px; height: 3px; background: var(--gold-deep);
+    margin: 24px auto 0; border-radius: 2px;
+  }
+  .invitation {
+    margin: 24px auto 0; max-width: 36em;
+    font-size: clamp(20px, 3.4vw, 25px); line-height: 1.5; color: var(--cream);
+  }
+  .hero-actions {
+    margin: 28px auto 0; max-width: 720px;
+    display: grid; gap: 14px;
+  }
+  @media (min-width: 680px) { .hero-actions { grid-template-columns: 1.35fr 1fr; } }
+  .hero-btn, .secondary-btn {
+    min-height: 58px; display: flex; align-items: center; justify-content: center;
+    border-radius: 14px; padding: 14px 20px; text-align: center;
+    font-size: 19px; font-weight: 800; text-decoration: none;
+  }
+  .hero-btn { background: var(--gold); color: #2A2005; border: 2px solid var(--gold-deep); }
+  .hero-btn:hover { background: var(--gold-bright); }
+  .secondary-btn { background: var(--green-900); color: var(--cream); border: 2px solid var(--gold-deep); }
+  .secondary-btn:hover { background: var(--green-800); }
+
+  /* ---------- Sections ---------- */
+  section.movement { margin-top: 84px; }
+  .sec-head { text-align: center; margin-bottom: 30px; }
+  .sec-head .kicker {
+    font-size: 12.5px; font-weight: 800; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .sec-head h2 { margin-top: 8px; font-size: clamp(32px, 5.4vw, 44px); font-weight: 800; color: var(--cream); line-height: 1.15; }
+  .sec-head .sub { margin: 10px auto 0; max-width: 42em; font-size: 17px; color: var(--muted-d); }
+  .sec-head .rule { width: 74px; height: 2px; background: var(--gold-deep); margin: 18px auto 0; border-radius: 2px; }
+
+  /* ---------- Jason's note ---------- */
+  .letter {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .letter p { font-size: 18.5px; line-height: 1.75; }
+  .letter p + p { margin-top: 18px; }
+  .letter .sign { margin-top: 26px; font-size: 20px; }
+
+  /* ---------- Start with the app ---------- */
+  .action-card {
+    max-width: 800px; margin: 54px auto 0; scroll-margin-top: 24px;
+    background: var(--parchment); color: var(--ink);
+    border: 3px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 48px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  }
+  .action-card h2 {
+    text-align: center; font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.18; color: #10365C;
+  }
+  .action-intro { margin-top: 14px; text-align: center; font-size: 18px; line-height: 1.65; }
+  .action-steps { list-style: none; margin-top: 24px; display: grid; gap: 18px; }
+  .action-steps li { font-size: 20px; line-height: 1.6; }
+  .action-steps strong { color: #10365C; }
+  .app-btn {
+    display: block; margin-top: 26px; text-align: center;
+    background: var(--gold); color: #2A2005; border: 2px solid var(--gold-deep);
+    border-radius: 14px; padding: 18px 22px;
+    font-size: 21px; font-weight: 800; text-decoration: none;
+  }
+  .app-btn:hover { background: var(--gold-bright); }
+  .app-btn small { display: block; margin-top: 4px; font-size: 15.5px; font-weight: 700; }
+  .install-line {
+    margin-top: 22px; padding-top: 20px; border-top: 1px solid #D8C491;
+    font-size: 17px; line-height: 1.65; text-align: center;
+  }
+
+  /* ---------- Teddy helper ---------- */
+  #teddy-helper { scroll-margin-top: 24px; }
+  .helper-card {
+    max-width: 800px; margin: 36px auto 0;
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(24px, 4.5vw, 40px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    display: flex; gap: 26px; align-items: flex-start;
+  }
+  .helper-card img {
+    width: 168px; height: 168px; flex: 0 0 auto;
+    object-fit: cover; border-radius: 50%;
+    border: 3px solid var(--gold-deep);
+    background: var(--green-900);
+  }
+  .bubble {
+    position: relative; flex: 1; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .bubble::before {
+    content: ""; position: absolute; left: -11px; top: 44px;
+    width: 18px; height: 18px; background: #FFFFFF;
+    border-left: 2px solid #D8C491; border-bottom: 2px solid #D8C491;
+    transform: rotate(45deg);
+  }
+  .bubble .bubble-name {
+    font-size: 13px; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold-deep);
+  }
+  .bubble p { margin-top: 8px; font-size: 18.5px; line-height: 1.7; }
+  .bubble p strong { color: #10365C; }
+  @media (max-width: 640px) {
+    .helper-card { flex-direction: column; align-items: center; text-align: left; }
+    .bubble::before {
+      left: 50%; top: -11px; margin-left: -9px;
+      border-left: 2px solid #D8C491; border-top: 2px solid #D8C491;
+      border-bottom: none;
+    }
+  }
+
+  /* ---------- Plain prose ---------- */
+  .standing { max-width: 800px; margin: 0 auto; }
+  .standing p { margin-top: 12px; font-size: 18px; line-height: 1.72; color: var(--cream); }
+  .standing p:first-child { margin-top: 0; }
+  .standing strong { color: var(--gold-bright); }
+  .standing .plain-link { text-align: center; margin-top: 26px; }
+
+  /* ---------- Doors ---------- */
+  .door-grid { max-width: 800px; margin: 0 auto; display: grid; gap: 20px; }
+  @media (min-width: 760px) { .door-grid { grid-template-columns: 1fr 1fr; } }
+  .door-card {
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 18px;
+    padding: 28px; text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .door-card h3 { font-size: 23px; color: var(--cream); line-height: 1.3; }
+  .door-card p { margin-top: 10px; font-size: 16.5px; line-height: 1.62; color: var(--muted-d); }
+  .door-btn {
+    display: inline-block; margin-top: auto; padding-top: 0;
+    background: var(--gold); color: #2A2005; border: 2px solid var(--gold-deep);
+    border-radius: 12px; padding: 13px 24px;
+    font-size: 18px; font-weight: 800; text-decoration: none;
+  }
+  .door-card .door-btn { margin-top: 20px; }
+  .door-btn:hover { background: var(--gold-bright); }
+  .wide-card { max-width: 800px; margin: 20px auto 0; }
+  .key-card {
+    background: var(--parchment); color: var(--ink); text-align: center;
+    border: 3px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 46px); box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  }
+  .key-card h3 { font-size: clamp(27px, 4.6vw, 38px); line-height: 1.2; color: #10365C; }
+  .key-card p { max-width: 38em; margin: 14px auto 0; font-size: 18px; line-height: 1.68; }
+  .store-note { max-width: 800px; margin: 0 auto; text-align: center; }
+  .store-note p { font-size: 18px; line-height: 1.7; color: var(--cream); }
+  .text-btn {
+    display: inline-block; margin-top: 18px; min-height: 52px;
+    border: 2px solid var(--gold-deep); border-radius: 12px; padding: 12px 22px;
+    color: var(--cream); background: var(--green-900);
+    font-size: 17.5px; font-weight: 800; text-decoration: none;
+  }
+  .text-btn:hover { background: var(--green-800); }
+
+  /* ---------- Corner Teddy ---------- */
+  .teddy-corner {
+    position: fixed; left: 14px; bottom: 14px; z-index: 40;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 999px;
+    padding: 6px 16px 6px 6px; text-decoration: none;
+    box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  }
+  .teddy-corner img {
+    width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--gold); display: block; background: var(--green-800);
+  }
+  .teddy-corner span { font-size: 15.5px; font-weight: 800; color: var(--cream); white-space: nowrap; }
+  .teddy-corner:hover { background: var(--green-800); }
+  @media (max-width: 640px) {
+    .wrap { padding-bottom: 150px; }
+    .teddy-corner span { font-size: 14.5px; }
+  }
+
+  /* ---------- Closing ---------- */
+  .closing { margin-top: 96px; text-align: center; }
+  .closing .f-emblem { width: 74px; height: auto; }
+  .closing .prepared { margin-top: 16px; font-size: 16.5px; color: var(--muted-d); }
+  .closing .house-line { margin-top: 10px; font-size: 21px; font-style: italic; color: var(--cream); }
+  footer { margin-top: 34px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer p { font-size: 15px; color: var(--muted-d); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .plate, section.movement, .closing { animation: rise .7s ease-out both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="plate">
+    <img class="emblem" src="assets/emblem-transparent.png" alt="The TruVINE emblem — a golden vine in the shape of a cross inside a triangle" width="780" height="551">
+    <p class="overline">TruVINE · Start Here</p>
+    <h1 class="serif">Welcome to the Farm</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="invitation">TruVINE is a small, friendly place built around one big gift: the whole Bible, read out loud by Grandpa Teddy — free for anybody who wants to listen.</p>
+    <div class="hero-actions" aria-label="Start here">
+      <a class="hero-btn" href="#listen">Start with the Bible — 3 taps</a>
+      <a class="secondary-btn" href="#doors">See all the doors</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= THE APP — START HERE ================= -->
+    <section class="action-card" id="listen" aria-labelledby="action-h">
+      <h2 id="action-h" class="serif">The Bible, Read Out Loud</h2>
+      <p class="action-intro">This is the easiest place to begin. It takes about a minute, and there is nothing to join or buy.</p>
+      <ol class="action-steps">
+        <li><strong>Step 1:</strong> <strong>Tap a book.</strong> Any book of the Bible you like — Mark is a good place to start.</li>
+        <li><strong>Step 2:</strong> <strong>Tap a chapter.</strong> Just pick one.</li>
+        <li><strong>Step 3:</strong> <strong>Tap the gold LISTEN button.</strong> Grandpa Teddy reads the whole chapter out loud to you.</li>
+      </ol>
+      <a class="app-btn" href="https://word-of-god-risen.vercel.app/">Open the Bible — Word of God Risen<small>Every chapter, read out loud by Grandpa Teddy — free</small></a>
+      <p class="install-line"><strong>Want Teddy one tap away?</strong> After you open the Bible, Android friends can tap &#8942; and choose <strong>Install app</strong>; iPhone friends can tap <strong>Share</strong> and choose <strong>Add to Home Screen</strong>.</p>
+    </section>
+
+    <!-- ================= TEDDY HELPER ================= -->
+    <section class="helper-card" id="teddy-helper" aria-label="Grandpa Teddy welcomes you and shows you how">
+      <img src="assets/teddy-guide.webp" alt="Grandpa Teddy smiling and pointing the way" width="512" height="512">
+      <div class="bubble">
+        <p class="bubble-name">Grandpa Teddy</p>
+        <p>Well hey there, friend! I&rsquo;m Grandpa Teddy. Jason asked me to show you around, so we&rsquo;ll go slow and plain. Start with that big gold button: <strong>tap a book, tap a chapter, tap LISTEN</strong>, and I&rsquo;ll read to you. Once you&rsquo;re inside the Bible, tap my face in the corner anytime — I&rsquo;ll be right there to help you find your way.</p>
+      </div>
+    </section>
+
+    <!-- ================= JASON'S WELCOME ================= -->
+    <section class="movement" aria-labelledby="letter-h">
+      <div class="sec-head">
+        <p class="kicker">From Jason</p>
+        <h2 id="letter-h" class="serif">A Welcome Note</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="letter">
+        <p>Welcome, friend — I&rsquo;m Jason.</p>
+        <p>I&rsquo;m just a regular fellow who loves Jesus, and I built TruVINE with Grandpa Teddy because I wanted the Word of God to be easy to hear and easy to share. Teddy has read the whole Bible out loud, every chapter, and we put it in a free app called Word of God Risen. There is no account to make, no password to remember, and nothing to pay.</p>
+        <p>You tap a book, tap a chapter, and tap Listen, and Teddy reads to you. If you get lost, tap Teddy&rsquo;s face in the app and he&rsquo;ll show you around, slow and plain. We&rsquo;re glad you&rsquo;re here, whether you stay for one chapter or pull up a chair for a while. Take your time — the door is open.</p>
+        <p class="sign">— Jason</p>
+      </div>
+    </section>
+
+    <!-- ================= WHAT WE'RE DOING ================= -->
+    <section class="movement" aria-labelledby="explain-h">
+      <div class="sec-head">
+        <p class="kicker">In Plain Words</p>
+        <h2 id="explain-h" class="serif">What We&rsquo;re Doing</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="standing">
+        <p>Maybe a friend sent you here, or maybe you found one of the films first. Either way, here is the whole farm in one place: <strong>TruVINE</strong> is a small ministry with a big Bible at its heart.</p>
+        <p>At the center is Grandpa Teddy, the kind old farmer who does the telling around here. He has read the <strong>whole Bible out loud — every single chapter</strong> — and it all lives in the free Word of God Risen app, so anybody can open it and listen.</p>
+        <p>Those same chapters are becoming <strong>animated films on YouTube, word for word</strong>, starting with the Gospel of Mark. There is also a Family Wall where folks are welcomed by hand, a Field Report that follows the Word as it goes out, and a little store for folks who want to carry the Word with them.</p>
+        <p>Everything here is free. There is no account to make and nothing you have to figure out before you begin.</p>
+      </div>
+    </section>
+
+    <!-- ================= THE FILMS ================= -->
+    <section class="movement" id="doors" aria-labelledby="movies-h">
+      <div class="sec-head">
+        <p class="kicker">Watch</p>
+        <h2 id="movies-h" class="serif">The Films</h2>
+        <p class="sub">When you want to watch the Word as well as hear it.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="door-grid">
+        <article class="door-card">
+          <h3 class="serif">The Gospel of Mark — the Film</h3>
+          <p>Our animated film of Mark, chapter 1 — Grandpa Teddy reads every word of Scripture, word for word.</p>
+          <a class="door-btn" href="https://www.youtube.com/watch?v=z9pwCVw7Rf0">Watch the Film</a>
+        </article>
+        <article class="door-card">
+          <h3 class="serif">Come and Hear — Our Story</h3>
+          <p>How this farm got planted, watered, and grown — told on one gentle page with the film big and plain.</p>
+          <a class="door-btn" href="https://jnutt367.github.io/truvine/come-and-hear/">Watch Our Story</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= MORE DOORS ================= -->
+    <section class="movement" aria-labelledby="more-doors-h">
+      <div class="sec-head">
+        <p class="kicker">Come Onto the Porch</p>
+        <h2 id="more-doors-h" class="serif">More Doors to Open</h2>
+        <p class="sub">Take one at a time. There is no hurry here.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="door-grid">
+        <article class="door-card">
+          <h3 class="serif">The Family Wall</h3>
+          <p>Here, people are welcomed, not processed. The first family has come home to the Wall: Jason, Sharon — “Share Bear” — and Ian, with room still kept for more. If you would like a place, Jason reads every letter himself and hangs each yes by hand.</p>
+          <a class="door-btn" href="https://jnutt367.github.io/truvine/family-wall/">Visit the Family Wall</a>
+        </article>
+        <article class="door-card">
+          <h3 class="serif">The Field Report</h3>
+          <p>The Word is going out beyond our porch. The Field Report keeps track of chapters read and heard around the world, and shows where the seeds are landing.</p>
+          <a class="door-btn" href="https://jnutt367.github.io/truvine/field-report/">See the Field Report</a>
+        </article>
+      </div>
+      <div class="wide-card key-card">
+        <h3 class="serif">The Key Ring</h3>
+        <p>Every door on the farm, on one ring. Keep this one handy and you can find the Bible, the films, the Wall, the Field Report, the store, and everything else from one simple page.</p>
+        <a class="door-btn" href="https://jnutt367.github.io/truvine/links/">Open the Key Ring</a>
+      </div>
+    </section>
+
+    <!-- ================= THE STORE ================= -->
+    <section class="movement" aria-labelledby="store-h">
+      <div class="sec-head">
+        <p class="kicker">If You&rsquo;d Like</p>
+        <h2 id="store-h" class="serif">The Little Store</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="store-note">
+        <p>There is a little store with shirts and hoodies carrying the Word — no pressure at all, just there for folks who would like one.</p>
+        <a class="text-btn" href="https://truvine.printify.me/">Visit the TruVINE Store</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="closing">
+    <img class="f-emblem" src="assets/emblem-transparent.png" alt="" width="780" height="551">
+    <p class="prepared">Start anywhere. Stay as long as you like.</p>
+    <p class="house-line serif">We plant. We water. God gives the increase.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Jason Nutt · TruVINE — All rights reserved.</p>
+  </footer>
+</div>
+
+<a class="teddy-corner" href="#teddy-helper" aria-label="Teddy shows you how — go to Grandpa Teddy's helper note">
+  <img src="assets/teddy-guide.webp" alt="" width="512" height="512">
+  <span>Teddy shows you how</span>
+</a>
+</body>
+</html>
