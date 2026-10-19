@@ -74,6 +74,27 @@
     color:var(--sage); opacity:.85; display:none;
   }
   .js .hint{display:block}
+  /* ---------- music ---------- */
+  .music-big{
+    margin-top:4.5vh; min-height:84px; padding:1.4vh 4.5vw;
+    font-family:inherit; font-weight:700; letter-spacing:.02em;
+    font-size:clamp(24px,2.6vw,44px); line-height:1.2;
+    color:#0c1f16; background:linear-gradient(180deg,#e8bc60,var(--gold));
+    border:2px solid rgba(245,237,216,.55); border-radius:999px;
+    box-shadow:0 14px 40px rgba(0,0,0,.5); cursor:pointer;
+  }
+  .music-big:hover{filter:brightness(1.06)}
+  .music-big:focus-visible, #music-corner:focus-visible{
+    outline:4px solid var(--cream); outline-offset:4px;
+  }
+  #music-corner{
+    position:fixed; left:2.4vw; top:2.6vh; z-index:50; display:none;
+    min-height:56px; min-width:56px; padding:12px 22px;
+    font-family:inherit; font-weight:700; font-size:clamp(15px,1.3vw,22px);
+    color:var(--cream); background:rgba(18,42,28,.88);
+    border:2px solid var(--line); border-radius:999px; cursor:pointer;
+  }
+  .js #music-corner{display:block}
   /* ---------- growth ---------- */
   .growth{display:flex; gap:3.5vw; align-items:flex-end; justify-content:center; flex-wrap:wrap; margin-top:4.5vh}
   .gcol{width:clamp(230px,22vw,360px); text-align:center}
@@ -132,6 +153,7 @@
     <p class="sub" style="margin-top:2vh">A season in review</p>
     <p class="dateline" style="margin-top:2.6vh">September – October 2026</p>
     <p class="houseline" style="margin-top:4vh">We plant. We water. God gives the increase.</p>
+    <button type="button" id="music-big" class="music-big" aria-pressed="false" hidden>🎵 Tap for Music</button>
     <p class="hint">Press F for fullscreen · arrow keys to wander</p>
   </section>
 
@@ -277,6 +299,8 @@
 <div id="counter" aria-hidden="true"></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="paused" aria-hidden="true">Paused — space to continue</div>
+<button type="button" id="music-corner" aria-pressed="false">Music: Off</button>
+<audio id="bed" src="bed.mp3" loop preload="metadata"></audio>
 
 <script>
 (function(){
@@ -309,7 +333,32 @@
     if (move) move();
     pause();
   }
+  /* ---------- music: the house bed, tap to start ---------- */
+  var bed = document.getElementById('bed');
+  var musicBig = document.getElementById('music-big');
+  var musicCorner = document.getElementById('music-corner');
+  var musicOn = false;
+  bed.volume = 0.12;
+  musicBig.hidden = false;
+  function paintMusic(){
+    musicBig.setAttribute('aria-pressed', musicOn ? 'true' : 'false');
+    musicCorner.setAttribute('aria-pressed', musicOn ? 'true' : 'false');
+    musicBig.textContent = musicOn ? '🎵 Music On — tap to hush' : '🎵 Tap for Music';
+    musicCorner.textContent = musicOn ? 'Music: On' : 'Music: Off';
+  }
+  function toggleMusic(){
+    if (musicOn){
+      bed.pause(); musicOn = false; paintMusic();
+    } else {
+      var p = bed.play();
+      if (p && p.catch){ p.catch(function(){ musicOn = false; paintMusic(); }); }
+      musicOn = true; paintMusic();
+    }
+  }
+  musicBig.addEventListener('click', toggleMusic);
+  musicCorner.addEventListener('click', toggleMusic);
   document.addEventListener('keydown', function(e){
+    if ((e.key === ' ' || e.key === 'Enter') && e.target && e.target.closest && e.target.closest('button')){ return; }
     if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); interact(function(){ show(idx + 1); }); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); interact(function(){ show(idx - 1); }); }
     else if (e.key === 'Home'){ interact(function(){ show(0); }); }
@@ -322,6 +371,7 @@
     else if (e.key === 'p' || e.key === 'P'){ if (timer){ pause(); } else { play(); } }
   });
   document.addEventListener('pointerdown', function(e){
+    if (e.target && e.target.closest && e.target.closest('button')){ pause(); return; }
     var r = window.innerWidth * 0.5;
     interact(function(){ show(idx + (e.clientX >= r ? 1 : -1)); });
   });
