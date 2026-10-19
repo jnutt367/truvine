@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>For Teresa — a note from Jason · TruVINE</title>
+<meta name="description" content="A private page from Jason for Teresa: where the ministry stands today — the whole Bible read out loud by Grandpa Teddy in a free app, the films, the Family Wall, and the Key Ring with every door in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,600;0,800;1,600&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background:
+      radial-gradient(1200px 620px at 50% -120px, #17452C 0%, rgba(23,69,44,0) 60%),
+      var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 72px; }
+
+  /* ---------- Title plate ---------- */
+  .plate { text-align: center; padding: 64px 0 8px; }
+  .plate .emblem { width: 290px; max-width: 60vw; height: auto; display: inline-block; }
+  .overline {
+    margin-top: 30px; font-size: 13.5px; font-weight: 800; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .plate h1 {
+    margin-top: 10px; font-size: clamp(44px, 8.4vw, 80px); line-height: 1.05;
+    font-weight: 800; color: var(--cream);
+  }
+  .plate .rule {
+    width: 120px; height: 3px; background: var(--gold-deep);
+    margin: 26px auto 0; border-radius: 2px;
+  }
+  .invitation {
+    margin: 26px auto 0; max-width: 34em;
+    font-size: clamp(20px, 3.4vw, 25px); line-height: 1.5; font-style: italic; color: var(--cream);
+  }
+  .invitation-by { margin-top: 14px; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted-d); }
+
+  /* ---------- Movements ---------- */
+  section.movement { margin-top: 84px; }
+  .sec-head { text-align: center; margin-bottom: 30px; }
+  .sec-head .kicker {
+    font-size: 12.5px; font-weight: 800; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .sec-head h2 { margin-top: 8px; font-size: clamp(32px, 5.4vw, 44px); font-weight: 800; color: var(--cream); line-height: 1.15; }
+  .sec-head .sub { margin-top: 8px; font-size: 17px; color: var(--muted-d); }
+  .sec-head .rule { width: 74px; height: 2px; background: var(--gold-deep); margin: 18px auto 0; border-radius: 2px; }
+
+  /* ---------- The letter ---------- */
+  .letter {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .letter p { font-size: 18.5px; line-height: 1.75; }
+  .letter p + p { margin-top: 18px; }
+  .letter .sign { margin-top: 26px; font-size: 20px; }
+
+  /* ---------- Action first: the app, three taps ---------- */
+  .action-card {
+    max-width: 800px; margin: 64px auto 0;
+    background: var(--parchment); color: var(--ink);
+    border: 3px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 48px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  }
+  .action-card h2 {
+    text-align: center; font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.18; color: #10365C;
+  }
+  .app-icon-figure { margin-top: 26px; text-align: center; }
+  .app-icon {
+    width: 108px; height: 108px; margin: 0 auto;
+    background: radial-gradient(120px 90px at 50% 0%, #17452C 0%, rgba(23,69,44,0) 70%), var(--green-900);
+    border: 2px solid var(--gold-deep); border-radius: 26px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  }
+  .app-icon img { width: 82%; height: auto; display: block; }
+  .app-icon-name { margin-top: 10px; font-size: 16.5px; font-weight: 800; color: #10365C; }
+  .app-icon-caption { margin: 8px auto 0; max-width: 30em; font-size: 16px; line-height: 1.6; color: var(--ink); }
+  .action-steps { list-style: none; margin-top: 24px; display: grid; gap: 18px; }
+  .action-steps li { font-size: 20px; line-height: 1.6; }
+  .action-steps strong { color: #10365C; }
+  .action-close { margin-top: 22px; font-size: 17.5px; line-height: 1.65; font-weight: 600; }
+  .app-btn {
+    display: block; margin-top: 26px; text-align: center;
+    background: var(--gold); color: #2A2005; border: 2px solid var(--gold-deep);
+    border-radius: 14px; padding: 18px 22px;
+    font-size: 21px; font-weight: 800; text-decoration: none;
+  }
+  .app-btn:hover { background: var(--gold-bright); }
+  .app-btn small { display: block; margin-top: 4px; font-size: 15.5px; font-weight: 700; }
+
+  /* ---------- Teddy helper ---------- */
+  #teddy-helper { scroll-margin-top: 24px; }
+  .helper-card {
+    max-width: 800px; margin: 36px auto 0;
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(24px, 4.5vw, 40px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    display: flex; gap: 26px; align-items: flex-start;
+  }
+  .helper-card img {
+    width: 168px; height: 168px; flex: 0 0 auto;
+    object-fit: cover; border-radius: 50%;
+    border: 3px solid var(--gold-deep);
+    background: var(--green-900);
+  }
+  .bubble {
+    position: relative; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .bubble::before {
+    content: ""; position: absolute; left: -11px; top: 44px;
+    width: 18px; height: 18px; background: #FFFFFF;
+    border-left: 2px solid #D8C491; border-bottom: 2px solid #D8C491;
+    transform: rotate(45deg);
+  }
+  .bubble .bubble-name {
+    font-size: 13px; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold-deep);
+  }
+  .bubble p { margin-top: 8px; font-size: 18.5px; line-height: 1.7; }
+  .bubble p strong { color: #10365C; }
+  @media (max-width: 640px) {
+    .helper-card { flex-direction: column; align-items: center; text-align: left; }
+    .bubble::before {
+      left: 50%; top: -11px; margin-left: -9px;
+      border-left: 2px solid #D8C491; border-top: 2px solid #D8C491;
+      border-bottom: none;
+    }
+  }
+
+  /* ---------- Corner Teddy — a quiet way back to the helper ---------- */
+  .teddy-corner {
+    position: fixed; left: 14px; bottom: 14px; z-index: 40;
+    display: flex; align-items: center; gap: 10px;
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 999px;
+    padding: 6px 16px 6px 6px; text-decoration: none;
+    box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  }
+  .teddy-corner img {
+    width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--gold); display: block; background: var(--green-800);
+  }
+  .teddy-corner span { font-size: 15.5px; font-weight: 800; color: var(--cream); white-space: nowrap; }
+  .teddy-corner:hover { background: var(--green-800); }
+  @media (max-width: 640px) {
+    .wrap { padding-bottom: 150px; }
+    .teddy-corner span { font-size: 14.5px; }
+  }
+
+  /* ---------- Plain prose ---------- */
+  .standing { max-width: 800px; margin: 0 auto; }
+  .standing h3 {
+    margin-top: 34px; font-size: 24px; color: var(--gold-bright);
+  }
+  .standing h3:first-child { margin-top: 0; }
+  .standing p { margin-top: 10px; font-size: 18px; line-height: 1.7; color: var(--cream); }
+  .standing p:first-child { margin-top: 0; }
+  .standing .explain { font-size: 19.5px; line-height: 1.75; }
+  .standing .explain + .explain { margin-top: 16px; }
+  .standing ul { margin-top: 12px; list-style: none; }
+  .standing li {
+    padding: 10px 0 10px 22px; position: relative;
+    font-size: 17.5px; border-bottom: 1px solid var(--green-700);
+  }
+  .standing li:last-child { border-bottom: none; }
+  .standing li::before {
+    content: ""; position: absolute; left: 2px; top: 21px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+  }
+  .standing li strong { color: var(--gold-bright); }
+  .standing .heart {
+    margin-top: 40px; text-align: center; font-size: 21px; font-style: italic; color: var(--cream);
+  }
+  .wall-link { margin-top: 30px; text-align: center; font-style: italic; font-size: 18.5px; }
+  .wall-link a { color: var(--gold-bright); text-decoration: none; }
+  .wall-link a:hover { text-decoration: underline; }
+
+  /* ---------- Home screen card ---------- */
+  .home-card {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .home-card h3 { font-size: 24px; color: #10365C; margin-top: 30px; }
+  .home-card h3:first-child { margin-top: 0; }
+  .home-card p { margin-top: 10px; font-size: 18px; line-height: 1.7; }
+  .home-card ol { margin: 12px 0 0 26px; }
+  .home-card ol li { font-size: 19px; line-height: 1.65; padding: 4px 0; }
+  .home-card .see-line {
+    margin-top: 30px; text-align: center; font-size: 20.5px; font-style: italic; color: #10365C;
+  }
+
+  /* ---------- Door cards ---------- */
+  .door-grid { max-width: 800px; margin: 30px auto 0; display: grid; gap: 20px; }
+  @media (min-width: 760px) { .door-grid { grid-template-columns: 1fr 1fr; } }
+  .door-card {
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 18px;
+    padding: 28px; text-align: center;
+  }
+  .door-card h3 { font-size: 23px; color: var(--cream); line-height: 1.3; }
+  .door-card p { margin-top: 10px; font-size: 16.5px; line-height: 1.6; color: var(--muted-d); }
+  .door-btn {
+    display: inline-block; margin-top: 18px;
+    background: var(--gold); color: #2A2005; border: 2px solid var(--gold-deep);
+    border-radius: 12px; padding: 13px 24px;
+    font-size: 18px; font-weight: 800; text-decoration: none;
+  }
+  .door-btn:hover { background: var(--gold-bright); }
+  .door-btn.quiet {
+    background: transparent; color: var(--gold-bright); border-color: var(--gold-deep);
+  }
+  .door-btn.quiet:hover { background: var(--green-800); }
+  .keyring-card { max-width: 800px; margin: 0 auto; }
+  .keyring-card h3 { font-size: 26px; }
+  .keyring-card .door-btn { font-size: 19.5px; padding: 15px 30px; }
+
+  /* ---------- The answer — a letter, right here ----------
+     The Family Wall's own Tell-Jason letter, mirrored onto the
+     invitation: composed in their own mail app, addressed straight
+     to Jason — nothing is stored on this website. */
+  .answer-card {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .answer-card .tell-copy { font-size: 17px; line-height: 1.65; color: var(--ink); }
+  [hidden] { display: none !important; }
+  .tell-form { margin-top: 22px; display: grid; gap: 18px; }
+  .tell-form label { display: block; font-size: 16px; font-weight: 700; color: #10365C; margin-bottom: 6px; }
+  .tell-opt { font-size: 14px; font-weight: 600; color: var(--muted-l); }
+  .tell-form input, .tell-form textarea, .tell-form select {
+    width: 100%; font: inherit; font-size: 16.5px; line-height: 1.5;
+    color: #24313D; background: #FFFFFF;
+    border: 2px solid #D8C491; border-radius: 10px; padding: 12px 14px;
+  }
+  .tell-form textarea { resize: vertical; }
+  .tell-form input:focus-visible, .tell-form textarea:focus-visible,
+  .tell-form select:focus-visible, .tell-btn:focus-visible {
+    outline: 3px solid var(--gold-deep); outline-offset: 3px; border-radius: 6px;
+  }
+  .tell-btn {
+    justify-self: start; font: inherit; font-size: 17.5px; font-weight: 800;
+    color: var(--cream); background: #10365C; border: 2px solid #10365C;
+    border-radius: 12px; padding: 14px 26px; cursor: pointer;
+  }
+  .tell-btn:hover { background: #18582A; border-color: #18582A; }
+  .tell-note { font-size: 16px; line-height: 1.6; color: var(--ink); }
+  .picture-reminder { font-size: 17px; line-height: 1.6; color: #10365C; }
+
+  /* ---------- The quiet store ---------- */
+  .store-note { max-width: 800px; margin: 0 auto; text-align: center; }
+  .store-note p { font-size: 17.5px; line-height: 1.65; color: var(--muted-d); }
+  .store-note a { color: var(--gold-bright); text-decoration: none; }
+  .store-note a:hover { text-decoration: underline; }
+
+  /* ---------- Closing ---------- */
+  .closing { margin-top: 96px; text-align: center; }
+  .closing .f-emblem { width: 74px; height: auto; }
+  .closing .prepared { margin-top: 16px; font-size: 16.5px; color: var(--muted-d); }
+  .closing .house-line { margin-top: 10px; font-size: 19px; font-style: italic; color: var(--cream); }
+  footer { margin-top: 34px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer p { font-size: 15px; color: var(--muted-d); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .plate, section.movement, .closing { animation: rise .7s ease-out both; }
+    section.movement:nth-of-type(2) { animation-delay: .05s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="plate">
+    <img class="emblem" src="assets/emblem-transparent.png" alt="The TruVINE emblem — a golden vine in the shape of a cross inside a triangle" width="780" height="551">
+    <p class="overline">TruVINE · A Note From Jason</p>
+    <h1 class="serif">For Teresa</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="invitation serif">&ldquo;Teresa — you have believed in this thing from the very beginning. Here it all is, in one place, for my sister.&rdquo;</p>
+    <p class="invitation-by">From Jason — your hermano</p>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= THE NOTE — JASON'S WORDS ================= -->
+    <section class="movement" aria-labelledby="letter-h" style="margin-top:64px;">
+      <div class="sec-head">
+        <p class="kicker">From Jason</p>
+        <h2 id="letter-h" class="serif">The Note</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="letter">
+        <p>Teresa — Arm —</p>
+        <p>You have believed in this thing since it was called Jesus Love Revealed, before any of us knew what the Lord was building. Life got busy for both of us and I never gave you a proper update — so here it is, all in one place. The Bible is finished: Teddy read all 1,503 chapters out loud. It has a name now — TruVINE. There are films, a family wall, and tonight we released the story of how it all happened.</p>
+        <p>You stumbled and found Jesus; I stumbled and found Jesus — and here we are, still standing, still family. Take your time in here. Everything's free, and Teddy will show you around.</p>
+        <p class="sign">Love you, sister. — Mano (your hermano)</p>
+      </div>
+    </section>
+
+    <!-- ================= THE APP — FRONT AND CENTER, WITH ITS ICON ================= -->
+    <section class="action-card" aria-labelledby="action-h">
+      <h2 id="action-h" class="serif">The Bible, Read Out Loud — Right on Your Phone</h2>
+      <figure class="app-icon-figure">
+        <div class="app-icon">
+          <img src="assets/emblem-transparent.png" alt="The Word of God Risen app icon — the golden TruVINE vine emblem" width="780" height="551">
+        </div>
+        <p class="app-icon-name">Word of God</p>
+        <figcaption class="app-icon-caption">This is a real app, Teresa — it installs on your home screen just like any other app, with this picture as its icon. See this picture on your phone? That&rsquo;s your Bible now.</figcaption>
+      </figure>
+      <ol class="action-steps">
+        <li><strong>Step 1:</strong> <strong>Tap a book.</strong> Any book of the Bible you like — Mark is a good place to start.</li>
+        <li><strong>Step 2:</strong> <strong>Tap a chapter.</strong> Just pick one.</li>
+        <li><strong>Step 3:</strong> <strong>Tap the gold LISTEN button.</strong> Grandpa Teddy reads the whole chapter out loud to you.</li>
+      </ol>
+      <a class="app-btn" href="https://word-of-god-risen.vercel.app/">Open the Bible — Word of God Risen<small>Every chapter, read out loud by Grandpa Teddy — free</small></a>
+      <p class="action-close">No account. No password. Nothing to pay — and nothing to figure out. The three steps above are the whole thing.</p>
+    </section>
+
+    <!-- ================= TEDDY HELPER ================= -->
+    <section class="helper-card" id="teddy-helper" aria-label="Grandpa Teddy shows Teresa how">
+      <img src="assets/teddy-guide.webp" alt="Grandpa Teddy pointing the way" width="512" height="512">
+      <div class="bubble">
+        <p class="bubble-name">Grandpa Teddy</p>
+        <p>Well hey there, Teresa! Jason asked me to show you around. See that big gold button up above? That opens the Bible. <strong>Tap a book, tap a chapter, tap LISTEN</strong> — and I&rsquo;ll read to you. And just below, I&rsquo;ll show you how to put the app right on your home screen, so the Word is always one tap away.</p>
+      </div>
+    </section>
+
+    <section class="movement" aria-labelledby="home-h">
+      <div class="sec-head">
+        <p class="kicker">Keep It Close</p>
+        <h2 id="home-h" class="serif">Put the App on Your Home Screen</h2>
+        <p class="sub">Do this once, and the Bible is one tap away forever after — no typing, ever again.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="home-card">
+        <h3 class="serif">If your phone is an Android</h3>
+        <ol>
+          <li>Open the Bible with the gold button above (it opens in Chrome).</li>
+          <li>Tap the three dots (&#8942;) at the top right.</li>
+          <li>Tap <strong>&ldquo;Install app,&rdquo;</strong> then tap <strong>&ldquo;Install.&rdquo;</strong></li>
+        </ol>
+        <p>Done — the emblem is on your home screen, named <strong>&ldquo;Word of God.&rdquo;</strong></p>
+        <h3 class="serif">If your phone is an iPhone</h3>
+        <ol>
+          <li>Open the Bible with the gold button above (it opens in Safari).</li>
+          <li>Tap <strong>Share</strong> — the square with the arrow pointing up.</li>
+          <li>Scroll and tap <strong>&ldquo;Add to Home Screen,&rdquo;</strong> then tap <strong>&ldquo;Add.&rdquo;</strong></li>
+        </ol>
+        <p>Done — the emblem is on your home screen, named <strong>&ldquo;Word of God.&rdquo;</strong></p>
+        <p class="see-line serif">&ldquo;See this picture? That&rsquo;s your Bible now. Just tap it — Teddy will be right there.&rdquo;</p>
+      </div>
+    </section>
+
+    <!-- ================= THE KEY RING ================= -->
+    <section class="movement" aria-labelledby="keyring-h">
+      <div class="sec-head">
+        <p class="kicker">Every Door, One Ring</p>
+        <h2 id="keyring-h" class="serif">The Key Ring</h2>
+        <p class="sub">If you keep only one link from this whole page, Teresa, keep this one.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="door-card keyring-card">
+        <h3 class="serif">🔑 Every door on the farm, on one ring</h3>
+        <p>The Bible app, the films, the Family Wall, the Field Report, the store — every door we have hangs on this one ring, on one simple page. Keep it handy and you can find your way to any of it, any time.</p>
+        <a class="door-btn" href="https://jnutt367.github.io/truvine/links/">Open the Key Ring</a>
+      </div>
+    </section>
+
+    <!-- ================= WHERE THINGS STAND — THE MINISTRY TODAY ================= -->
+    <section class="movement" aria-labelledby="today-h">
+      <div class="sec-head">
+        <p class="kicker">The Ministry Today</p>
+        <h2 id="today-h" class="serif">Where Things Stand</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="standing">
+        <p class="explain">Here is the shape of the ministry today, Teresa — the whole farm as it stands:</p>
+        <ul>
+          <li><strong>The Audio Bible is finished.</strong> Grandpa Teddy has read the whole Bible out loud — all 1,503 chapters, word for word — and every chapter lives free in the app above.</li>
+          <li><strong>The ministry has its name: TruVINE.</strong> The work you believed in from the Jesus Love Revealed days has grown into a whole farm — an app, films, a wall, and a little store.</li>
+          <li><strong>The story film is out — tonight.</strong> &ldquo;Come and Hear&rdquo; tells how all of this got planted, watered, and grown. It was released this very evening.</li>
+          <li><strong>The first animated film is out.</strong> The Gospel of Mark, chapter 1 — every word of the chapter, read word-for-word over the film.</li>
+          <li><strong>The Family Wall is standing.</strong> The first family was hung on it this weekend, and there are frames kept ready for more — there&rsquo;s a door for you below, if you&rsquo;d like it.</li>
+          <li><strong>There&rsquo;s a Start Here page.</strong> Anyone brand-new to the farm gets walked in, slow and plain, from one page.</li>
+        </ul>
+      </div>
+      <div class="door-grid">
+        <div class="door-card">
+          <h3 class="serif">Come and Hear — Our Story</h3>
+          <p>The film that tells the whole story — released tonight. About 3 minutes, and Teddy reads the whole way.</p>
+          <a class="door-btn" href="https://www.youtube.com/watch?v=KCLqlTO3lSc">Watch the Film</a>
+          <a class="door-btn quiet" href="https://jnutt367.github.io/truvine/come-and-hear/">The Come and Hear Page</a>
+        </div>
+        <div class="door-card">
+          <h3 class="serif">The Gospel of Mark — Chapter 1</h3>
+          <p>Our first animated Bible film — Grandpa Teddy reads every word of the chapter, word for word.</p>
+          <a class="door-btn" href="https://www.youtube.com/watch?v=z9pwCVw7Rf0">Watch the Film</a>
+        </div>
+        <div class="door-card">
+          <h3 class="serif">Start Here</h3>
+          <p>The newcomer&rsquo;s door — the whole farm in one page, made for anyone finding TruVINE for the first time.</p>
+          <a class="door-btn" href="https://jnutt367.github.io/truvine/start-here/">Visit Start Here</a>
+        </div>
+        <div class="door-card">
+          <h3 class="serif">The Family Wall</h3>
+          <p>Real people, welcomed by name — the wall on our porch where this family hangs together.</p>
+          <a class="door-btn" href="https://jnutt367.github.io/truvine/family-wall/">See the Family Wall</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= THE FAMILY WALL — THE INVITATION ================= -->
+    <section class="movement" aria-labelledby="wall-h">
+      <div class="sec-head">
+        <p class="kicker">One More Door</p>
+        <h2 id="wall-h" class="serif">The Family Wall — Only If You&rsquo;d Like It</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="standing">
+        <p>There&rsquo;s a wall on our porch where the TruVINE family hangs together — faces and names, each one there by their own yes. Teresa, there is a frame with your name on Jason&rsquo;s heart already; if you&rsquo;d like a place on the wall itself, he would be glad to hang you there himself. And if you&rsquo;d rather not, that&rsquo;s a complete answer too, and it changes nothing.</p>
+        <p class="wall-link serif"><a href="https://jnutt367.github.io/truvine/family-wall/">See the Family Wall for yourself →</a></p>
+      </div>
+
+      <div class="answer-card" style="margin-top:36px;">
+        <p class="tell-copy">Joining works the way warm things work in this family: you write Jason a letter. Fill this in, and it opens in your own mail app, addressed straight to him — nothing you write here is stored on this website. It travels like a letter, from your hands to his, and Jason reads every word himself and hangs you by hand. Welcomed, not processed.</p>
+        <form class="tell-form" id="door-form">
+          <div>
+            <label for="door-name">The name to use on the wall or the roll <span class="tell-opt">(only if you&rsquo;d like one — leave blank for the quiet door)</span></label>
+            <input type="text" id="door-name" name="name" autocomplete="name" placeholder="Your first name, a nickname, or a description — your choice">
+          </div>
+          <div>
+            <label for="door-country">Your country <span class="tell-opt">(only if you&rsquo;d like it shown)</span></label>
+            <input type="text" id="door-country" name="country" autocomplete="country-name" placeholder="e.g. USA">
+          </div>
+          <div>
+            <label for="door-choice">Your door</label>
+            <select id="door-choice" name="door" required>
+              <option value="Door One — my photo on the wall">Door One — my photo on the wall</option>
+              <option value="Door Two — my name on the roll only, no face">Door Two — my name on the roll only, no face</option>
+              <option value="Door Three — anonymous, held in prayer (no name, no face)">Door Three — anonymous, held in prayer (no name, no face)</option>
+            </select>
+          </div>
+          <div>
+            <label for="door-face">If Door One — my face as <span class="tell-opt">(artwork is always shown to you first, and hung only on your approval)</span></label>
+            <select id="door-face" name="face">
+              <option value="My photograph, as it is">My photograph, as it is</option>
+              <option value="Farm-style artwork — low variance (unmistakably me)">Farm-style artwork — low variance (unmistakably me)</option>
+              <option value="Farm-style artwork — higher variance (softened likeness)">Farm-style artwork — higher variance (softened likeness)</option>
+              <option value="garment">Farm-style artwork — wearing a TruVINE garment I choose</option>
+              <option value="Not applicable — I chose Door Two or Three">Not applicable — I chose Door Two or Three</option>
+            </select>
+          </div>
+          <p class="tell-note">Want to wear the family colors? Pick any garment from the store and we&rsquo;ll make your artwork in it — look through the store here: <a href="https://truvine.printify.me/">truvine.printify.me</a></p>
+          <div id="door-garment-wrap" hidden>
+            <label for="door-garment">Which garment? <span class="tell-opt">(choose from the store — your artwork will be made wearing it)</span></label>
+            <select id="door-garment" name="garment">
+              <option value="">Choose a garment&hellip;</option>
+              <optgroup label="Hoodies">
+                <option value="TruVINE Hoodie – The Lord Is My Shepherd | Psalm 23:1">TruVINE Hoodie – The Lord Is My Shepherd | Psalm 23:1</option>
+                <option value="TruVINE Hoodie – I Am the True Vine | John 15:5">TruVINE Hoodie – I Am the True Vine | John 15:5</option>
+                <option value="TruVINE Hoodie – Harvest Blessings | Matthew 9:37">TruVINE Hoodie – Harvest Blessings | Matthew 9:37</option>
+                <option value="TruVINE Hoodie – Peace Be Still | Mark 4:39">TruVINE Hoodie – Peace Be Still | Mark 4:39</option>
+                <option value="TruVINE Hoodie – Be Still and Know | Psalm 46:10">TruVINE Hoodie – Be Still and Know | Psalm 46:10</option>
+                <option value="TruVINE Hoodie – Unto Us a Child Is Born | Isaiah 9:6">TruVINE Hoodie – Unto Us a Child Is Born | Isaiah 9:6</option>
+              </optgroup>
+              <optgroup label="T-Shirts &amp; Tees">
+                <option value="TruVINE T-Shirt – Grandpa Teddy in the Vineyard">TruVINE T-Shirt – Grandpa Teddy in the Vineyard</option>
+                <option value="TruVINE T-Shirt – Abide in the Vine | John 15:4">TruVINE T-Shirt – Abide in the Vine | John 15:4</option>
+                <option value="TruVINE T-Shirt – Walk by Faith | 2 Corinthians 5:7">TruVINE T-Shirt – Walk by Faith | 2 Corinthians 5:7</option>
+                <option value="TruVINE T-Shirt – Trust in the Lord | Proverbs 3:5">TruVINE T-Shirt – Trust in the Lord | Proverbs 3:5</option>
+                <option value="TruVINE T-Shirt – Come to Me, All Who Are Weary | Matthew 11:28">TruVINE T-Shirt – Come to Me, All Who Are Weary | Matthew 11:28</option>
+                <option value="TruVINE T-Shirt – I Can Do All Things | Philippians 4:13">TruVINE T-Shirt – I Can Do All Things | Philippians 4:13</option>
+                <option value="TruVINE T-Shirt – I Can Do All Things Through Christ | Philippians 4:13">TruVINE T-Shirt – I Can Do All Things Through Christ | Philippians 4:13</option>
+                <option value="TruVINE T-Shirt – With God, All Things Work Together | Romans 8:28">TruVINE T-Shirt – With God, All Things Work Together | Romans 8:28</option>
+                <option value="TruVINE Garment-Dyed Tee – All Things Work Together | Romans 8:28">TruVINE Garment-Dyed Tee – All Things Work Together | Romans 8:28</option>
+                <option value="TruVINE T-Shirt – Faith Over Fear | 2 Timothy 1:7">TruVINE T-Shirt – Faith Over Fear | 2 Timothy 1:7</option>
+                <option value="TruVINE T-Shirt – As God's Chosen People | Colossians 3:12">TruVINE T-Shirt – As God's Chosen People | Colossians 3:12</option>
+                <option value="TruVINE T-Shirt – Give Thanks | Psalm 107:1">TruVINE T-Shirt – Give Thanks | Psalm 107:1</option>
+                <option value="TruVINE T-Shirt – Joy to the World | Luke 2:11">TruVINE T-Shirt – Joy to the World | Luke 2:11</option>
+                <option value="TruVINE T-Shirt – Your Favorite Verse (Personalized)">TruVINE T-Shirt – Your Favorite Verse (Personalized)</option>
+                <option value="TruVINE Everyday Tee – Rooted in Christ | Colossians 2:7">TruVINE Everyday Tee – Rooted in Christ | Colossians 2:7</option>
+                <option value="TruVINE Premium Tee – Spreading the Gospel | Mark 16:15">TruVINE Premium Tee – Spreading the Gospel | Mark 16:15</option>
+                <option value="TruVINE Youth Tee – Let No One Despise Your Youth | 1 Timothy 4:12">TruVINE Youth Tee – Let No One Despise Your Youth | 1 Timothy 4:12</option>
+              </optgroup>
+              <optgroup label="Hats &amp; More to Wear">
+                <option value="TruVINE Trucker Cap – With God, All Things Are Possible | Matthew 19:26">TruVINE Trucker Cap – With God, All Things Are Possible | Matthew 19:26</option>
+                <option value="TruVINE Leather Patch Dad Hat – Jesus Is the True Vine | John 15:5">TruVINE Leather Patch Dad Hat – Jesus Is the True Vine | John 15:5</option>
+                <option value="TruVINE Performance Jersey – Nothing Is Impossible | Matthew 19:26">TruVINE Performance Jersey – Nothing Is Impossible | Matthew 19:26</option>
+                <option value="TruVINE Baby Bodysuit – A Precious Gift | Psalm 127:3">TruVINE Baby Bodysuit – A Precious Gift | Psalm 127:3</option>
+              </optgroup>
+              <option value="Another garment from the store — I'll name it in my note below">Another garment from the store — I'll name it in my note below</option>
+            </select>
+          </div>
+          <p class="tell-note">Choosing the photo door? When your letter opens in your mail app, just attach the picture you like before you send it — or tell Jason in the letter which photo, and he&rsquo;ll take it from there.</p>
+          <div>
+            <label for="door-msg">Anything else Jason should know <span class="tell-opt">(optional)</span></label>
+            <textarea id="door-msg" name="message" rows="5" placeholder="A word about yourself, a prayer request, anything on your heart&hellip;"></textarea>
+          </div>
+          <p class="picture-reminder">📷 <strong>Don&rsquo;t forget your picture &mdash; when your mail opens, attach a picture you like to that email before you send it.</strong></p>
+          <button type="submit" class="tell-btn">Send My Letter to Jason</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= THE STORE — QUIET ================= -->
+    <section class="movement" aria-labelledby="store-h">
+      <div class="sec-head">
+        <p class="kicker">If You&rsquo;d Like</p>
+        <h2 id="store-h" class="serif">The Little Store</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="store-note">
+        <p>There is a little store with shirts and hoodies carrying the Word — no pressure at all, just there for folks who would like one: <a href="https://truvine.printify.me/">truvine.printify.me</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="closing">
+    <img class="f-emblem" src="assets/emblem-transparent.png" alt="" width="780" height="551">
+    <p class="prepared">Prepared for Teresa — take all the time you want.</p>
+    <p class="house-line serif">We plant. We water. God gives the increase.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Jason Nutt · TruVINE — All rights reserved.</p>
+  </footer>
+</div>
+
+<a class="teddy-corner" href="#teddy-helper" aria-label="Teddy shows you how — go to Grandpa Teddy's helper note">
+  <img src="assets/teddy-guide.webp" alt="" width="512" height="512">
+  <span>Teddy shows you how</span>
+</a>
+
+<script>
+/* The Open Door letter: composed in the visitor's own mail app,
+   addressed straight to Jason — nothing is stored on this website.
+   It travels like a letter, from their hands to his. */
+(function () {
+  var form = document.getElementById('door-form');
+  if (!form) return;
+  var faceSel = document.getElementById('door-face');
+  var garmentWrap = document.getElementById('door-garment-wrap');
+  function syncGarment() {
+    if (garmentWrap && faceSel) garmentWrap.hidden = faceSel.value !== 'garment';
+  }
+  if (faceSel) faceSel.addEventListener('change', syncGarment);
+  syncGarment();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('door-name').value.trim();
+    var country = document.getElementById('door-country').value.trim();
+    var door = document.getElementById('door-choice').value;
+    var face = document.getElementById('door-face').value;
+    var garmentEl = document.getElementById('door-garment');
+    var garment = garmentEl ? garmentEl.value : '';
+    var msg = document.getElementById('door-msg').value.trim();
+    var lines = [];
+    lines.push("Hello Jason — I'd like a place on the Family Wall.");
+    lines.push("");
+    lines.push("My door: " + door);
+    if (door.indexOf("Door One") === 0) {
+      lines.push("My face as: " + (face === "garment"
+        ? "Farm-style artwork — wearing a TruVINE garment I choose" : face));
+      if (face === "garment") {
+        lines.push("My garment: " + (garment ? garment : "(not picked — Jason, please ask me)"));
+      }
+    }
+    lines.push("Name to use: " + (name ? name : "(none — the quiet door, or ask me)"));
+    if (country) lines.push("My country: " + country);
+    if (msg) { lines.push(""); lines.push(msg); }
+    if (door.indexOf("Door One") === 0) {
+      lines.push("");
+      lines.push("(My photo is attached to this email.)");
+    }
+    lines.push("");
+    lines.push("Picture: (attach a picture you like to this email — or write here which photo to use: )");
+    window.location.href = "mailto:jnutt367@gmail.com"
+      + "?subject=" + encodeURIComponent("The Open Door — a place on the Family Wall")
+      + "&body=" + encodeURIComponent(lines.join("\n"));
+  });
+})();
+</script>
+</body>
+</html>
