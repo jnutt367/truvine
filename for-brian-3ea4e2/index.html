@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>For Brian — a letter from your brother · TruVINE</title>
+<meta name="description" content="A private page for Brian, from his brother Jason: a letter standing on its own, a short film Grandpa Teddy reads aloud, and a ring of keys to everything the emblem Brian designed now opens.">
+<link rel="icon" type="image/jpeg" href="assets/favicon-192.jpg">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background:
+      radial-gradient(1200px 620px at 50% -120px, #17452C 0%, rgba(23,69,44,0) 60%),
+      var(--green-950);
+    color: var(--cream);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 72px; }
+
+  /* ---------- Title plate ---------- */
+  .plate { text-align: center; padding: 64px 0 8px; }
+  .plate .emblem { width: 290px; max-width: 60vw; height: auto; display: inline-block; }
+  .overline {
+    margin-top: 30px; font-size: 13.5px; font-weight: 800; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .plate h1 {
+    margin-top: 10px; font-size: clamp(44px, 8.4vw, 80px); line-height: 1.05;
+    font-weight: 800; color: var(--cream);
+  }
+  .plate .rule { width: 120px; height: 3px; background: var(--gold-deep); margin: 26px auto 0; border-radius: 2px; }
+
+  /* ---------- Sections ---------- */
+  section.movement { margin-top: 84px; }
+  .sec-head { text-align: center; margin-bottom: 30px; }
+  .sec-head .kicker {
+    font-size: 12.5px; font-weight: 800; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .sec-head h2 { margin-top: 8px; font-size: clamp(32px, 5.4vw, 44px); font-weight: 800; color: var(--cream); line-height: 1.15; }
+  .sec-head .sub { margin-top: 10px; font-size: 18px; font-style: italic; color: var(--muted-d); }
+  .sec-head .rule { width: 74px; height: 2px; background: var(--gold-deep); margin: 18px auto 0; border-radius: 2px; }
+
+  /* ---------- The letter ---------- */
+  .letter {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 56px auto 0;
+  }
+  .letter p { font-size: 19px; line-height: 1.78; }
+  .letter p + p { margin-top: 18px; }
+  .letter .sign { margin-top: 28px; font-size: 20px; }
+
+  /* ---------- The printable letter card ---------- */
+  .card-zone { max-width: 800px; margin: 44px auto 0; text-align: center; }
+  .card-note { font-size: 17px; color: var(--muted-d); max-width: 34em; margin: 0 auto; }
+  .print-btn {
+    margin-top: 18px; cursor: pointer;
+    background: var(--gold); color: #2A2005; border: 2px solid var(--gold-deep);
+    border-radius: 14px; padding: 14px 26px;
+    font-size: 18px; font-weight: 800; font-family: inherit;
+  }
+  .letter-card {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 14px;
+    padding: clamp(26px, 4.5vw, 44px);
+    max-width: 680px; margin: 26px auto 0; text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,.3);
+  }
+  .letter-card img { width: 120px; height: auto; }
+  .letter-card .card-words { margin-top: 20px; text-align: left; }
+  .letter-card p { font-size: 17px; line-height: 1.72; }
+  .letter-card p + p { margin-top: 13px; }
+  .letter-card .sign { margin-top: 20px; font-size: 18px; text-align: right; }
+
+  /* ---------- The film ---------- */
+  .film-frame {
+    max-width: 880px; margin: 0 auto;
+    border: 2px solid var(--gold-deep); border-radius: 18px; overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,.4); background: #000;
+  }
+  .film-frame video { display: block; width: 100%; height: auto; }
+  .film-note { text-align: center; margin-top: 14px; font-size: 16px; color: var(--muted-d); }
+
+  /* ---------- Brian's Keys ---------- */
+  .ring-frame {
+    text-align: center; font-size: clamp(19px, 3vw, 22px); line-height: 1.6;
+    max-width: 36em; margin: 0 auto 40px; color: var(--cream);
+  }
+  .keys { list-style: none; display: grid; gap: 20px; max-width: 800px; margin: 0 auto; }
+  @media (min-width: 720px) { .keys { grid-template-columns: 1fr 1fr; } .keys .wide { grid-column: 1 / -1; } }
+  .key {
+    background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 16px;
+    padding: 26px 26px 24px; box-shadow: 0 10px 26px rgba(0,0,0,.3);
+  }
+  .key h3 { font-size: 23px; font-weight: 800; line-height: 1.25; }
+  .key h3 a { text-decoration: none; }
+  .key h3 a:hover { text-decoration: underline; }
+  .key p { margin-top: 9px; font-size: 17px; line-height: 1.6; color: var(--cream); }
+  .key figure { margin: 4px 0 16px; }
+  .key figure img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--gold-deep); display: block; }
+
+  /* ---------- The close ---------- */
+  .close-rest { text-align: center; margin-top: 96px; }
+  .close-rest img { width: 150px; max-width: 40vw; height: auto; opacity: .95; }
+
+  /* ---------- Print: the letter card, and only the letter card ---------- */
+  @media print {
+    body { background: #fff; }
+    .plate, .letter, .card-zone .card-note, .card-zone .print-btn,
+    section.film-sec, section.keys-sec, .close-rest, .skip { display: none !important; }
+    .wrap { padding: 0; max-width: none; }
+    section.movement { margin-top: 0; }
+    .letter-card { box-shadow: none; border: 2px solid #8a6d1f; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the letter</a>
+<div class="wrap">
+
+  <header class="plate">
+    <img class="emblem" src="assets/emblem.png" alt="The TruVINE emblem — a golden vine in the shape of a cross inside a gold-rimmed triangle, designed by Brian">
+    <p class="overline">For Brian</p>
+    <h1 class="serif">A letter from your brother</h1>
+    <div class="rule" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ 1 · THE LETTER, STANDING ALONE ============ -->
+    <div class="letter">
+      <p>Brother, I know you&rsquo;ve had a long spiritual journey of your own, and I&rsquo;ve always respected how honestly you&rsquo;ve walked it.</p>
+      <p>I&rsquo;m not writing to change your mind about any of it.</p>
+      <p>I just realized something: you&rsquo;ve never actually seen what I&rsquo;ve been doing &mdash; what the Lord has been building through me these past couple of years, or what your own drawing has been carrying.</p>
+      <p>I want to show you. That&rsquo;s all.</p>
+      <p>Come and see &mdash; and the door stays open either way.</p>
+      <p class="sign serif">&mdash; Jason</p>
+    </div>
+
+    <div class="card-zone">
+      <p class="card-note">If you&rsquo;d rather hold this letter than scroll it, this card prints clean &mdash; the whole letter, on one page, needing nothing else.</p>
+      <button class="print-btn" type="button" onclick="window.print()">Print the letter card</button>
+      <div class="letter-card" aria-label="A printable card carrying the letter, word for word">
+        <img src="assets/emblem.png" alt="">
+        <div class="card-words">
+          <p>Brother, I know you&rsquo;ve had a long spiritual journey of your own, and I&rsquo;ve always respected how honestly you&rsquo;ve walked it.</p>
+          <p>I&rsquo;m not writing to change your mind about any of it.</p>
+          <p>I just realized something: you&rsquo;ve never actually seen what I&rsquo;ve been doing &mdash; what the Lord has been building through me these past couple of years, or what your own drawing has been carrying.</p>
+          <p>I want to show you. That&rsquo;s all.</p>
+          <p>Come and see &mdash; and the door stays open either way.</p>
+          <p class="sign serif">&mdash; Jason</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 2 · THE FILM ============ -->
+    <section class="movement film-sec" aria-labelledby="film-h">
+      <div class="sec-head">
+        <p class="kicker">The Film</p>
+        <h2 id="film-h" class="serif">The letter, read aloud</h2>
+        <p class="sub">Teddy reads it, the way Jason asked him to.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="film-frame">
+        <video controls playsinline preload="none" poster="assets/film-poster.jpg"
+               aria-label="A short film for Brian: Grandpa Teddy reads Jason's letter aloud, and shows what the emblem Brian designed now opens">
+          <source src="assets/for-brian-the-film.mp4" type="video/mp4">
+          Your browser can&rsquo;t play this film here &mdash; but the letter above says everything it says, in the same words.
+        </video>
+      </div>
+      <p class="film-note">About four minutes. The words are written on the film itself, as it plays.</p>
+    </section>
+
+    <!-- ============ 3 · BRIAN'S KEYS ============ -->
+    <section class="movement keys-sec" aria-labelledby="keys-h">
+      <div class="sec-head">
+        <p class="kicker">The Keys</p>
+        <h2 id="keys-h" class="serif">Brian&rsquo;s Keys</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <p class="ring-frame">These are keys, Brian &mdash; not doors anyone will push you through. Keep them in your pocket. Any one of them, any order, any day &mdash; or none at all. They&rsquo;ll keep.</p>
+      <ul class="keys">
+        <li class="key">
+          <h3><a href="https://word-of-god-risen.vercel.app/">Word of God Risen</a></h3>
+          <p>The whole Bible, read out loud by Teddy &mdash; every chapter free. Your drawing is the first thing it shows you.</p>
+        </li>
+        <li class="key">
+          <h3><a href="https://www.youtube.com/watch?v=KCLqlTO3lSc">Come and Hear</a></h3>
+          <p>Jason&rsquo;s story, in his own words, told plainly &mdash; what God has done.</p>
+        </li>
+        <li class="key">
+          <h3><a href="https://www.youtube.com/watch?v=z9pwCVw7Rf0">The Mark Film</a></h3>
+          <p>The first chapter of Mark, drawn frame by frame and told slow.</p>
+        </li>
+        <li class="key wide">
+          <figure>
+            <img src="assets/reach-poster.jpg" alt="A poster with the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard" loading="lazy">
+          </figure>
+          <h3><a href="assets/reach-poster-full.jpg">The Reach Poster</a></h3>
+          <p>One picture of everywhere your drawing has been. Tap the picture to see it full size.</p>
+        </li>
+        <li class="key">
+          <h3><a href="https://jnutt367.github.io/truvine/start-here/">Start Here</a></h3>
+          <p>The porch of the whole farm &mdash; every door, in one calm place.</p>
+        </li>
+        <li class="key">
+          <h3><a href="https://jnutt367.github.io/truvine/field-report/">The Field Report</a></h3>
+          <p>The plain record &mdash; who&rsquo;s hearing, and where. Nothing dressed up.</p>
+        </li>
+        <li class="key wide">
+          <h3><a href="https://truvine.printify.me/">The Store</a></h3>
+          <p>The little store &mdash; the emblem you designed, on real goods.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ 4 · THE CLOSE ============ -->
+    <div class="close-rest">
+      <img src="assets/emblem.png" alt="" aria-hidden="true">
+    </div>
+
+  </main>
+</div>
+</body>
+</html>
