@@ -423,7 +423,7 @@
         </g>
       </svg>
     </div>
-    <p class="body" style="margin-top:3.5vh">On the same vine, the daily count: <strong>841 subscribers on Oct 13 &rarr; 912 on Oct 20</strong> &middot; views <strong>154,398 &rarr; 157,961</strong> — every point from the Field Report&rsquo;s growth vine.</p>
+    <p class="body" style="margin-top:3.5vh">On the same vine, the daily count: <strong>841 subscribers on Oct 13 &rarr; <span data-fresh="v-subs">912</span> on <span data-fresh="v-date">Oct 20</span></strong> &middot; views <strong>154,398 &rarr; <span data-fresh="v-views">157,961</span></strong> — every point from the Field Report&rsquo;s growth vine.</p>
 
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
@@ -804,6 +804,7 @@
     }
     function longDate(iso){ var t = parts(iso); return t ? MONTHS[t.m - 1] + ' ' + t.d + ', ' + t.y : null; }
     function shortDate(iso){ var t = parts(iso); return t ? MONTHS[t.m - 1].slice(0, 3) + ' ' + t.d + ', ' + t.y : null; }
+    function shortDateNY(iso){ var t = parts(iso); return t ? MONTHS[t.m - 1].slice(0, 3) + ' ' + t.d : null; }
     function setFresh(name, text){
       if (text === null || text === undefined) return;
       var el = document.querySelector('[data-fresh="' + name + '"]');
@@ -830,6 +831,12 @@
         if (num(last.views) !== null) setFresh('g-views', fmt(last.views));
         var sd = shortDate(last.date);
         if (sd) setFresh('g-date', sd);
+        /* season vine: the same latest point closes the sentence — its
+           start (Oct 13) is history and stays printed */
+        if (num(last.subs) !== null) setFresh('v-subs', fmt(last.subs));
+        if (num(last.views) !== null) setFresh('v-views', fmt(last.views));
+        var vd = shortDateNY(last.date);
+        if (vd) setFresh('v-date', vd);
         if (last.date && last.date !== '2026-10-19'){ /* the "crossed today" note belongs to Oct 19 only */
           var note = document.querySelector('[data-fresh="g-note"]');
           if (note) note.style.display = 'none';
@@ -862,16 +869,29 @@
       if (num(rt.chaptersRead) !== null) setFresh('r-read', fmt(rt.chaptersRead));
       if (num(rt.chaptersHeard) !== null) setFresh('r-heard', fmt(rt.chaptersHeard));
       if (num(rt.listensCompleted) !== null) setFresh('r-done', fmt(rt.listensCompleted));
-      /* lit countries — the all-time window's own counts */
+      /* lit countries — the all-time window's own counts. The US and AU
+         rows are printed on the slide and fill in place; any further
+         country the window has counted joins the same list, named from
+         the table below (an unlisted code shows as its code — never a
+         guessed name). If the window names no countries, print stands. */
+      var CNAMES = { PH:'Philippines', ID:'Indonesia', KE:'Kenya', NG:'Nigeria', IN:'India', BR:'Brazil', KR:'South Korea', MX:'Mexico', ET:'Ethiopia', GB:'United Kingdom', JP:'Japan', ZA:'South Africa', CA:'Canada', VN:'Vietnam', GH:'Ghana', EG:'Egypt', FJ:'Fiji', PE:'Peru', NZ:'New Zealand', IE:'Ireland', DE:'Germany', FR:'France', ES:'Spain', IT:'Italy', NL:'Netherlands', SE:'Sweden', NO:'Norway', DK:'Denmark', FI:'Finland', PL:'Poland', PT:'Portugal', GR:'Greece', TR:'Turkey', IL:'Israel', AE:'United Arab Emirates', SG:'Singapore', MY:'Malaysia', TH:'Thailand', MM:'Myanmar', KH:'Cambodia', LK:'Sri Lanka', BD:'Bangladesh', PK:'Pakistan', NP:'Nepal', TZ:'Tanzania', UG:'Uganda', ZW:'Zimbabwe', ZM:'Zambia', MZ:'Mozambique', AO:'Angola', CM:'Cameroon', RW:'Rwanda', AR:'Argentina', CL:'Chile', CO:'Colombia', EC:'Ecuador', BO:'Bolivia', UY:'Uruguay', PY:'Paraguay', CR:'Costa Rica', PA:'Panama', DO:'Dominican Republic', GT:'Guatemala', CU:'Cuba', JM:'Jamaica', HT:'Haiti', RU:'Russia', UA:'Ukraine', RO:'Romania', BG:'Bulgaria', CZ:'Czechia', SK:'Slovakia', HU:'Hungary', HR:'Croatia', RS:'Serbia', CN:'China', HK:'Hong Kong', TW:'Taiwan' };
       var wins = (d.reachWindows && d.reachWindows.windows) || {};
       var all = wins.all || null;
       if (all && all.countries){
+        var litlist = document.querySelector('.litlist');
         all.countries.forEach(function(c){
           var t = num(c.total);
           if (t === null) return;
           var label = fmt(t) + (t === 1 ? ' chapter read' : ' chapters read');
-          if (c.code === 'US') setFresh('lit-us', label);
-          if (c.code === 'AU') setFresh('lit-au', label);
+          if (c.code === 'US'){ setFresh('lit-us', label); return; }
+          if (c.code === 'AU'){ setFresh('lit-au', label); return; }
+          if (!litlist || !document.createElement || !document.createTextNode) return;
+          var li = document.createElement('li');
+          var st = document.createElement('strong');
+          st.textContent = CNAMES[c.code] || c.code;
+          li.appendChild(st);
+          li.appendChild(document.createTextNode(' \u2014 ' + label));
+          litlist.appendChild(li);
         });
       }
       /* as-of caption, in the Report's own date */
