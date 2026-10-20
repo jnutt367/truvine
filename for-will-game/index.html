@@ -69,6 +69,7 @@
   .slot.hop { animation: hop .8s ease; }
   @media (prefers-reduced-motion: reduce) { .slot.hop { animation: none; } }
   .gather-note { font-weight: 700; color: #18582A; margin: 8px 0 2px; font-size: 16px; }
+  .figsrc { font-size: 13.5px; color: #5A6B7A; margin: 4px 0 2px; line-height: 1.45; }
 
   /* ---- questions ---- */
   .q {
@@ -221,6 +222,7 @@
         <div class="slot" data-slot="6"><img src="sheep.jpg" alt=""></div>
       </div>
       <p class="gather-note" id="gatherNote" aria-live="polite">Sheep gathered: 0 of 6</p>
+      <p class="figsrc" id="figCaption">Flock figures as counted on the barn board — October 15, 2026.</p>
     </div>
 
     <!-- Q1 -->
@@ -344,24 +346,220 @@
   slots.forEach(function (s) { s.classList.add('waiting'); });
   var note = document.getElementById('gatherNote');
   var finalCard = document.getElementById('finalCard');
+  var caption = document.getElementById('figCaption');
   var gathered = 0;
 
-  document.querySelectorAll('.q').forEach(function (q) {
-    var kind = q.querySelector('[data-teach="kind"]');
-    var good = q.querySelector('[data-teach="good"]');
-    q.querySelectorAll('.opt').forEach(function (btn) {
+  /* ---------- numbers: formatting + the Field Report's date style ---------- */
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  function num(x) { return (typeof x === 'number' && isFinite(x) && x >= 0) ? x : null; }
+  function parts(iso) {
+    var p = String(iso || '').split('-');
+    if (p.length !== 3) return null;
+    var y = +p[0], m = +p[1], d = +p[2];
+    if (!y || m < 1 || m > 12 || d < 1 || d > 31) return null;
+    return { y: y, m: m, d: d };
+  }
+  function longDate(iso) { var t = parts(iso); return t ? MONTHS[t.m - 1] + ' ' + t.d + ', ' + t.y : null; }
+  function todayISO() {
+    var n = new Date();
+    function z(v) { return (v < 10 ? '0' : '') + v; }
+    return n.getFullYear() + '-' + z(n.getMonth() + 1) + '-' + z(n.getDate());
+  }
+
+  /* ---------- figure state ----------
+     Baked fallbacks are the game's own barn-board figures, counted
+     October 15, 2026 (841 in the flock · 376 videos). The Field Report
+     fetch below replaces them with the living record when it can;
+     the caption under the sheep always carries the figures' date, so
+     a standing figure is never mistaken for a fresh one. */
+  var FIG = { subs: 841, videos: 376, views: null, read: null, heard: null, finished: null, asOf: null, fresh: false };
+
+  function updateCaption() {
+    if (!caption || !FIG.fresh) return;
+    var ld = longDate(FIG.asOf);
+    if (ld) caption.textContent = 'Flock figures counted fresh from the Field Report \u2014 as of ' + ld + '.';
+  }
+
+  /* ---------- the question pool ----------
+     Will's original tour questions stand word for word (their figures
+     now filled from the record). New families join them: the Word of
+     God Risen app, and the statistics the Field Report tracks. A round
+     draws six: the flock question always opens the board, one of the
+     two Scripture questions always rides, and four more are drawn from
+     the basket \u2014 so no two visits play quite the same game. */
+  function flockQ() {
+    var s = FIG.subs, low = s - 108, high = s + 96, h, kind, good;
+    if (FIG.fresh && FIG.asOf === todayISO()) {
+      h = 'How many are in the flock tonight?';
+      kind = 'Not quite \u2014 that\u2019s not tonight\u2019s count. The Field Report counts the flock fresh, and every sheep is on it. Try again, friend.';
+      good = 'That\u2019s right \u2014 <strong>' + fmt(s) + ' in the flock</strong>, every one counted on the barn board \u2014 because every single one matters.';
+    } else if (FIG.fresh) {
+      h = 'How many are in the flock at the latest count?';
+      kind = 'Not quite \u2014 that\u2019s not the latest count on the Field Report. Have another look, friend.';
+      good = 'That\u2019s right \u2014 <strong>' + fmt(s) + ' in the flock</strong>, counted ' + longDate(FIG.asOf) + ' \u2014 every one on the barn board, because every single one matters.';
+    } else {
+      h = 'How many were in the flock at the last counting?';
+      kind = 'Not quite \u2014 that\u2019s not the count from the last counting we have. Have another look, friend.';
+      good = 'That\u2019s right \u2014 <strong>' + fmt(s) + ' in the flock</strong> at the last counting, October 15, 2026 \u2014 every one counted on the barn board, because every single one matters.';
+    }
+    return { dyn: 'flock', h: h, kind: kind, good: good,
+             opts: [{ t: fmt(low), c: 0 }, { t: fmt(s), c: 1 }, { t: fmt(high), c: 0 }] };
+  }
+  function johnQ() {
+    return { h: 'In John 10:16, who does Jesus say He must bring?',
+      opts: [{ t: 'The ninety-nine already in the fold', c: 0 }, { t: 'His other sheep', c: 1 }, { t: 'Only the shepherds', c: 0 }],
+      kind: 'Close \u2014 but Jesus says there are more, outside the fold, and He must bring them too. Have another look.',
+      good: 'That\u2019s right \u2014 <em>&ldquo;I have other sheep&hellip; I must bring them also. They will hear my voice. Then there will be one flock and one shepherd.&rdquo;</em>' };
+  }
+  function lukeQ() {
+    return { h: 'In Luke 15, when one sheep is lost, what does the Shepherd do?',
+      opts: [{ t: 'He waits at the gate', c: 0 }, { t: 'He goes after the one until He finds it', c: 1 }, { t: 'He counts the ninety-nine twice', c: 0 }],
+      kind: 'Not quite \u2014 He doesn\u2019t wait, and He doesn\u2019t settle for counting who\u2019s left. The one matters too much for that. Try again.',
+      good: 'That\u2019s right \u2014 He leaves the ninety-nine and <strong>goes after the one until He finds it</strong> \u2014 then carries it home on His shoulders, rejoicing. Every single sheep gets special treatment.' };
+  }
+  function chaptersQ() {
+    var v = fmt(FIG.videos);
+    return { dyn: 'videos', h: 'How many chapters are in the Audio Bible?',
+      opts: [{ t: v, c: 0 }, { t: '1,503', c: 1 }, { t: '1,189', c: 0 }],
+      kind: 'Not quite \u2014 ' + v + ' is how many videos are on the channel. The Audio Bible is the whole Book, read aloud. Try once more.',
+      good: 'That\u2019s right \u2014 <strong>1,503 chapters</strong>, the whole Bible read aloud in Grandpa Teddy\u2019s voice, finished spine to spine, and free for anybody.' };
+  }
+  function costQ() {
+    return { h: 'What does the Bible app cost?',
+      opts: [{ t: 'Nothing \u2014 it\u2019s free', c: 1 }, { t: '$4.99 a month', c: 0 }, { t: 'A donation is required', c: 0 }],
+      kind: 'No, friend \u2014 nothing at all. That\u2019s the whole point of this farm. Give it another tap.',
+      good: 'That\u2019s right \u2014 <strong>free</strong>. The Word is free. Always has been; always will be. Read it or listen, it won\u2019t cost you a thing.' };
+  }
+  function countriesQ() {
+    return { h: 'From how many countries have neighbors watched?',
+      opts: [{ t: '12', c: 0 }, { t: '50', c: 0 }, { t: '38', c: 1 }],
+      kind: 'Not quite \u2014 it\u2019s more than 12, and an honest count never rounds up to 50. The board tells it plain. Try again.',
+      good: 'That\u2019s right \u2014 <strong>38 countries</strong>, neighbors who\u2019ve stopped a while to hear the Word, every one written down and counted.' };
+  }
+  /* --- the app family --- */
+  function appHearQ() {
+    return { h: 'In the Bible app, how do you hear a chapter read out loud?',
+      opts: [{ t: 'Make an account and sign in first', c: 0 }, { t: 'Tap a book, tap a chapter, tap Listen', c: 1 }, { t: 'Pay to unlock the listening', c: 0 }],
+      kind: 'No need for any of that, friend \u2014 no account, no paying. Three taps and Teddy is reading. Try again.',
+      good: 'That\u2019s right \u2014 <strong>tap a book, tap a chapter, tap Listen</strong>. No account, no password \u2014 the door is just open.' };
+  }
+  function appWhoQ() {
+    return { h: 'Who reads the Bible out loud in the app?',
+      opts: [{ t: 'A different reader for every book', c: 0 }, { t: 'Grandpa Teddy', c: 1 }, { t: 'Nobody \u2014 it\u2019s silent reading only', c: 0 }],
+      kind: 'Not quite \u2014 one reader carries the whole Book, start to finish. Try again, friend.',
+      good: 'That\u2019s right \u2014 <strong>Grandpa Teddy</strong> reads the whole Bible aloud, every chapter, in one steady voice.' };
+  }
+  function appSigninQ() {
+    return { h: 'What does the app ask you to sign in with?',
+      opts: [{ t: 'Your email address', c: 0 }, { t: 'Your phone number', c: 0 }, { t: 'Nothing \u2014 there\u2019s no account and no password', c: 1 }],
+      kind: 'It never asks, friend \u2014 there\u2019s nothing to sign into at all. One more try.',
+      good: 'That\u2019s right \u2014 <strong>nothing</strong>. No account, no password, nothing to remember. Just open it and listen.' };
+  }
+  function appInstallQ() {
+    return { h: 'Can the app sit on your phone\u2019s home screen, like a regular app?',
+      opts: [{ t: 'Yes \u2014 it installs, and opens like any app', c: 1 }, { t: 'No \u2014 it only lives inside a web browser', c: 0 }, { t: 'Only if you buy it from an app store', c: 0 }],
+      kind: 'It can, friend \u2014 it installs right onto the home screen, free as air. Try again.',
+      good: 'That\u2019s right \u2014 it\u2019s <strong>installable, like a real app</strong>: one tap on the home screen and you\u2019re in. That\u2019s how the app was made to be carried.' };
+  }
+  function appShareQ() {
+    return { h: 'The app has a brand-new Share button. Where did that idea come from?',
+      opts: [{ t: 'A salesman talked the farm into it', c: 0 }, { t: 'Will asked how to just get to the app', c: 1 }, { t: 'It was always there', c: 0 }],
+      kind: 'True story, friend \u2014 it came from a question asked across a counter, not long ago. Try once more.',
+      good: 'That\u2019s right \u2014 <strong>you asked, &ldquo;How do I just get to the app?&rdquo;</strong> Now the Share button hands the app to a friend in two taps. Your question built that, Will.' };
+  }
+  /* --- the Field Report family --- */
+  function statsNeverQ() {
+    return { h: 'The Field Report counts the app\u2019s chapters \u2014 how many were read, heard, and finished, and in which countries. What does it never count?',
+      opts: [{ t: 'Chapters read', c: 0 }, { t: 'Countries reached', c: 0 }, { t: 'People \u2014 it counts reads, never persons', c: 1 }],
+      kind: 'Those it counts gladly, friend. There\u2019s one thing the record never counts. One more look.',
+      good: 'That\u2019s right \u2014 the record counts <strong>chapter-reads by country, never people</strong>. No names kept, nobody tracked \u2014 just how far the Word has traveled.' };
+  }
+  function statsFlockQ() {
+    return { h: 'When the barn board says &ldquo;the flock,&rdquo; who is it counting?',
+      opts: [{ t: 'The sheep in the pasture pictures', c: 0 }, { t: 'The channel\u2019s subscribers \u2014 the folks who\u2019ve joined the flock', c: 1 }, { t: 'Everyone who ever watched for one second', c: 0 }],
+      kind: 'Not quite \u2014 the flock is counted off the channel\u2019s own roll. Try again, friend.',
+      good: 'That\u2019s right \u2014 <strong>the flock is the channel\u2019s subscribers</strong>, counted on the Field Report \u2014 and every single one matters.' };
+  }
+  function kenyaQ() {
+    return { h: 'The app\u2019s first traffic count told a story: 66 visitors and 1,157 page views in one October week \u2014 and tucked inside it, the site\u2019s very first reader from a faraway country. Which country was it?',
+      opts: [{ t: 'Australia', c: 0 }, { t: 'Kenya', c: 1 }, { t: 'Canada', c: 0 }],
+      kind: 'Not that one, friend \u2014 this country is an ocean and a continent away. Try again.',
+      good: 'That\u2019s right \u2014 <strong>Kenya</strong>. One reader, arriving through YouTube \u2014 the first seed to land that far away, and the Field Report wrote it down.' };
+  }
+  function reachQ() {
+    return { dyn: 'reach', h: 'The Field Report keeps the count of the app. How many chapters have folks <em>read</em> in it so far?',
+      opts: [{ t: fmt(FIG.heard), c: 0 }, { t: fmt(FIG.read), c: 1 }, { t: fmt(FIG.finished), c: 0 }],
+      kind: 'Close \u2014 that\u2019s a real number from the record, but it belongs to a different column: read, heard, and finished are counted all separately. Try again.',
+      good: 'That\u2019s right \u2014 <strong>' + fmt(FIG.read) + ' chapters read</strong>. The same record counts ' + fmt(FIG.heard) + ' chapters heard read aloud, and ' + fmt(FIG.finished) + ' listened to all the way to the end \u2014 chapter-reads, every one of them, never people.' };
+  }
+  function viewsQ() {
+    return { dyn: 'views', h: 'Altogether, how many times have the farm\u2019s videos been watched?',
+      opts: [{ t: fmt(FIG.subs), c: 0 }, { t: fmt(FIG.views), c: 1 }, { t: fmt(FIG.videos), c: 0 }],
+      kind: 'Not quite \u2014 those are the board\u2019s other counts. The watch count is the biggest number on the board. Try again.',
+      good: 'That\u2019s right \u2014 <strong>' + fmt(FIG.views) + ' watches</strong>, and counting. ' + fmt(FIG.subs) + ' is the flock, and ' + fmt(FIG.videos) + ' is how many videos there are \u2014 every watch a seed landing somewhere.' };
+  }
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function buildRound() {
+    var scripture = [johnQ(), lukeQ()];
+    var si = Math.random() < 0.5 ? 0 : 1;
+    var rest = [scripture[1 - si], chaptersQ(), costQ(), countriesQ(),
+                appHearQ(), appWhoQ(), appSigninQ(), appInstallQ(), appShareQ(),
+                statsNeverQ(), statsFlockQ(), kenyaQ()];
+    if (FIG.read !== null) rest.push(reachQ());
+    if (FIG.views !== null) rest.push(viewsQ());
+    shuffle(rest);
+    var round = [flockQ(), scripture[si]].concat(rest.slice(0, 4));
+    var tail = shuffle(round.slice(1));
+    return [round[0]].concat(tail);
+  }
+
+  /* ---------- rendering + the gathering ---------- */
+  var roundQs = null, roundEls = null;
+  function countedLine(pos) {
+    return pos === 6 ? '\u2713 Counted \u2014 sheep 6 is in. The whole flock!'
+                     : '\u2713 Counted \u2014 sheep ' + pos + ' is in.';
+  }
+  function buildSection(q, pos) {
+    var sec = document.createElement('section');
+    sec.className = 'q';
+    sec.setAttribute('data-q', String(pos));
+    if (q.dyn) sec.setAttribute('data-dyn', q.dyn);
+    sec.setAttribute('aria-labelledby', 'qh-r' + pos);
+    var opts = q.opts.map(function (o) {
+      return '<li><button class="opt" data-correct="' + (o.c ? '1' : '0') + '">' + o.t + '</button></li>';
+    }).join('');
+    sec.innerHTML =
+      '<span class="qnum">Question ' + pos + ' of 6</span>' +
+      '<h2 id="qh-r' + pos + '">' + q.h + '</h2>' +
+      '<ul class="opts">' + opts + '</ul>' +
+      '<p class="teach kind" data-teach="kind">' + q.kind + '</p>' +
+      '<p class="teach good" data-teach="good">' + q.good + '</p>' +
+      '<p class="counted">' + countedLine(pos) + '</p>';
+    return sec;
+  }
+  function bindSection(sec, pos) {
+    var kind = sec.querySelector('[data-teach="kind"]');
+    var good = sec.querySelector('[data-teach="good"]');
+    sec.querySelectorAll('.opt').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        if (q.classList.contains('done')) return;
+        if (sec.classList.contains('done')) return;
         if (btn.getAttribute('data-correct') === '1') {
-          q.classList.add('done');
-          q.querySelectorAll('.opt').forEach(function (b) {
+          sec.classList.add('done');
+          sec.querySelectorAll('.opt').forEach(function (b) {
             b.disabled = true;
             if (b === btn) b.classList.add('right');
           });
           kind.classList.remove('show');
           good.classList.add('show');
-          var idx = parseInt(q.getAttribute('data-q'), 10) - 1;
-          var slot = slots[idx];
+          var slot = slots[pos - 1];
           slot.classList.remove('waiting');
           slot.classList.add('gathered');
           if (!reduce) {
@@ -372,7 +570,7 @@
           note.textContent = 'Sheep gathered: ' + gathered + ' of 6';
           if (gathered === 6) {
             finalCard.classList.add('show');
-            note.textContent = 'Sheep gathered: 6 of 6 — the whole flock!';
+            note.textContent = 'Sheep gathered: 6 of 6 \u2014 the whole flock!';
             finalCard.focus({ preventScroll: false });
           }
         } else {
@@ -382,7 +580,127 @@
         }
       });
     });
+  }
+  function renderRound() {
+    var statics = Array.prototype.slice.call(document.querySelectorAll('.q'));
+    if (!statics.length) return false;
+    roundQs = buildRound();
+    roundEls = roundQs.map(function (q, i) { return buildSection(q, i + 1); });
+    var anchor = statics[0];
+    roundEls.forEach(function (el) { anchor.parentNode.insertBefore(el, anchor); });
+    statics.forEach(function (el) { el.parentNode.removeChild(el); });
+    roundEls.forEach(function (el, i) { bindSection(el, i + 1); });
+    return true;
+  }
+  /* If anything in the pool render fails, the printed game binds as it
+     always has \u2014 the page is never left without a working game. */
+  function bindPrinted() {
+    document.querySelectorAll('.q').forEach(function (q) {
+      var kind = q.querySelector('[data-teach="kind"]');
+      var good = q.querySelector('[data-teach="good"]');
+      q.querySelectorAll('.opt').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (q.classList.contains('done')) return;
+          if (btn.getAttribute('data-correct') === '1') {
+            q.classList.add('done');
+            q.querySelectorAll('.opt').forEach(function (b) {
+              b.disabled = true;
+              if (b === btn) b.classList.add('right');
+            });
+            kind.classList.remove('show');
+            good.classList.add('show');
+            var idx = parseInt(q.getAttribute('data-q'), 10) - 1;
+            var slot = slots[idx];
+            slot.classList.remove('waiting');
+            slot.classList.add('gathered');
+            if (!reduce) {
+              slot.classList.add('hop');
+              slot.addEventListener('animationend', function () { slot.classList.remove('hop'); }, { once: true });
+            }
+            gathered += 1;
+            note.textContent = 'Sheep gathered: ' + gathered + ' of 6';
+            if (gathered === 6) {
+              finalCard.classList.add('show');
+              note.textContent = 'Sheep gathered: 6 of 6 \u2014 the whole flock!';
+              finalCard.focus({ preventScroll: false });
+            }
+          } else {
+            btn.disabled = true;
+            good.classList.remove('show');
+            kind.classList.add('show');
+          }
+        });
+      });
+    });
+  }
+
+  var rendered = false;
+  function go() {
+    if (rendered) return;
+    rendered = true;
+    var ok = false;
+    try { ok = renderRound(); } catch (e) { ok = false; }
+    if (!ok) bindPrinted();
+  }
+
+  /* ---------- the living figures ----------
+     Borrow the Field Report's own embedded record (same origin), the
+     same way the Big Picture does. FAIL-SOFT: any failure leaves the
+     dated barn-board figures standing, and the game plays regardless.
+     If the record arrives after the round is drawn, the figure-bearing
+     questions that are still unanswered are quietly rebuilt with the
+     fresh numbers; a question already answered keeps the count it was
+     honestly played under. */
+  function patchLive() {
+    if (!roundEls) return;
+    ['flock', 'videos'].forEach(function (dyn) {
+      for (var i = 0; i < roundEls.length; i++) {
+        if (roundQs[i].dyn === dyn && !roundEls[i].classList.contains('done')) {
+          var fresh = dyn === 'flock' ? flockQ() : chaptersQ();
+          var el = buildSection(fresh, i + 1);
+          roundEls[i].parentNode.replaceChild(el, roundEls[i]);
+          bindSection(el, i + 1);
+          roundQs[i] = fresh; roundEls[i] = el;
+          break;
+        }
+      }
+    });
+  }
+  function fetchFigures() {
+    if (!window.fetch || !window.DOMParser) return Promise.resolve(false);
+    var ctl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = ctl ? window.setTimeout(function () { ctl.abort(); }, 6000) : null;
+    return fetch('../field-report/', { credentials: 'same-origin', signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error('field report fetch failed'); return r.text(); })
+      .then(function (pageHtml) {
+        var doc = new DOMParser().parseFromString(pageHtml, 'text/html');
+        var el = doc.querySelector('#fr-refresh-data');
+        if (!el) return false;
+        var d = JSON.parse(el.textContent);
+        if (!d) return false;
+        var yt = d.youtube || {};
+        var subs = num(yt.subs);
+        if (subs === null) return false;
+        FIG.subs = subs;
+        var vids = num(yt.videos); if (vids !== null) FIG.videos = vids;
+        var views = num(yt.views); if (views !== null) FIG.views = views;
+        var rt = (d.reach && d.reach.totals) || {};
+        var rd = num(rt.chaptersRead), hd = num(rt.chaptersHeard), fd = num(rt.listensCompleted);
+        if (rd !== null && hd !== null && fd !== null) { FIG.read = rd; FIG.heard = hd; FIG.finished = fd; }
+        FIG.asOf = (d.asOf && (d.asOf.run || d.asOf.youtube)) || null;
+        FIG.fresh = true;
+        return true;
+      })
+      .catch(function () { return false; })
+      .then(function (ok) { if (timer) window.clearTimeout(timer); return ok; });
+  }
+  var fetchDone = fetchFigures().then(function (ok) {
+    if (ok) { updateCaption(); if (rendered) patchLive(); }
+    return ok;
   });
+  var waited = new Promise(function (res) { window.setTimeout(res, 900); });
+  Promise.race([fetchDone, waited]).then(go);
+  window.setTimeout(go, 2600); /* the questions never wait on the wire */
 })();
 </script>
 <script>
