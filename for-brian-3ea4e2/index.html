@@ -7,6 +7,9 @@
 <title>For Brian — a letter from your brother · TruVINE</title>
 <meta name="description" content="A private page for Brian, from his brother Jason: a letter standing on its own, a short film Grandpa Teddy reads aloud, and a ring of keys to everything the emblem Brian designed now opens.">
 <link rel="icon" type="image/jpeg" href="assets/favicon-192.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap">
 <style>
   :root{
     --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
@@ -127,6 +130,17 @@
   .key p { margin-top: 9px; font-size: 17px; line-height: 1.6; color: var(--cream); }
   .key figure { margin: 4px 0 16px; }
   .key figure img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--gold-deep); display: block; }
+  /* The Reach Poster card, living in miniature — the same page layers the
+     poster page carries over its full-size poster: the two headline figures
+     re-spoken over the unmodified card image. They render nothing until
+     the record validates (see the script at the foot of the page) — the
+     card as served shows the poster exactly as drawn. The SVG viewBox is
+     the poster's native 2880x4320, so the layers stay true at any width. */
+  .poster-wrap { position: relative; }
+  .poster-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; pointer-events: none; border-radius: 10px;
+  }
 
   /* ---------- The close ---------- */
   .close-rest { text-align: center; margin-top: 96px; }
@@ -231,7 +245,21 @@
         <li class="key wide">
           <a href="poster/">
             <figure>
-              <img src="assets/reach-poster.jpg" alt="A poster with the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard" loading="lazy">
+              <div class="poster-wrap">
+                <img src="assets/reach-poster.jpg" alt="A poster with the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard" loading="lazy">
+                <svg class="poster-overlay" viewBox="0 0 2880 4320" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                  <g id="card-ov-group" visibility="hidden">
+                    <rect x="1195" y="2055" width="495" height="130" fill="#FAF3E0"/>
+                    <rect x="2090" y="2040" width="290" height="142" fill="#FAF3E0"/>
+                    <text id="card-ov-views" data-zone-w="422" x="1440" y="2168" text-anchor="middle"
+                          font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+                          font-weight="800" font-size="121" fill="#2F4A2A"></text>
+                    <text id="card-ov-subs" data-zone-w="187" x="2225" y="2168" text-anchor="middle"
+                          font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+                          font-weight="800" font-size="121" fill="#2F4A2A"></text>
+                  </g>
+                </svg>
+              </div>
             </figure>
             <h3>The Reach Poster</h3>
             <p>One picture of everywhere your drawing has been — with today&rsquo;s numbers standing beneath it. Tap to see it as it stands today.</p>
@@ -265,5 +293,85 @@
 
   </main>
 </div>
+
+<script>
+/* The Reach Poster card's living figures — the same fail-soft law as the
+   poster page: the card as served shows the poster exactly as drawn, and
+   the two headline figures are re-spoken only when the ministry's own
+   record (the Field Report's #fr-refresh-data) validates in full. Any
+   failure — fetch, parse, shape — leaves the card untouched. The script
+   only READS the public record; nothing here counts or reports a visit. */
+(function () {
+  "use strict";
+  var RECORD_URL = "https://jnutt367.github.io/truvine/field-report/";
+
+  function fmtNum(n) {
+    return (typeof n === "number" && isFinite(n)) ? n.toLocaleString("en-US") : null;
+  }
+  // Fit a live headline figure to its measured zone on the poster: the
+  // baseline never moves (set in the markup); only the size breathes,
+  // within a narrow band — the same fit the poster page uses.
+  function fitOverlayText(el) {
+    var base = 121;
+    var zone = parseFloat(el.getAttribute("data-zone-w") || "0");
+    el.setAttribute("font-size", base);
+    var w = 0;
+    try { w = el.getComputedTextLength(); } catch (e) { w = 0; }
+    if (w > 0 && zone > 0) {
+      var fs = base * (zone / w);
+      if (fs > 130) fs = 130;
+      if (fs < 84) fs = 84;
+      el.setAttribute("font-size", fs.toFixed(1));
+    }
+  }
+
+  function applyRecord(d) {
+    if (!d || typeof d !== "object") return;
+    var yt = d.youtube || {};
+    var subs = fmtNum(yt.subs), views = fmtNum(yt.views), videos = fmtNum(yt.videos);
+    // All three figures must be present and sound before anything is
+    // written — otherwise the poster on the card stands exactly as drawn.
+    if (subs == null || views == null || videos == null) return;
+
+    var group = document.getElementById("card-ov-group");
+    var ovSubs = document.getElementById("card-ov-subs");
+    var ovViews = document.getElementById("card-ov-views");
+    if (!group || !ovSubs || !ovViews) return;
+    ovSubs.textContent = subs;
+    ovViews.textContent = views;
+    var reveal = function () {
+      fitOverlayText(ovSubs);
+      fitOverlayText(ovViews);
+      group.setAttribute("visibility", "visible");
+    };
+    if (document.fonts && document.fonts.load) {
+      var done = false;
+      var go = function () { if (!done) { done = true; reveal(); } };
+      try { document.fonts.load("800 121px 'Playfair Display'").then(go, go); }
+      catch (e) { go(); }
+      setTimeout(go, 1200);
+    } else { reveal(); }
+  }
+
+  function load() {
+    var ctl = ("AbortController" in window) ? new AbortController() : null;
+    var timer = ctl ? setTimeout(function () { ctl.abort(); }, 8000) : null;
+    fetch(RECORD_URL, ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { if (!r.ok) throw new Error("record unavailable"); return r.text(); })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        var node = doc.querySelector("#fr-refresh-data");
+        if (!node) throw new Error("record not found");
+        applyRecord(JSON.parse(node.textContent));
+      })
+      .catch(function () { /* fail-soft: the poster on the card stands as drawn */ })
+      .then(function () { if (timer) clearTimeout(timer); });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", load);
+  } else { load(); }
+})();
+</script>
 </body>
 </html>
