@@ -116,11 +116,14 @@
   @media (min-width: 720px) { .keys { grid-template-columns: 1fr 1fr; } .keys .wide { grid-column: 1 / -1; } }
   .key {
     background: var(--green-900); border: 2px solid var(--gold-deep); border-radius: 16px;
-    padding: 26px 26px 24px; box-shadow: 0 10px 26px rgba(0,0,0,.3);
+    box-shadow: 0 10px 26px rgba(0,0,0,.3);
+  }
+  .key > a {
+    display: block; padding: 26px 26px 24px; border-radius: inherit;
+    text-decoration: none;
   }
   .key h3 { font-size: 23px; font-weight: 800; line-height: 1.25; }
-  .key h3 a { text-decoration: none; }
-  .key h3 a:hover { text-decoration: underline; }
+  .key > a:hover h3 { text-decoration: underline; }
   .key p { margin-top: 9px; font-size: 17px; line-height: 1.6; color: var(--cream); }
   .key figure { margin: 4px 0 16px; }
   .key figure img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--gold-deep); display: block; }
@@ -208,35 +211,49 @@
       <p class="ring-frame">These are keys, Brian &mdash; not doors anyone will push you through. Keep them in your pocket. Any one of them, any order, any day &mdash; or none at all. They&rsquo;ll keep.</p>
       <ul class="keys">
         <li class="key">
-          <h3><a href="https://word-of-god-risen.vercel.app/">Word of God Risen</a></h3>
-          <p>The whole Bible, read out loud by Teddy &mdash; every chapter free. Your drawing is the first thing it shows you.</p>
+          <a href="https://word-of-god-risen.vercel.app/">
+            <h3>Word of God Risen</h3>
+            <p>The whole Bible, read out loud by Teddy &mdash; every chapter free. Your drawing is the first thing it shows you.</p>
+          </a>
         </li>
         <li class="key">
-          <h3><a href="https://www.youtube.com/watch?v=KCLqlTO3lSc">Come and Hear</a></h3>
-          <p>Jason&rsquo;s story, in his own words, told plainly &mdash; what God has done.</p>
+          <a href="https://www.youtube.com/watch?v=KCLqlTO3lSc">
+            <h3>Come and Hear</h3>
+            <p>Jason&rsquo;s story, in his own words, told plainly &mdash; what God has done.</p>
+          </a>
         </li>
         <li class="key">
-          <h3><a href="https://www.youtube.com/watch?v=z9pwCVw7Rf0">The Mark Film</a></h3>
-          <p>The first chapter of Mark, drawn frame by frame and told slow.</p>
+          <a href="https://www.youtube.com/watch?v=z9pwCVw7Rf0">
+            <h3>The Mark Film</h3>
+            <p>The first chapter of Mark, drawn frame by frame and told slow.</p>
+          </a>
         </li>
         <li class="key wide">
-          <figure>
-            <img src="assets/reach-poster.jpg" alt="A poster with the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard" loading="lazy">
-          </figure>
-          <h3><a href="assets/reach-poster-full.jpg">The Reach Poster</a></h3>
-          <p>One picture of everywhere your drawing has been. Tap the picture to see it full size.</p>
+          <a href="assets/reach-poster-full.jpg">
+            <figure>
+              <img src="assets/reach-poster.jpg" alt="A poster with the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard" loading="lazy">
+            </figure>
+            <h3>The Reach Poster</h3>
+            <p>One picture of everywhere your drawing has been. Tap the picture to see it full size.</p>
+          </a>
         </li>
         <li class="key">
-          <h3><a href="https://jnutt367.github.io/truvine/start-here/">Start Here</a></h3>
-          <p>The porch of the whole farm &mdash; every door, in one calm place.</p>
+          <a href="https://jnutt367.github.io/truvine/start-here/">
+            <h3>Start Here</h3>
+            <p>The porch of the whole farm &mdash; every door, in one calm place.</p>
+          </a>
         </li>
         <li class="key">
-          <h3><a href="https://jnutt367.github.io/truvine/field-report/">The Field Report</a></h3>
-          <p>The plain record &mdash; who&rsquo;s hearing, and where. Nothing dressed up.</p>
+          <a href="https://jnutt367.github.io/truvine/field-report/">
+            <h3>The Field Report</h3>
+            <p>The plain record &mdash; who&rsquo;s hearing, and where. Nothing dressed up.</p>
+          </a>
         </li>
         <li class="key wide">
-          <h3><a href="https://truvine.printify.me/">The Store</a></h3>
-          <p>The little store &mdash; the emblem you designed, on real goods.</p>
+          <a href="https://truvine.printify.me/">
+            <h3>The Store</h3>
+            <p>The little store &mdash; the emblem you designed, on real goods.</p>
+          </a>
         </li>
       </ul>
     </section>
