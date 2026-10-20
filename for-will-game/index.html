@@ -927,35 +927,77 @@
 </script>
 <script>
 /* ---------- the shepherd's point ----------
-   A beat after the page opens, if the visitor hasn't scrolled or
-   touched anything yet, the page glides down to Teddy's film so
-   pressing play is the obvious first move. It points exactly once:
-   any scroll, tap, key, or click beforehand stands it down for
-   good, coming back up is never undone, and under reduced motion
-   it doesn't fire at all — a shepherd points once; he doesn't drag. */
+   A beat after the page opens, if the visitor hasn't made a move of
+   their own yet, the page glides down to Teddy's film so pressing
+   play is the obvious first move. Only a DELIBERATE gesture stands
+   it down — a wheel turn, a touch, a pointer press, a key. The
+   browser's own settling (URL-bar shifts, layout, a scroll position
+   restored from an earlier visit) emits scroll events that are not
+   the visitor's doing, so scroll is never listened to, and the point
+   fires wherever the page happens to be resting. It points exactly
+   once, verifies that the film was actually reached and falls back
+   if it wasn't, never countermands a gesture, and under reduced
+   motion it doesn't fire at all — a shepherd points once; he
+   doesn't drag. */
 (function () {
   var panel = document.querySelector('.teaser');
   if (!panel) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var settled = false;
+  var GESTURES = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
+  var done = false;     /* this showing has fired or been stood down */
+  var tookOver = false; /* a deliberate gesture has arrived */
   var timer = null;
-  function standDown() {
-    if (settled) return;
-    settled = true;
-    if (timer !== null) window.clearTimeout(timer);
-    ['scroll', 'wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) {
-      window.removeEventListener(ev, standDown);
-    });
+  var pending = [];
+  function later(fn, ms) { pending.push(window.setTimeout(fn, ms)); }
+  function disarm() {
+    if (timer !== null) { window.clearTimeout(timer); timer = null; }
+    pending.forEach(function (t) { window.clearTimeout(t); });
+    pending = [];
+    GESTURES.forEach(function (ev) { window.removeEventListener(ev, onGesture); });
   }
-  ['scroll', 'wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) {
-    window.addEventListener(ev, standDown, { passive: true });
+  function onGesture() {
+    tookOver = true;
+    done = true;
+    disarm(); /* before firing: cancels the point; after: cancels fallbacks */
+  }
+  function panelHome() {
+    return Math.abs(panel.getBoundingClientRect().top) <= 48;
+  }
+  function glide() {
+    if (tookOver || panelHome()) return;
+    try { panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    catch (e) { panel.scrollIntoView(); }
+    /* verify real movement — if the film isn't reached, aim directly */
+    later(function () {
+      if (tookOver || panelHome()) return;
+      window.scrollTo({ top: panel.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+      later(function () {
+        if (tookOver || panelHome()) return;
+        window.scrollTo(0, panel.getBoundingClientRect().top + window.scrollY);
+      }, 1100);
+    }, 1100);
+  }
+  function arm() {
+    GESTURES.forEach(function (ev) { window.addEventListener(ev, onGesture, { passive: true }); });
+    timer = window.setTimeout(function () {
+      timer = null;
+      if (done || tookOver) { disarm(); return; }
+      done = true;
+      glide();
+      later(disarm, 3000); /* fallbacks spent — stop listening for good */
+    }, 1200);
+  }
+  arm();
+  /* A back/forward-cache restore is a new showing: the old instance
+     may have fired or been stood down hours ago, but a visitor who
+     makes no gesture on THIS showing still gets the point. */
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    done = false;
+    tookOver = false;
+    disarm();
+    arm();
   });
-  timer = window.setTimeout(function () {
-    if (settled) return;
-    standDown();
-    if (window.scrollY > 8) return; /* already somewhere of their own — not ours to move */
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 1200);
 })();
 </script>
 </body>
