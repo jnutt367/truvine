@@ -474,6 +474,7 @@
       <div class="door"><div class="dt">The Elder Door</div><div class="dd">The Come and Hear page — a gentle front door that opens the story film for whoever arrives by it.</div></div>
     </div>
     <p class="body" style="margin-top:4vh">No accounts. No passwords. Nothing to pay — <strong>the door is open</strong>.</p>
+    <p class="footnote" style="margin-top:2.5vh">Counted fresh from the Field Report — <strong><span data-fresh="doors-open">9</span> of <span data-fresh="doors-checked">9</span> doors standing open</strong>, as of <span data-fresh="doors-date">October 19, 2026</span>.</p>
   
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
@@ -923,6 +924,18 @@
       if (spd) setFresh('w-points-date', spd);
       var so = d.store || {};
       if (num(so.products) !== null) setFresh('w-products', fmt(so.products));
+      /* the doors (doors prober pass, Oct 20 2026): the morning
+         sweep's counted line — doors open of doors checked, with
+         the sweep's own date (long-form, like the study date).
+         The sweep covers the public ministry doors only; no
+         personal page is ever probed or named in the record. */
+      var dr = d.doors || {};
+      if (num(dr.open) !== null && num(dr.checked) !== null){
+        setFresh('doors-open', fmt(dr.open));
+        setFresh('doors-checked', fmt(dr.checked));
+        var ddate = dr.asOf ? longDate(dr.asOf) : null;
+        if (ddate) setFresh('doors-date', ddate);
+      }
       /* as-of caption, in the Report's own date */
       var asOf = (d.asOf && (d.asOf.run || d.asOf.youtube)) || null;
       var ld = asOf ? longDate(asOf) : null;
