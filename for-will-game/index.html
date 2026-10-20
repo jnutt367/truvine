@@ -120,6 +120,28 @@
   }
   .door.primary { background: #C08A1E; color: #10365C; }
   .door.ghost { background: transparent; color: #F5EDD6; }
+  button.door { font: inherit; cursor: pointer; }
+  .replay-doors { margin-top: 14px; }
+  body.printed-mode .replay-doors { display: none; }
+
+  /* ---- start-of-game choice: a quick round, or the whole basket ---- */
+  .mode-choice {
+    background: #FBF3DC; border: 2px solid #D9B45C; border-radius: 12px;
+    padding: 14px 16px; margin: 16px 0 0; text-align: center;
+  }
+  .mode-choice p { margin: 0; font-size: 16.5px; font-weight: 600; color: #10365C; line-height: 1.5; }
+  .mode-doors { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+  .door.choice { background: #FFFFFF; color: #10365C; border-color: #10365C; }
+  .door.choice[aria-pressed="true"] { background: #10365C; color: #F5EDD6; border-color: #C08A1E; }
+  body.printed-mode .mode-choice { display: none; }
+
+  /* ---- the whole basket: a bigger flock, smaller sheep ---- */
+  .gather-row.many { min-height: 52px; }
+  .gather-row.many .slot { width: 46px; height: 52px; border-radius: 9px; }
+  @media (min-width: 900px) {
+    .gather-row.many { min-height: 66px; }
+    .gather-row.many .slot { width: 60px; height: 66px; }
+  }
   .foot-doors { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
   .foot-doors .door { background: #10365C; color: #F5EDD6; border-color: #10365C; }
   .foot-doors .door.alt { background: #FFFFFF; color: #10365C; border-color: #C08A1E; }
@@ -210,6 +232,14 @@
         Your browser can&rsquo;t play this little film — but the game below works just the same.
       </video>
     </section>
+
+    <div class="mode-choice" id="modeChoice">
+      <p>Six questions, or the whole basket?</p>
+      <div class="mode-doors">
+        <button type="button" class="door choice" data-mode="six" aria-pressed="true">A quick round — six questions</button>
+        <button type="button" class="door choice" data-mode="all" aria-pressed="false">Walk the whole basket — every question</button>
+      </div>
+    </div>
 
     <div class="gather-box">
       <div class="gather-row" id="gatherRow" role="img"
@@ -317,7 +347,11 @@
 
     <!-- final card (JS reveals it; no-JS readers see the copy below) -->
     <div class="final" id="finalCard" tabindex="-1">
-      <p>That&rsquo;s the whole flock, Will — every single one counted.<br>Including the one this was made for.</p>
+      <p id="finalText">That&rsquo;s the whole flock, Will — every single one counted.<br>Including the one this was made for.</p>
+      <div class="doors replay-doors">
+        <button type="button" class="door primary" id="replayPrimary">Play another round</button>
+        <button type="button" class="door ghost" id="replayAlt">Walk the whole basket</button>
+      </div>
       <div class="doors">
         <a class="door primary" href="../for-will-d59748/">← Back to your board</a>
         <a class="door ghost" href="../for-will-field/">Step into the field →</a>
@@ -347,7 +381,15 @@
   var note = document.getElementById('gatherNote');
   var finalCard = document.getElementById('finalCard');
   var caption = document.getElementById('figCaption');
+  var gatherRow = document.getElementById('gatherRow');
+  var finalText = document.getElementById('finalText');
   var gathered = 0;
+  /* two ways to walk: a quick round of six dealt from the basket, or
+     the whole basket in one showing. mode/totalRun describe the run
+     on the board right now; pendingMode remembers a choice tapped
+     before the first deal; printedMode means the pool render failed
+     and the printed game underneath is carrying the page. */
+  var mode = 'six', totalRun = 6, pendingMode = null, printedMode = false;
 
   /* ---------- numbers: formatting + the Field Report's date style ---------- */
   var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -523,11 +565,11 @@
 
   /* ---------- rendering + the gathering ---------- */
   var roundQs = null, roundEls = null;
-  function countedLine(pos) {
-    return pos === 6 ? '\u2713 Counted \u2014 sheep 6 is in. The whole flock!'
-                     : '\u2713 Counted \u2014 sheep ' + pos + ' is in.';
+  function countedLine(pos, total) {
+    return pos === total ? '\u2713 Counted \u2014 sheep ' + pos + ' is in. The whole flock!'
+                         : '\u2713 Counted \u2014 sheep ' + pos + ' is in.';
   }
-  function buildSection(q, pos) {
+  function buildSection(q, pos, total) {
     var sec = document.createElement('section');
     sec.className = 'q';
     sec.setAttribute('data-q', String(pos));
@@ -537,12 +579,12 @@
       return '<li><button class="opt" data-correct="' + (o.c ? '1' : '0') + '">' + o.t + '</button></li>';
     }).join('');
     sec.innerHTML =
-      '<span class="qnum">Question ' + pos + ' of 6</span>' +
+      '<span class="qnum">Question ' + pos + ' of ' + total + '</span>' +
       '<h2 id="qh-r' + pos + '">' + q.h + '</h2>' +
       '<ul class="opts">' + opts + '</ul>' +
       '<p class="teach kind" data-teach="kind">' + q.kind + '</p>' +
       '<p class="teach good" data-teach="good">' + q.good + '</p>' +
-      '<p class="counted">' + countedLine(pos) + '</p>';
+      '<p class="counted">' + countedLine(pos, total) + '</p>';
     return sec;
   }
   function bindSection(sec, pos) {
@@ -567,12 +609,8 @@
             slot.addEventListener('animationend', function () { slot.classList.remove('hop'); }, { once: true });
           }
           gathered += 1;
-          note.textContent = 'Sheep gathered: ' + gathered + ' of 6';
-          if (gathered === 6) {
-            finalCard.classList.add('show');
-            note.textContent = 'Sheep gathered: 6 of 6 \u2014 the whole flock!';
-            finalCard.focus({ preventScroll: false });
-          }
+          note.textContent = 'Sheep gathered: ' + gathered + ' of ' + totalRun;
+          if (gathered === totalRun) showFinal();
         } else {
           btn.disabled = true;
           good.classList.remove('show');
@@ -581,16 +619,89 @@
       });
     });
   }
-  function renderRound() {
-    var statics = Array.prototype.slice.call(document.querySelectorAll('.q'));
-    if (!statics.length) return false;
-    roundQs = buildRound();
-    roundEls = roundQs.map(function (q, i) { return buildSection(q, i + 1); });
-    var anchor = statics[0];
-    roundEls.forEach(function (el) { anchor.parentNode.insertBefore(el, anchor); });
-    statics.forEach(function (el) { el.parentNode.removeChild(el); });
-    roundEls.forEach(function (el, i) { bindSection(el, i + 1); });
+  /* the whole basket: every question the game can honestly ask,
+     flock first, the rest shuffled — the dynamic record questions
+     ride only when the record has actually spoken for them. */
+  function buildFull() {
+    var rest = [johnQ(), lukeQ(), chaptersQ(), costQ(), countriesQ(),
+                appHearQ(), appWhoQ(), appSigninQ(), appInstallQ(), appShareQ(),
+                statsNeverQ(), statsFlockQ(), kenyaQ()];
+    if (FIG.read !== null) rest.push(reachQ());
+    if (FIG.views !== null) rest.push(viewsQ());
+    return [flockQ()].concat(shuffle(rest));
+  }
+  function buildSlots(total) {
+    gatherRow.innerHTML = '';
+    if (total > 6) gatherRow.classList.add('many'); else gatherRow.classList.remove('many');
+    slots = [];
+    for (var i = 1; i <= total; i++) {
+      var d = document.createElement('div');
+      d.className = 'slot waiting';
+      d.setAttribute('data-slot', String(i));
+      var img = document.createElement('img');
+      img.src = 'sheep.jpg';
+      img.alt = '';
+      d.appendChild(img);
+      gatherRow.appendChild(d);
+      slots.push(d);
+    }
+  }
+  function updateModeButtons() {
+    var cur = pendingMode || mode;
+    document.querySelectorAll('[data-mode]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-mode') === cur ? 'true' : 'false');
+    });
+  }
+  function showFinal() {
+    if (mode === 'all') {
+      finalText.innerHTML = 'You walked the whole basket, Will \u2014 every last question, and every sheep counted.<br>Including the one this was made for.';
+      note.textContent = 'Sheep gathered: ' + totalRun + ' of ' + totalRun + ' \u2014 the whole basket, every one counted!';
+      document.getElementById('replayPrimary').textContent = 'Walk the whole basket again';
+      document.getElementById('replayAlt').textContent = 'A quick round of six';
+    } else {
+      finalText.innerHTML = 'That\u2019s the whole flock, Will \u2014 every single one counted.<br>Including the one this was made for.';
+      note.textContent = 'Sheep gathered: ' + totalRun + ' of ' + totalRun + ' \u2014 the whole flock!';
+      document.getElementById('replayPrimary').textContent = 'Play another round';
+      document.getElementById('replayAlt').textContent = 'Walk the whole basket';
+    }
+    finalCard.classList.add('show');
+    finalCard.focus({ preventScroll: false });
+  }
+  function startRun(m) {
+    var qs, els;
+    try {
+      qs = (m === 'all') ? buildFull() : buildRound();
+      els = qs.map(function (q, i) { return buildSection(q, i + 1, qs.length); });
+    } catch (e) { return false; }
+    if (roundEls) {
+      roundEls.forEach(function (el) { if (el.parentNode) el.parentNode.removeChild(el); });
+    } else {
+      Array.prototype.slice.call(document.querySelectorAll('.q')).forEach(function (el) {
+        el.parentNode.removeChild(el);
+      });
+    }
+    els.forEach(function (el) { finalCard.parentNode.insertBefore(el, finalCard); });
+    roundQs = qs; roundEls = els;
+    mode = m; totalRun = qs.length; gathered = 0;
+    buildSlots(totalRun);
+    els.forEach(function (el, i) { bindSection(el, i + 1); });
+    finalCard.classList.remove('show');
+    note.textContent = 'Sheep gathered: 0 of ' + totalRun;
+    updateModeButtons();
     return true;
+  }
+  function focusFirst() {
+    var box = document.querySelector('.gather-box');
+    if (box && box.scrollIntoView) box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    if (roundEls && roundEls[0]) {
+      var b = roundEls[0].querySelector('.opt');
+      if (b) b.focus({ preventScroll: true });
+    }
+  }
+  function requestMode(m) {
+    if (printedMode) return;
+    if (!rendered) { pendingMode = m; updateModeButtons(); return; }
+    if (startRun(m)) focusFirst();
   }
   /* If anything in the pool render fails, the printed game binds as it
      always has \u2014 the page is never left without a working game. */
@@ -639,9 +750,14 @@
     if (rendered) return;
     rendered = true;
     var ok = false;
-    try { ok = renderRound(); } catch (e) { ok = false; }
-    if (!ok) bindPrinted();
+    try { ok = startRun(pendingMode || 'six'); } catch (e) { ok = false; }
+    if (!ok) { printedMode = true; document.body.classList.add('printed-mode'); bindPrinted(); }
   }
+  document.querySelectorAll('[data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () { requestMode(b.getAttribute('data-mode')); });
+  });
+  document.getElementById('replayPrimary').addEventListener('click', function () { requestMode(mode); });
+  document.getElementById('replayAlt').addEventListener('click', function () { requestMode(mode === 'all' ? 'six' : 'all'); });
 
   /* ---------- the living figures ----------
      Borrow the Field Report's own embedded record (same origin), the
@@ -657,7 +773,7 @@
       for (var i = 0; i < roundEls.length; i++) {
         if (roundQs[i].dyn === dyn && !roundEls[i].classList.contains('done')) {
           var fresh = dyn === 'flock' ? flockQ() : chaptersQ();
-          var el = buildSection(fresh, i + 1);
+          var el = buildSection(fresh, i + 1, totalRun);
           roundEls[i].parentNode.replaceChild(el, roundEls[i]);
           bindSection(el, i + 1);
           roundQs[i] = fresh; roundEls[i] = el;
@@ -722,7 +838,7 @@
 
   function focusables() {
     return Array.prototype.slice.call(
-      document.querySelectorAll('button.opt:not([disabled]), a.door')
+      document.querySelectorAll('button.opt:not([disabled]), a.door, button.door')
     ).filter(function (el) { return el.getClientRects().length > 0; });
   }
   function defaultTarget() {
