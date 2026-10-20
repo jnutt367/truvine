@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Reach Poster — kept current · For Brian · TruVINE</title>
+<meta name="description" content="The reach poster first drawn for Brian on October 15, 2026 — its numbers now kept current from the ministry's own Field Report.">
+<link rel="icon" type="image/jpeg" href="../assets/favicon-192.jpg">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(1200px 620px at 50% -120px, #17452C 0%, rgba(23,69,44,0) 60%),
+      var(--green-950);
+    color: var(--cream);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    padding: 34px 16px 64px;
+  }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px; }
+
+  /* ---------- The poster sheet ---------- */
+  .sheet {
+    max-width: 860px; margin: 0 auto; text-align: center;
+    background: linear-gradient(180deg, rgba(20,58,40,.55), rgba(14,46,31,.35));
+    border: 2px solid var(--gold-deep); border-radius: 22px;
+    padding: clamp(30px, 6vw, 58px) clamp(20px, 5vw, 54px);
+    box-shadow: 0 18px 44px rgba(0,0,0,.4);
+  }
+  .sheet .emblem { width: 250px; max-width: 58vw; height: auto; display: inline-block; }
+  .kicker {
+    margin-top: 26px; font-size: 13px; font-weight: 800; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .sheet h1 {
+    margin-top: 12px; font-size: clamp(34px, 6.6vw, 56px); line-height: 1.12;
+    font-weight: 800; color: var(--cream);
+  }
+  .sub { margin-top: 14px; font-size: 19px; font-style: italic; color: var(--muted-d); }
+  .rule { width: 120px; height: 3px; background: var(--gold-deep); margin: 28px auto 0; border-radius: 2px; }
+
+  /* ---------- The figures ---------- */
+  .stats {
+    list-style: none; display: grid; gap: 18px; margin-top: 40px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+  .stat {
+    background: var(--green-900); border: 1.5px solid var(--gold-deep); border-radius: 16px;
+    padding: 24px 14px 20px;
+  }
+  .stat .num {
+    display: block; font-size: clamp(38px, 6vw, 50px); line-height: 1.05;
+    font-weight: 800; color: var(--gold-bright);
+  }
+  .stat .lab {
+    display: block; margin-top: 10px; font-size: 13px; font-weight: 800;
+    letter-spacing: 2.6px; text-transform: uppercase; color: var(--gold);
+  }
+  .asof { margin-top: 20px; font-size: 15.5px; color: var(--muted-d); }
+
+  /* ---------- The country band ---------- */
+  .band { margin-top: 46px; }
+  .band h2 {
+    font-size: 14px; font-weight: 800; letter-spacing: 3.2px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .band .names {
+    margin-top: 16px; font-size: clamp(19px, 3.4vw, 24px); line-height: 1.65; color: var(--cream);
+  }
+  .band .names .cname { color: var(--gold-bright); font-weight: 700; }
+  .band .note { margin-top: 12px; font-size: 15.5px; color: var(--muted-d); }
+
+  /* ---------- Credit + return ---------- */
+  .credit {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(217,180,92,.35);
+    font-size: 15.5px; color: var(--muted-d); font-style: italic;
+  }
+  .back { margin-top: 30px; font-size: 17px; }
+  .back a { font-weight: 700; text-decoration: none; }
+  .back a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <main class="sheet" aria-labelledby="poster-h">
+    <img class="emblem" src="../assets/emblem.png" alt="The TruVINE emblem — a golden vine in the shape of a cross inside a gold-rimmed triangle, designed by Brian">
+    <p class="kicker">The Reach Poster</p>
+    <h1 id="poster-h" class="serif">From one little farm — to the nations</h1>
+    <p class="sub">Everywhere your drawing has been, Brian.</p>
+    <div class="rule" aria-hidden="true"></div>
+
+    <ul class="stats">
+      <li class="stat">
+        <span class="num" id="stat-subs">841</span>
+        <span class="lab">Subscribers</span>
+      </li>
+      <li class="stat">
+        <span class="num" id="stat-views">154,544</span>
+        <span class="lab">Views all told</span>
+      </li>
+      <li class="stat">
+        <span class="num" id="stat-third">38</span>
+        <span class="lab" id="stat-third-lab">Countries tuning in</span>
+      </li>
+    </ul>
+    <p class="asof" id="asof-line">Figures as of October 15, 2026 — the day this poster was first drawn.</p>
+
+    <section class="band" aria-labelledby="band-h">
+      <h2 id="band-h">Where it has been heard</h2>
+      <p class="names" id="band-body">Thirty-eight countries tuning in.</p>
+      <p class="note" id="band-note">The count from the day this poster was first drawn — October 15, 2026.</p>
+    </section>
+
+    <p class="credit">First drawn October 15, 2026 — its numbers now kept current.</p>
+    <p class="back"><a href="../">&larr; Back to your page</a></p>
+  </main>
+
+<script>
+(function () {
+  "use strict";
+  var RECORD_URL = "https://jnutt367.github.io/truvine/field-report/";
+  var MONTHS = ["January","February","March","April","May","June","July",
+                "August","September","October","November","December"];
+
+  function fmtDate(iso) {
+    if (typeof iso !== "string") return null;
+    var p = iso.split("-");
+    if (p.length !== 3) return null;
+    var y = parseInt(p[0], 10), m = parseInt(p[1], 10), d = parseInt(p[2], 10);
+    if (!y || m < 1 || m > 12 || !d) return null;
+    return MONTHS[m - 1] + " " + d + ", " + y;
+  }
+  function fmtNum(n) {
+    return (typeof n === "number" && isFinite(n)) ? n.toLocaleString("en-US") : null;
+  }
+  function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el && text != null) el.textContent = text;
+  }
+  function countryName(code) {
+    try {
+      var dn = new Intl.DisplayNames(["en"], { type: "region" });
+      return dn.of(code) || code;
+    } catch (e) { return code; }
+  }
+
+  function applyRecord(d) {
+    if (!d || typeof d !== "object") return;
+    var yt = d.youtube || {};
+    var subs = fmtNum(yt.subs), views = fmtNum(yt.views), videos = fmtNum(yt.videos);
+    if (subs == null || views == null) return; // not a record we can trust — the printed figures stand
+
+    setText("stat-subs", subs);
+    setText("stat-views", views);
+    if (videos != null) {
+      setText("stat-third", videos);
+      setText("stat-third-lab", "Videos");
+    }
+
+    var asOf = fmtDate((d.asOf && d.asOf.youtube) || null);
+    if (asOf) setText("asof-line", "Figures as of " + asOf + " — drawn from the Field Report, the ministry's own record.");
+
+    // The country story, exactly as the record carries it:
+    // chapters read and heard in the app, in the record's all-time window.
+    var win = (d.reachWindows && d.reachWindows.windows && d.reachWindows.windows.all) || null;
+    var list = (win && Array.isArray(win.countries)) ? win.countries : [];
+    var named = [];
+    var chapters = 0;
+    for (var i = 0; i < list.length; i++) {
+      var c = list[i];
+      if (c && typeof c.code === "string" && c.code.length) {
+        named.push(countryName(c.code.toUpperCase()));
+        if (typeof c.total === "number" && isFinite(c.total)) chapters += c.total;
+      }
+    }
+    if (named.length) {
+      var body = document.getElementById("band-body");
+      if (body) {
+        body.textContent = "";
+        for (var j = 0; j < named.length; j++) {
+          if (j) body.appendChild(document.createTextNode("  ·  "));
+          var s = document.createElement("span");
+          s.className = "cname";
+          s.textContent = named[j];
+          body.appendChild(s);
+        }
+      }
+      var since = fmtDate(win.from || (d.reachWindows && d.reachWindows.firstDate) || null);
+      var note = "Countries where chapters of the Bible app have been read or heard";
+      if (chapters > 0) note += " — " + chapters.toLocaleString("en-US") + " chapters so far";
+      if (since) note += ", counted since " + since;
+      note += ".";
+      setText("band-note", note);
+    }
+  }
+
+  function load() {
+    var ctl = ("AbortController" in window) ? new AbortController() : null;
+    var timer = ctl ? setTimeout(function () { ctl.abort(); }, 8000) : null;
+    fetch(RECORD_URL, ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { if (!r.ok) throw new Error("record unavailable"); return r.text(); })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        var node = doc.querySelector("#fr-refresh-data");
+        if (!node) throw new Error("record not found");
+        applyRecord(JSON.parse(node.textContent));
+      })
+      .catch(function () { /* fail-soft: the printed October 15 figures stand, with their date */ })
+      .then(function () { if (timer) clearTimeout(timer); });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", load);
+  } else { load(); }
+})();
+</script>
+</body>
+</html>
