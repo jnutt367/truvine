@@ -521,9 +521,9 @@
     <div class="kicker">The Store &amp; the Work</div>
     <h2>The work of his hands</h2>
     <div class="statrow">
-      <div class="stat"><div class="n">47</div><div class="l">products in the TruVINE store — opened October 15, 2026, Scripture on garments, letter by letter</div></div>
-      <div class="stat"><div class="n">277</div><div class="l">public projects on the builder&rsquo;s shelf — apps, sites, and ministry tools, built by hand</div></div>
-      <div class="stat"><div class="n">44,800</div><div class="l">Trailhead learning points banked (as of Oct 19, 2026) — the study that keeps the tools sharp</div></div>
+      <div class="stat"><div class="n" data-fresh="w-products">47</div><div class="l">products in the TruVINE store — opened October 15, 2026, Scripture on garments, letter by letter</div></div>
+      <div class="stat"><div class="n" data-fresh="w-repos">277</div><div class="l">public projects on the builder&rsquo;s shelf — apps, sites, and ministry tools, built by hand</div></div>
+      <div class="stat"><div class="n" data-fresh="w-points">44,800</div><div class="l">Trailhead learning points banked (as of <span data-fresh="w-points-date">October 19, 2026</span>) — the study that keeps the tools sharp</div></div>
     </div>
     <p class="body" style="margin-top:4.5vh">The store and the shelf serve the same house: <strong>the ministry first</strong>, and the craft that carries it.</p>
   
@@ -908,6 +908,21 @@
           litlist.appendChild(li);
         });
       }
+      /* the store & the work (slides 5–6 tracking pass, Oct 20 2026):
+         the GitHub shelf count, the Trailhead points + their as-of
+         date (truthful in the Report's record since the Oct 19 study
+         update), and the store's published-product count (Printify,
+         counted by the heartbeat through the connector). Stars and
+         badges ride in the Report's record but are not displayed on
+         this slide, so no slot exists for them here. */
+      var gh = d.github || {};
+      if (num(gh.repos) !== null) setFresh('w-repos', fmt(gh.repos));
+      var st = d.study || {};
+      if (num(st.rangerPoints) !== null) setFresh('w-points', fmt(st.rangerPoints));
+      var spd = st.asOf ? longDate(st.asOf) : null;
+      if (spd) setFresh('w-points-date', spd);
+      var so = d.store || {};
+      if (num(so.products) !== null) setFresh('w-products', fmt(so.products));
       /* as-of caption, in the Report's own date */
       var asOf = (d.asOf && (d.asOf.run || d.asOf.youtube)) || null;
       var ld = asOf ? longDate(asOf) : null;
