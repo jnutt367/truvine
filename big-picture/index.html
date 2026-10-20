@@ -18,21 +18,22 @@
     color:var(--cream);
     background: radial-gradient(120% 90% at 50% 0%, #12301f 0%, var(--bg) 55%, var(--bg2) 100%);
     min-height:100vh;
+    min-height:100dvh;
   }
   .serif{font-family: Georgia, "Times New Roman", Times, serif}
   /* ---------- deck layout: no-JS = graceful scroll ---------- */
   #deck{display:block}
   .slide{
-    min-height:100vh; width:100%;
+    min-height:100vh; min-height:100dvh; width:100%;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center; padding:6vh 6vw; position:relative;
     border-bottom:1px solid rgba(217,164,65,.12);
   }
   /* ---------- JS presentation mode ---------- */
   .js body{overflow:hidden}
-  .js #deck{position:fixed; inset:0}
+  .js #deck{position:fixed; inset:0; height:100vh; height:100dvh}
   .js .slide{
-    position:absolute; inset:0; min-height:0; border-bottom:none;
+    position:absolute; inset:0; min-height:0; border-bottom:none; overflow:hidden;
     opacity:0; visibility:hidden; transition:opacity .7s ease, visibility 0s linear .7s;
   }
   .js .slide.active{opacity:1; visibility:visible; transition:opacity .7s ease}
@@ -192,6 +193,48 @@
   .qrtext .qt{font-family:Georgia,serif; font-size:clamp(24px,2.5vw,42px); line-height:1.25; color:var(--cream)}
   .qrtext .qd{font-size:clamp(17px,1.6vw,27px); color:var(--cream-dim); line-height:1.45; margin-top:1vh}
   @media (max-width:760px){ .qrtext{text-align:center} }
+  /* ---------- fit stage: the whole slide, always on screen (Oct 20 2026) ----------
+     In presentation mode each slide's flow content is gathered into a
+     .stage (see the script). If the stage's natural size exceeds the
+     slide's padded box, the script scales it down — never up — so the
+     entire slide is visible on any screen, phones included, with the
+     slide's own padding as breathing room above and below. */
+  .stage{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; width:100%; flex:0 0 auto; transform-origin:50% 50%;
+  }
+  /* ---------- Teresa mode (?for=teresa) ---------- */
+  #teresa-head{
+    position:fixed; top:0; left:0; right:0; z-index:60; display:none;
+    text-align:center; padding:1.7vh 4vw 0; pointer-events:none;
+    font-size:clamp(13px,1.15vw,19px); letter-spacing:.34em; text-transform:uppercase;
+    color:var(--gold); font-weight:600;
+  }
+  .teresa #teresa-head{display:block}
+  #teresa-veil{
+    position:fixed; inset:0; z-index:70; width:100%; height:100%;
+    display:none; align-items:center; justify-content:center; text-align:center;
+    background:rgba(10,26,17,.72); border:none; cursor:pointer;
+    font-family:Georgia,"Times New Roman",serif; font-style:italic;
+    color:var(--cream); font-size:clamp(24px,3vw,44px); line-height:1.35;
+    padding:6vh 8vw; opacity:1; transition:opacity .8s ease;
+  }
+  .teresa #teresa-veil.show{display:flex}
+  #teresa-veil.gone{opacity:0; pointer-events:none}
+  #teresa-veil:focus-visible{outline:4px solid var(--cream); outline-offset:-8px}
+  #teresa-note{
+    position:fixed; left:0; right:0; bottom:5.5vh; z-index:60; display:none;
+    text-align:center; padding:0 6vw;
+    font-size:clamp(14px,1.3vw,20px); color:var(--sage); line-height:1.5;
+  }
+  .teresa #teresa-note.show{display:block}
+  .teresa-door{display:none; margin-top:3.4vh; font-size:clamp(17px,1.6vw,27px)}
+  .teresa .teresa-door{display:block}
+  .teresa-door a{color:var(--gold); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px}
+  .teresa-door a:hover, .teresa-door a:focus-visible{border-bottom-color:var(--gold)}
+  @media (max-width:760px){
+    #teresa-head{letter-spacing:.2em; font-size:12px; padding:1.4vh 22vw 0; line-height:1.6}
+  }
   /* ---------- dwell progress bar ---------- */
   #dwellbar{position:fixed; left:0; right:0; bottom:0; height:18px; z-index:45; display:none}
   .js #dwellbar{display:block}
@@ -218,7 +261,7 @@
     .js #dwellbar{display:none}
   }
   @media (max-width:760px){
-    .wframe img{height:auto; width:min(62vw,300px)}
+    .wframe img{height:auto; width:min(27vw,300px)}
     .teddy{height:auto; width:min(78vw,340px)}
   }
 </style>
@@ -227,7 +270,7 @@
 <main id="deck">
 
   <!-- 1 · TITLE -->
-  <section class="slide" data-dwell="8">
+  <section class="slide" data-dwell="10">
     <img class="emblem" src="truvine-emblem.png" alt="The TruVINE emblem — a vine woven through a golden triangle">
     <div class="kicker" style="margin-top:3vh">TruVINE</div>
     <h1>The Big Picture</h1>
@@ -239,7 +282,7 @@
   </section>
 
   <!-- 2 · THE SEASON IN ONE LINE -->
-  <section class="slide" data-dwell="8">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The season in one line</div>
     <h2>The whole Bible — every chapter —<br>read aloud, <span class="gold">finished</span>,<br>and given away free.</h2>
     <p class="body" style="margin-top:4vh">One voice, Grandpa Teddy&rsquo;s, telling the whole story — in a free app with <strong>no accounts, no passwords, and nothing to pay</strong>. You tap a book, tap a chapter, and tap Listen.</p>
@@ -248,7 +291,7 @@
   </section>
 
   <!-- 3 · THE AUDIO BIBLE -->
-  <section class="slide" data-dwell="9">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Audio Bible</div>
     <p class="verse">&ldquo;so is my word that goes out of my mouth: it will not return to me void, but it will accomplish that which I please&hellip;&rdquo; <span class="vref">Isaiah 55:11</span></p>
     <div class="biblewrap">
@@ -267,7 +310,7 @@
   </section>
 
   <!-- 4 · THE REACH -->
-  <section class="slide" data-dwell="10">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Reach</div>
     <p class="verse">&ldquo;Those which were sown on the good ground are those who hear the word, accept it, and bear fruit&hellip;&rdquo; <span class="vref">Mark 4:20</span></p>
     <h2 style="margin-bottom:3.5vh">Where the seeds have landed</h2>
@@ -301,7 +344,7 @@
 
 
   <!-- 5 · ONE TRUE MOMENT -->
-  <section class="slide" data-dwell="10">
+  <section class="slide" data-dwell="12">
     <div class="kicker">One True Moment</div>
     <h2>The Word reached <span class="gold">Kenya</span></h2>
     <p class="body" style="margin-top:3vh">October 14, 2026 — the site counters opened for the first time, and readers were arriving by way of YouTube. Planted among the countries reached that first week: <strong>Kenya</strong>.</p>
@@ -316,7 +359,7 @@
   </section>
 
   <!-- 6 · THE GROWTH -->
-  <section class="slide" data-dwell="9">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Growth</div>
     <p class="verse">&ldquo;I planted. Apollos watered. But God gave the increase.&rdquo; <span class="vref">1 Corinthians 3:6</span></p>
     <h2>Counted fresh, day by day</h2>
@@ -345,7 +388,7 @@
 
 
   <!-- 7 · THE SEASON VINE -->
-  <section class="slide" data-dwell="10">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Season Vine</div>
     <h2>The season, on one vine</h2>
     <div class="vinebox" role="img" aria-label="A vine timeline of October 2026: on October 8 the Audio Bible was completed; October 15 the store opened; October 17 the Mark film was released; October 18 Come and Hear was released and the Family Wall was hung; October 19 the channel crossed 900 subscribers">
@@ -380,7 +423,7 @@
   </section>
 
   <!-- 8 · THE FILMS -->
-  <section class="slide" data-dwell="9">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Films</div>
     <h2>Two films, one weekend</h2>
     <div class="films">
@@ -400,7 +443,7 @@
   </section>
 
   <!-- 9 · THE DOORS -->
-  <section class="slide" data-dwell="8">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Doors</div>
     <p class="verse">&ldquo;I am the door. If anyone enters in by me, he will be saved, and will go in and go out and will find pasture.&rdquo; <span class="vref">John 10:9</span></p>
     <h2>Every door free, every door open</h2>
@@ -417,7 +460,7 @@
 
 
   <!-- 10 · THE CREED -->
-  <section class="slide" data-dwell="9">
+  <section class="slide" data-dwell="7.5">
     <div class="kicker">The Creed</div>
     <h2>What it costs: <span class="gold">nothing.</span></h2>
     <p class="creedlines" style="margin-top:4.5vh">No account. No password.<br>Nothing to pay.</p>
@@ -427,7 +470,7 @@
   </section>
 
   <!-- 11 · THE FAMILY WALL -->
-  <section class="slide" data-dwell="10">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Family Wall</div>
     <h2>Welcomed, not processed</h2>
     <p class="body" style="margin-top:2vh">The first household went up on the wall on <strong>October 18, 2026</strong> — hung by hand:</p>
@@ -454,7 +497,7 @@
   </section>
 
   <!-- 12 · THE STORE & THE WORK -->
-  <section class="slide" data-dwell="9">
+  <section class="slide" data-dwell="12">
     <div class="kicker">The Store &amp; the Work</div>
     <h2>The work of his hands</h2>
     <div class="statrow">
@@ -469,7 +512,7 @@
 
 
   <!-- 13 · WHAT'S AHEAD -->
-  <section class="slide" data-dwell="9">
+  <section class="slide" data-dwell="12">
     <div class="kicker">Still to Come</div>
     <h2>What&rsquo;s Ahead</h2>
     <div class="ahead">
@@ -496,6 +539,7 @@
         <div class="qd">Point your camera — Start Here will walk you in, and Teddy will read to you.</div>
       </div>
     </div>
+    <p class="teresa-door"><a href="https://jnutt367.github.io/truvine/for-teresa-74874a/">Everything else is on your page, Arm →</a></p>
   </section>
 
 </main>
@@ -504,6 +548,9 @@
 <div id="counter" aria-hidden="true"></div>
 <div id="progress" aria-hidden="true"></div>
 <div id="paused" aria-hidden="true">Paused — space to continue</div>
+<div id="teresa-head" aria-hidden="true">For Teresa — where things stand now</div>
+<p id="teresa-note">For Teresa: this showing is still, and it moves at your own pace — tap the sides of the screen, or use the arrow keys, to wander. The gold button on the first slide starts the music.</p>
+<button type="button" id="teresa-veil">Tap anywhere — the music joins in 🎵</button>
 <button type="button" id="music-corner" aria-pressed="false">Music: Off</button>
 <audio id="bed" src="bed.mp3" loop preload="metadata"></audio>
 
@@ -540,6 +587,47 @@
     return (isFinite(d) && d > 0 ? d : 10) * 1000;
   });
   slides.forEach(function(s, i){ s.style.setProperty('--dwell', (durations[i] / 1000) + 's'); });
+  /* ---------- fit: the whole slide, always on screen ----------
+     Each slide's flow content moves into a .stage wrapper (the corner
+     bug and the hint stay pinned to the slide itself). If the stage's
+     natural size is larger than the slide's padded box, it is scaled
+     down — never up — so nothing is ever clipped, on any screen. */
+  var stages = slides.map(function(s){
+    var st = document.createElement('div');
+    st.className = 'stage';
+    Array.prototype.slice.call(s.childNodes).forEach(function(n){
+      if (n.nodeType === 1 && (n.classList.contains('bug') || n.classList.contains('hint'))) return;
+      st.appendChild(n);
+    });
+    s.appendChild(st);
+    return st;
+  });
+  function fit(){
+    slides.forEach(function(s, i){
+      var st = stages[i];
+      if (!st) return;
+      st.style.transform = '';
+      var cs = window.getComputedStyle(s);
+      var availW = s.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var availH = s.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      var w = Math.max(st.scrollWidth || 0, st.offsetWidth || 0);
+      Array.prototype.forEach.call(st.children, function(c){ w = Math.max(w, c.offsetWidth || 0); });
+      var h = st.offsetHeight || 0;
+      if (!w || !h || !availW || !availH) return;
+      var k = Math.min(1, availW / w, availH / h);
+      if (k < 0.999) st.style.transform = 'scale(' + k.toFixed(4) + ')';
+    });
+  }
+  var fitQueued = false;
+  function fitSoon(){
+    if (fitQueued) return;
+    fitQueued = true;
+    requestAnimationFrame(function(){ fitQueued = false; fit(); });
+  }
+  window.addEventListener('resize', fitSoon);
+  window.addEventListener('orientationchange', fitSoon);
+  window.addEventListener('load', fitSoon);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSoon);
   var idx = 0, playing = false, dwellTimer = null, idleTimer = null, IDLE = 60000;
   var slideElapsed = 0, tickStart = 0;
   function paintBar(){
@@ -618,13 +706,17 @@
     musicBig.textContent = musicOn ? '🎵 Music On — tap to hush' : '🎵 Tap for Music';
     musicCorner.textContent = musicOn ? 'Music: On' : 'Music: Off';
   }
+  function startMusic(){
+    if (musicOn) return;
+    var p = bed.play();
+    if (p && p.catch){ p.catch(function(){ musicOn = false; paintMusic(); }); }
+    musicOn = true; paintMusic();
+  }
   function toggleMusic(){
     if (musicOn){
       bed.pause(); musicOn = false; paintMusic();
     } else {
-      var p = bed.play();
-      if (p && p.catch){ p.catch(function(){ musicOn = false; paintMusic(); }); }
-      musicOn = true; paintMusic();
+      startMusic();
     }
   }
   musicBig.addEventListener('click', toggleMusic);
@@ -643,11 +735,39 @@
     else if (e.key === 'p' || e.key === 'P'){ if (playing){ pause(); } else { play(); } }
   });
   document.addEventListener('pointerdown', function(e){
+    if (e.target && e.target.closest && e.target.closest('a')){ return; }
     if (e.target && e.target.closest && e.target.closest('button')){ pause(); return; }
     var r = window.innerWidth * 0.5;
     interact(function(){ show(idx + (e.clientX >= r ? 1 : -1)); });
   });
   document.addEventListener('wheel', function(){ pause(); }, {passive:true});
+  /* ---------- Teresa mode (?for=teresa) ----------
+     The show already plays itself on load; for Teresa the first tap
+     anywhere brings the music in with it — her own permission — under
+     a soft veil that then dissolves while the show keeps advancing.
+     Reduced motion still wins: no veil, a still first slide, and a
+     plain note about wandering at her own pace. */
+  var TERESA = false;
+  try { TERESA = new URLSearchParams(window.location.search).get('for') === 'teresa'; }
+  catch (e) { TERESA = /[?&]for=teresa(&|$)/.test(window.location.search); }
+  if (TERESA){
+    document.documentElement.classList.add('teresa');
+    var veil = document.getElementById('teresa-veil');
+    var note = document.getElementById('teresa-note');
+    if (REDUCED){
+      if (note) note.classList.add('show');
+    } else if (veil){
+      veil.classList.add('show');
+      veil.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
+      veil.addEventListener('click', function(){
+        startMusic();
+        veil.classList.add('gone');
+        setTimeout(function(){ veil.classList.remove('show'); veil.classList.remove('gone'); }, 850);
+      });
+      try { veil.focus({ preventScroll: true }); } catch (e) {}
+    }
+  }
+  fit();
   show(0); play();
 
   /* ---------- daily-fresh numbers ----------
