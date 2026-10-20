@@ -141,6 +141,20 @@
   }
   .js #paused.show{display:block}
   @media (max-width:760px){ .reachtext{text-align:center} .litlist{text-align:left} }
+  /* Reach slide phone fit (Jason's live read, Oct 20 2026): the fit was
+     ruled a success overall, but this slide's prose ran the full padded
+     width and read squeezed at the left and right edges. On phone widths
+     this one slide's whole text column takes real side padding inside
+     the stage — the margin widens, not one word is trimmed. At a 390px
+     viewport the text's side margin goes from the slide's 6vw (≈23px)
+     to ≈41px (6vw slide padding + 4.5vw column padding). Desktop and
+     every other slide are untouched; the stage scale was left alone
+     because the padding sets the floor at any scale. */
+  @media (max-width:760px){
+    .reach-slide .verse, .reach-slide h2, .reach-slide .reachtext, .reach-slide .footnote{
+      padding-left:4.5vw; padding-right:4.5vw;
+    }
+  }
   /* ---------- brand marks & people (pass 2, Oct 19 2026) ---------- */
   .bug{position:absolute; right:3.5vw; bottom:3.4vh; width:36px; height:auto; opacity:.55; pointer-events:none}
   .biblewrap{display:flex; gap:4vw; align-items:center; justify-content:center; flex-wrap:wrap; width:100%}
@@ -310,7 +324,7 @@
   </section>
 
   <!-- 4 · THE REACH -->
-  <section class="slide" data-dwell="20">
+  <section class="slide reach-slide" data-dwell="20">
     <div class="kicker">The Reach</div>
     <p class="verse">&ldquo;Those which were sown on the good ground are those who hear the word, accept it, and bear fruit&hellip;&rdquo; <span class="vref">Mark 4:20</span></p>
     <h2 style="margin-bottom:3.5vh">Where the seeds have landed</h2>
