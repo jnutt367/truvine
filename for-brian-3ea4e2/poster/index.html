@@ -4,9 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>The Reach Poster — as drawn, with today&rsquo;s numbers beneath · For Brian · TruVINE</title>
-<meta name="description" content="The reach poster exactly as first drawn for Brian on October 15, 2026 — and beneath it, the numbers as they stand today, drawn from the ministry's own Field Report.">
+<title>The Reach Poster — as drawn, its headline figures kept current · For Brian · TruVINE</title>
+<meta name="description" content="The reach poster exactly as first drawn for Brian on October 15, 2026 — its two headline figures, subscribers and views, now kept current, and beneath it the numbers as they stand today, drawn from the ministry's own Field Report.">
 <link rel="icon" type="image/jpeg" href="../assets/favicon-192.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap">
 <style>
   :root{
     --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
@@ -50,6 +53,15 @@
     box-shadow: 0 22px 52px rgba(0,0,0,.5);
   }
   .frame img { display: block; width: 100%; height: auto; border-radius: 4px; }
+  /* The live headline figures: page layers over the unmodified poster image.
+     They render nothing until the record validates (see the script below) —
+     the poster as served stands exactly as drawn. Native poster is
+     2880x4320; the SVG viewBox keeps the layers true at any width. */
+  .poster-wrap { position: relative; }
+  .poster-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; pointer-events: none; border-radius: 4px;
+  }
   .poster-note {
     margin: 20px auto 0; max-width: 640px; font-size: 16px; color: var(--muted-d);
   }
@@ -108,10 +120,24 @@
     <div class="rule" aria-hidden="true"></div>
 
     <figure class="frame">
-      <img src="../assets/reach-poster-full.jpg" width="2880" height="4320"
-           alt="The reach poster, as first drawn on October 15, 2026: the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard, with that day&rsquo;s figures — 841 subscribers and 154,544 views — printed on its face.">
+      <div class="poster-wrap">
+        <img src="../assets/reach-poster-full.jpg" width="2880" height="4320"
+             alt="The reach poster, as first drawn on October 15, 2026: the TruVINE emblem at its center, ringed by the names of thirty-eight countries where the reading has been heard, with that day&rsquo;s figures — 841 subscribers and 154,544 views — printed on its face.">
+        <svg class="poster-overlay" viewBox="0 0 2880 4320" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <g id="ov-group" visibility="hidden">
+            <rect x="1195" y="2055" width="495" height="130" fill="#FAF3E0"/>
+            <rect x="2090" y="2040" width="290" height="142" fill="#FAF3E0"/>
+            <text id="ov-views" data-zone-w="422" x="1440" y="2168" text-anchor="middle"
+                  font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+                  font-weight="800" font-size="121" fill="#2F4A2A"></text>
+            <text id="ov-subs" data-zone-w="187" x="2225" y="2168" text-anchor="middle"
+                  font-family="'Playfair Display', Georgia, 'Times New Roman', serif"
+                  font-weight="800" font-size="121" fill="#2F4A2A"></text>
+          </g>
+        </svg>
+      </div>
     </figure>
-    <p class="poster-note">The poster as first drawn — October 15, 2026. The figures on its face are that day&rsquo;s, and they stand as they were.</p>
+    <p class="poster-note">The poster as first drawn — October 15, 2026. Its two headline figures — subscribers and views — now speak as of today, kept current like the numbers beneath; everything else on its face is October 15&rsquo;s, and stands as it was.</p>
 
     <section class="band" aria-labelledby="band-h">
       <h2 id="band-h" class="serif">As it stands today —</h2>
@@ -134,7 +160,7 @@
       <p class="app-line" id="app-line" hidden></p>
     </section>
 
-    <p class="credit">First drawn October 15, 2026 — the poster stands as drawn; the numbers beneath it are kept current.</p>
+    <p class="credit">First drawn October 15, 2026 — the poster stands as drawn; its headline figures and the numbers beneath it are kept current.</p>
     <p class="back"><a href="../">&larr; Back to your page</a></p>
   </main>
 
@@ -160,6 +186,22 @@
     var el = document.getElementById(id);
     if (el && text != null) el.textContent = text;
   }
+  // Fit a live headline figure to its measured zone on the poster: the
+  // baseline never moves (set in the markup); only the size breathes, within
+  // a narrow band, so the re-spoken digits sit where the drawn ones sat.
+  function fitOverlayText(el) {
+    var base = 121;
+    var zone = parseFloat(el.getAttribute("data-zone-w") || "0");
+    el.setAttribute("font-size", base);
+    var w = 0;
+    try { w = el.getComputedTextLength(); } catch (e) { w = 0; }
+    if (w > 0 && zone > 0) {
+      var fs = base * (zone / w);
+      if (fs > 130) fs = 130;
+      if (fs < 84) fs = 84;
+      el.setAttribute("font-size", fs.toFixed(1));
+    }
+  }
   function countryName(code) {
     try {
       var dn = new Intl.DisplayNames(["en"], { type: "region" });
@@ -178,6 +220,29 @@
     setText("stat-subs", subs);
     setText("stat-views", views);
     setText("stat-videos", videos);
+
+    // The poster's two headline figures, re-spoken as page layers over the
+    // unmodified image — reached only when every figure above is sound.
+    // Any failure before this point leaves the poster exactly as drawn.
+    var ovGroup = document.getElementById("ov-group");
+    var ovSubs = document.getElementById("ov-subs");
+    var ovViews = document.getElementById("ov-views");
+    if (ovGroup && ovSubs && ovViews) {
+      ovSubs.textContent = subs;
+      ovViews.textContent = views;
+      var reveal = function () {
+        fitOverlayText(ovSubs);
+        fitOverlayText(ovViews);
+        ovGroup.setAttribute("visibility", "visible");
+      };
+      if (document.fonts && document.fonts.load) {
+        var done = false;
+        var go = function () { if (!done) { done = true; reveal(); } };
+        try { document.fonts.load("800 121px 'Playfair Display'").then(go, go); }
+        catch (e) { go(); }
+        setTimeout(go, 1200);
+      } else { reveal(); }
+    }
 
     var asOf = fmtDate((d.asOf && d.asOf.youtube) || null);
     if (asOf) setText("asof-line", "Figures as of " + asOf + " — drawn from the Field Report, the ministry's own record.");
