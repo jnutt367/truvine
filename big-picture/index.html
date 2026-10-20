@@ -141,18 +141,22 @@
   }
   .js #paused.show{display:block}
   @media (max-width:760px){ .reachtext{text-align:center} .litlist{text-align:left} }
-  /* Reach slide phone fit (Jason's live read, Oct 20 2026): the fit was
+  /* Reach slide phone fit (Jason's live reads, Oct 20 2026): the fit was
      ruled a success overall, but this slide's prose ran the full padded
-     width and read squeezed at the left and right edges. On phone widths
-     this one slide's whole text column takes real side padding inside
-     the stage — the margin widens, not one word is trimmed. At a 390px
-     viewport the text's side margin goes from the slide's 6vw (≈23px)
-     to ≈41px (6vw slide padding + 4.5vw column padding). Desktop and
-     every other slide are untouched; the stage scale was left alone
-     because the padding sets the floor at any scale. */
+     width and read squeezed at the left and right edges, so the text
+     column first took 4.5vw of its own padding (≈41px effective side
+     margin at 390px). Jason's screenshot verdict: that overshot — too
+     much margin sat unused while the type read small and constrained.
+     REBALANCED to his eye: this slide's own side padding trims to 4vw
+     and the column keeps a 1.5vw floor of its own, so the text still
+     never touches the slide's edge but the column widens and the type
+     renders larger. Effective text side margin at a 390px viewport:
+     ≈41px → ≈21px (5.5vw). Desktop and every other slide untouched;
+     the stage scale was left alone throughout. */
   @media (max-width:760px){
+    .slide.reach-slide{ padding-left:4vw; padding-right:4vw; }
     .reach-slide .verse, .reach-slide h2, .reach-slide .reachtext, .reach-slide .footnote{
-      padding-left:4.5vw; padding-right:4.5vw;
+      padding-left:1.5vw; padding-right:1.5vw;
     }
   }
   /* ---------- brand marks & people (pass 2, Oct 19 2026) ---------- */
