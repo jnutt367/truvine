@@ -224,8 +224,8 @@
       stick, pick an answer with the A button.</p>
 
     <section class="teaser" aria-labelledby="teaser-h">
-      <h2 id="teaser-h">Teddy introduces the game</h2>
-      <p>Grandpa Teddy has a word about this little game before you start, Will — press play when you&rsquo;re ready.</p>
+      <h2 id="teaser-h">Teddy has news about your game</h2>
+      <p>Your game has been growing, Will — press play and let Teddy tell you what&rsquo;s new.</p>
       <video controls preload="metadata" poster="teaser-poster.jpg" width="1920" height="1080"
              aria-label="Grandpa Teddy introduces Will&rsquo;s Flock Trivia — a short welcome film for the game">
         <source src="teaser.mp4" type="video/mp4">
@@ -923,6 +923,39 @@
     if (edges[1]) window.scrollTo(0, 0);    /* B / Circle: harmless, back to top */
   }
   window.requestAnimationFrame(poll);
+})();
+</script>
+<script>
+/* ---------- the shepherd's point ----------
+   A beat after the page opens, if the visitor hasn't scrolled or
+   touched anything yet, the page glides down to Teddy's film so
+   pressing play is the obvious first move. It points exactly once:
+   any scroll, tap, key, or click beforehand stands it down for
+   good, coming back up is never undone, and under reduced motion
+   it doesn't fire at all — a shepherd points once; he doesn't drag. */
+(function () {
+  var panel = document.querySelector('.teaser');
+  if (!panel) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var settled = false;
+  var timer = null;
+  function standDown() {
+    if (settled) return;
+    settled = true;
+    if (timer !== null) window.clearTimeout(timer);
+    ['scroll', 'wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) {
+      window.removeEventListener(ev, standDown);
+    });
+  }
+  ['scroll', 'wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) {
+    window.addEventListener(ev, standDown, { passive: true });
+  });
+  timer = window.setTimeout(function () {
+    if (settled) return;
+    standDown();
+    if (window.scrollY > 8) return; /* already somewhere of their own — not ours to move */
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 1200);
 })();
 </script>
 </body>
