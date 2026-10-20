@@ -82,7 +82,10 @@
     border-radius: 14px; padding: 14px 26px;
     font-size: 18px; font-weight: 800; font-family: inherit;
   }
+  /* Print-only: the card is what printing produces. It never renders on
+     screen — the letter section above is the one on-screen letter. */
   .letter-card {
+    display: none;
     background: var(--parchment); color: var(--ink);
     border: 2px solid var(--gold-deep); border-radius: 14px;
     padding: clamp(26px, 4.5vw, 44px);
@@ -133,12 +136,12 @@
     section.film-sec, section.keys-sec, .close-rest, .skip { display: none !important; }
     .wrap { padding: 0; max-width: none; }
     section.movement { margin-top: 0; }
-    .letter-card { box-shadow: none; border: 2px solid #8a6d1f; margin: 0 auto; }
+    .letter-card { display: block; box-shadow: none; border: 2px solid #8a6d1f; margin: 0 auto; }
   }
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to the letter</a>
+<a class="skip" href="#main">Skip to the content</a>
 <div class="wrap">
 
   <header class="plate">
@@ -150,7 +153,25 @@
 
   <main id="main">
 
-    <!-- ============ 1 · THE LETTER, STANDING ALONE ============ -->
+    <!-- ============ 1 · THE FILM ============ -->
+    <section class="movement film-sec" aria-labelledby="film-h">
+      <div class="sec-head">
+        <p class="kicker">The Film</p>
+        <h2 id="film-h" class="serif">The letter, read aloud</h2>
+        <p class="sub">Teddy reads it, the way Jason asked him to.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="film-frame">
+        <video controls playsinline preload="none" poster="assets/film-poster.jpg"
+               aria-label="A short film for Brian: Grandpa Teddy reads Jason's letter aloud, and shows what the emblem Brian designed now opens">
+          <source src="assets/for-brian-the-film.mp4" type="video/mp4">
+          Your browser can&rsquo;t play this film here &mdash; but the letter below says everything it says, in the same words.
+        </video>
+      </div>
+      <p class="film-note">About four minutes. The words are written on the film itself, as it plays.</p>
+    </section>
+
+    <!-- ============ 2 · THE LETTER, STANDING ALONE ============ -->
     <div class="letter">
       <p>Brother, I know you&rsquo;ve had a long spiritual journey of your own, and I&rsquo;ve always respected how honestly you&rsquo;ve walked it.</p>
       <p>I&rsquo;m not writing to change your mind about any of it.</p>
@@ -176,23 +197,6 @@
       </div>
     </div>
 
-    <!-- ============ 2 · THE FILM ============ -->
-    <section class="movement film-sec" aria-labelledby="film-h">
-      <div class="sec-head">
-        <p class="kicker">The Film</p>
-        <h2 id="film-h" class="serif">The letter, read aloud</h2>
-        <p class="sub">Teddy reads it, the way Jason asked him to.</p>
-        <div class="rule" aria-hidden="true"></div>
-      </div>
-      <div class="film-frame">
-        <video controls playsinline preload="none" poster="assets/film-poster.jpg"
-               aria-label="A short film for Brian: Grandpa Teddy reads Jason's letter aloud, and shows what the emblem Brian designed now opens">
-          <source src="assets/for-brian-the-film.mp4" type="video/mp4">
-          Your browser can&rsquo;t play this film here &mdash; but the letter above says everything it says, in the same words.
-        </video>
-      </div>
-      <p class="film-note">About four minutes. The words are written on the film itself, as it plays.</p>
-    </section>
 
     <!-- ============ 3 · BRIAN'S KEYS ============ -->
     <section class="movement keys-sec" aria-labelledby="keys-h">
