@@ -136,9 +136,16 @@
   .band{
     width:100%; display:flex; align-items:center; justify-content:center;
     color:#0c1f16; font-weight:700; font-size:13.5px; text-align:center;
-    padding:0 4px; overflow:hidden;
+    padding:0 6px; overflow:hidden;
   }
   .band small{font-weight:600;font-size:12px}
+  /* The unplaced share is NOT a country: pale parchment, hatched and
+     dashed, so no reader mistakes it for a place. */
+  .band-unplaced{
+    background-color:var(--parchment);
+    background-image:repeating-linear-gradient(45deg, rgba(67,80,61,.20) 0 6px, rgba(67,80,61,0) 6px 12px);
+    border:2px dashed rgba(67,80,61,.55);
+  }
   .snap-date{font-size:14px;color:var(--cream-dim);text-align:center;max-width:180px}
   .snap-date strong{color:var(--cream);display:block;font-size:15px}
   .chart-legend{list-style:none;margin-top:18px;display:grid;gap:7px}
@@ -146,6 +153,11 @@
   .chart-legend .dot{
     flex:0 0 auto; width:14px;height:14px;border-radius:4px; transform:translateY(2px);
     border:1px solid rgba(12,31,22,.55);
+  }
+  .chart-legend .dot-unplaced{
+    background-color:var(--parchment);
+    background-image:repeating-linear-gradient(45deg, rgba(67,80,61,.22) 0 4px, rgba(67,80,61,0) 4px 8px);
+    border:1.5px dashed rgba(67,80,61,.65);
   }
   .chart-legend .pct{color:var(--gold);font-weight:700;margin-left:auto;font-variant-numeric:tabular-nums}
 
@@ -219,10 +231,11 @@
   <section class="panel" aria-labelledby="graph-h">
     <h2 id="graph-h">The graph — one column a week</h2>
     <p class="sub">Each column is the whole audience for that snapshot, stacked to 100%:
-      the biggest nations named, everybody else gathered into “everywhere else.”
-      A new column joins every week, so the bands can be watched as they grow.</p>
+      the biggest nations named, the smaller nations gathered into one band, and the
+      share YouTube couldn't place in any country drawn pale and hatched at the foot —
+      it isn't a place. A new column joins every week, so the bands can be watched as they grow.</p>
     <div class="chart" id="chart" role="img"
-         aria-label="Stacked column chart of view share by country. First snapshot, October 22, 2026: United States 20.6 percent, Philippines 14.6 percent, Indonesia 5.0 percent, Brazil 2.2 percent, South Africa 1.9 percent, India 1.7 percent, Mexico 1.0 percent, everywhere else 53.0 percent."></div>
+         aria-label="Stacked column chart of view share by country. First snapshot, October 22, 2026: United States 20.6 percent, Philippines 14.6 percent, Indonesia 5.0 percent, Brazil 2.2 percent, South Africa 1.9 percent, India 1.7 percent, Mexico 1.0 percent, other nations each under 1 percent together 6.9 percent, and 46.1 percent of views that YouTube could not place in any country."></div>
     <ul class="chart-legend" id="chart-legend"></ul>
     <noscript><p class="sub">The graph needs JavaScript to draw — every number on it is in the table below.</p></noscript>
   </section>
@@ -231,7 +244,8 @@
     <p><strong>Read these numbers honestly:</strong> the percentages are shares of
       <strong>all</strong> views, exactly as YouTube Studio reports them. YouTube could not place
       <strong>46% of this month's views</strong> in any country — those views simply aren't in its
-      table, and no country here gets credited with them. Of the views YouTube <em>could</em> place,
+      table, and no country here gets credited with them. On the graph above, that unplaced share
+      is the pale hatched band at the foot of the column — not a country. Of the views YouTube <em>could</em> place,
       the <strong>United States is 38.2%</strong> and the <strong>Philippines is 27.1%</strong> —
       America's viewers also stay the longest, at 39.6% of all watch time.</p>
   </div>
@@ -470,27 +484,48 @@
   });
 
   /* ---------- the stacked graph (data-driven from the snapshots) ---------- */
-  var BANDS = [
+  /* Three kinds of band, computed fresh from each snapshot's own numbers:
+       (a) named nations at 1.0% or more, each in its own house color;
+       (b) "Other nations, each under 1%" — every named country below 1.0%,
+           summed (they are real places, so this band is a real green);
+       (c) the share YouTube could not place in any country at all —
+           100 minus every country in the snapshot — drawn hatched
+           parchment so it is never mistaken for a place. */
+  var NAMED = [
     { name: "United States",  color: "#1e4d2e", text: "#f3ecdd" },
     { name: "Philippines",    color: "#d9a441", text: "#0c1f16" },
     { name: "Indonesia",      color: "#5da463", text: "#0c1f16" },
     { name: "Brazil",         color: "#8fbf7f", text: "#0c1f16" },
     { name: "South Africa",   color: "#c9a227", text: "#0c1f16" },
     { name: "India",          color: "#3f7d4e", text: "#f3ecdd" },
-    { name: "Mexico",         color: "#a8c686", text: "#0c1f16" },
-    { name: "Everywhere else", color: "#e5dcc0", text: "#43503d" }
+    { name: "Mexico",         color: "#a8c686", text: "#0c1f16" }
   ];
+  var SPARE_COLORS = ["#8a6d2f", "#557a5e", "#96762f"];
+  function round1(v){ return Math.round(v * 10) / 10; }
   function bandsFor(snap){
-    var byName = {};
-    snap.countries.forEach(function(c){ byName[norm(c[0])] = c[1]; });
-    var used = 0;
-    var out = BANDS.map(function(b){
-      if(b.name === "Everywhere else") return { band: b, share: null };
-      var v = byName[norm(b.name)] || 0;
-      used += v;
-      return { band: b, share: v };
+    var namedDefs = {};
+    NAMED.forEach(function(b){ namedDefs[norm(b.name)] = b; });
+    var named = [], extras = [], tail = 0, spare = 0;
+    snap.countries.forEach(function(c){
+      if(c[1] >= 1.0){
+        if(namedDefs[norm(c[0])]) named.push({ band: namedDefs[norm(c[0])], share: c[1] });
+        else extras.push(c);   // a nation newly over 1% still gets its own band
+      } else {
+        tail += c[1];
+      }
     });
-    out[out.length - 1].share = Math.round((100 - used) * 10) / 10;
+    named.sort(function(a, b){ return NAMED.indexOf(a.band) - NAMED.indexOf(b.band); });
+    extras.forEach(function(c){
+      named.push({ band: { name: c[0], color: SPARE_COLORS[spare++ % SPARE_COLORS.length], text: "#f3ecdd" }, share: c[1] });
+    });
+    var out = named;
+    out.push({ band: { name: "Other nations, each under 1%", color: "#79a24d", text: "#0c1f16", noLabel: true },
+               share: round1(tail) });
+    var placed = 0;
+    out.forEach(function(e){ placed += e.share; });
+    out.push({ band: { name: "Views YouTube couldn't place in any country", text: "#43503d",
+                       cls: "band-unplaced", dotCls: "dot-unplaced", label: "Not placed by YouTube" },
+               share: round1(100 - placed) });
     return out;
   }
   function fmtDate(iso){
@@ -508,14 +543,19 @@
     var bands = bandsFor(snap);
     bands.slice().reverse().forEach(function(entry){
       var div = document.createElement("div");
-      div.className = "band";
+      div.className = "band" + (entry.band.cls ? " " + entry.band.cls : "");
       div.style.height = entry.share + "%";
-      div.style.background = entry.band.color;
+      if(!entry.band.cls) div.style.background = entry.band.color;
       div.style.color = entry.band.text;
+      // In-band words only where a band is tall enough to hold them
+      // without crowding (about 4% or more). Every smaller band stays
+      // blank — the legend below names them all with their numbers.
       if(entry.share >= 4){
-        div.innerHTML = entry.band.name + "&nbsp;<small>" + entry.share.toFixed(1) + "%</small>";
-      } else if(entry.share >= 1.8){
-        div.innerHTML = "<small>" + entry.share.toFixed(1) + "%</small>";
+        if(entry.band.label){
+          div.textContent = entry.band.label;
+        } else if(!entry.band.noLabel){
+          div.innerHTML = entry.band.name + "&nbsp;<small>" + entry.share.toFixed(1) + "%</small>";
+        }
       }
       stack.appendChild(div);
     });
@@ -530,10 +570,19 @@
     if(si === series.length - 1){
       bands.forEach(function(entry){
         var li = document.createElement("li");
-        li.innerHTML = "<span class='dot' style='background:" + entry.band.color + "'></span>" +
-          entry.band.name + "<span class='pct'>" + entry.share.toFixed(1) + "%</span>";
+        var dot = entry.band.dotCls
+          ? "<span class='dot " + entry.band.dotCls + "'></span>"
+          : "<span class='dot' style='background:" + entry.band.color + "'></span>";
+        li.innerHTML = dot + entry.band.name +
+          "<span class='pct'>" + entry.share.toFixed(1) + "%</span>";
         legend.appendChild(li);
       });
+      var desc = bands.map(function(e){
+        return e.band.name + " " + e.share.toFixed(1) + " percent";
+      }).join(", ");
+      chart.setAttribute("aria-label",
+        "Stacked column chart of view share by country. Latest snapshot, " +
+        fmtDate(snap.captured) + ": " + desc + ".");
     }
   });
 })();
