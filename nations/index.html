@@ -16,9 +16,11 @@
   HONESTY RULE: every figure carries its as-of date; the
   share YouTube could not place in any country is stated in
   plain words, never quietly dropped.
-  The world outline is Natural Earth 110m (world-110m.json,
-  vendored — no runtime CDN). The emblem is the REAL clean
-  asset, flat on the background at its true proportions.
+  The map is the Word of God Risen app's own disc map
+  (world-disc.json, vendored from the app — no runtime CDN),
+  lit here in YouTube red because this is the channel's door.
+  The emblem is the REAL clean asset, flat on the background
+  at its true proportions.
   ============================================================
 -->
 <html lang="en">
@@ -91,15 +93,18 @@
   }
   .panel .sub{color:var(--sage); font-size:15px; margin-top:6px; max-width:46em}
 
-  /* ---------- map ---------- */
-  .map-frame{position:relative;margin-top:14px}
+  /* ---------- map — the app's disc, lit in YouTube red ---------- */
+  .map-frame{position:relative;margin:14px auto 0;max-width:660px}
   #worldmap{width:100%;height:auto;display:block}
-  #worldmap path{stroke:#0c1f16;stroke-width:.5}
   #worldmap path.lit{cursor:pointer}
-  #worldmap path.lit:hover{stroke:var(--gold);stroke-width:1.4}
-  #worldmap path.lit:focus-visible{outline:none;stroke:var(--gold);stroke-width:1.6}
+  #worldmap path.lit:hover{stroke:var(--gold);stroke-width:1.6}
+  #worldmap path.lit:focus-visible{outline:none;stroke:var(--gold);stroke-width:1.8}
   #worldmap .isle{fill:var(--gold);stroke:#0c1f16;stroke-width:1;cursor:pointer}
-  #worldmap .isle-ring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.75;pointer-events:none}
+  #worldmap .isle-ring{fill:none;stroke:var(--gold);stroke-width:1.6;opacity:.75;pointer-events:none}
+  /* The lights breathe, exactly as on the app's map — slowly and
+     calmly; the reduced-motion block at the foot stills them. */
+  @keyframes hb-breathe{from{opacity:.55}to{opacity:1}}
+  .hb-glow{animation:hb-breathe 4.5s ease-in-out infinite alternate}
   .map-tip{
     position:absolute; pointer-events:none; z-index:5;
     background:#0a1a11; color:var(--cream); border:1px solid var(--gold);
@@ -114,7 +119,7 @@
   }
   .legend .bar{
     flex:1 1 140px; height:10px; border-radius:5px; min-width:120px;
-    background:linear-gradient(90deg,#dce8d2,#5da463,#2d5a3d,#173d27);
+    background:linear-gradient(90deg,#5a1a12,#91110c,#c70906,#ff0000);
     border:1px solid rgba(12,31,22,.6);
   }
   .legend .swatch{
@@ -211,12 +216,25 @@
 
   <section class="panel" aria-labelledby="map-h">
     <h2 id="map-h">The map</h2>
-    <p class="sub">Every country that watched is filled with vine green — the deeper the green,
+    <p class="sub">Every country that watched is lit in red — the deeper the red,
       the bigger its share of views. Tap or hover a country to see its number.
       Small island nations carry a gold marker so nobody gets left out.</p>
+    <p class="sub">The same map as the Bible app — in YouTube red, because this is the channel's door.</p>
     <div class="map-frame">
-      <svg id="worldmap" viewBox="0 0 960 480" role="img"
-           aria-label="World map. Twenty-six countries are shaded green by their share of the TruVINE channel's views in the last 28 days. The United States is darkest at 20.6 percent, then the Philippines at 14.6 percent. The full list of countries and percentages is in the table below."></svg>
+      <svg id="worldmap" viewBox="0 0 1000 1000" role="img"
+           aria-label="World map drawn as a disc, the same map as the Word of God Risen Bible app. Twenty-six countries are shaded red by their share of the TruVINE channel's views in the last 28 days. The United States is the deepest red at 20.6 percent, then the Philippines at 14.6 percent. The full list of countries and percentages is in the table below.">
+        <defs>
+          <filter id="yt-soft" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="7"/>
+          </filter>
+        </defs>
+        <!-- the disc's rim — a soft ring holding the world, as on the app -->
+        <circle cx="500" cy="500" r="486" fill="#e4b95c" opacity="0.04"/>
+        <circle cx="500" cy="500" r="470" fill="none" stroke="#e8d9ae" stroke-width="1" opacity="0.18"/>
+        <g id="mapland"></g>
+        <g id="maplights"></g>
+        <g id="mapmarks"></g>
+      </svg>
       <div class="map-tip" id="maptip" role="status"></div>
     </div>
     <div class="legend" aria-hidden="true">
@@ -303,96 +321,45 @@
   var latest = series[series.length - 1];
   if(!latest) return;
 
-  /* ---------- name matching: snapshot name -> Natural Earth name ---------- */
+  /* ---------- name matching: snapshot name -> ISO code ----------
+     The disc geometry (the Bible app's world-disc.json) keys its
+     country silhouettes by ISO 3166-1 alpha-2 code, and a few of
+     its names differ from YouTube's ("Myanmar", "Ivory Coast").
+     The snapshot's own names are what readers see; the codes only
+     find the shapes. Any name not in this table is matched against
+     the geometry's own country names, so future weekly snapshots
+     light up on their own. */
   function norm(s){
     return s.replace(/[’‘]/g,"'").replace(/\s+/g," ").trim().toLowerCase();
   }
-  var ALIASES = {
-    "united states": "United States of America",
-    "myanmar (burma)": "Myanmar"
+  var ISO_BY_NAME = {
+    "united states": "US", "philippines": "PH", "indonesia": "ID",
+    "brazil": "BR", "south africa": "ZA", "india": "IN", "mexico": "MX",
+    "timor-leste": "TL", "kenya": "KE", "italy": "IT",
+    "myanmar (burma)": "MM", "vietnam": "VN", "thailand": "TH",
+    "ethiopia": "ET", "zambia": "ZM", "armenia": "AM", "uganda": "UG",
+    "papua new guinea": "PG", "peru": "PE", "fiji": "FJ", "poland": "PL",
+    "côte d'ivoire": "CI", "tanzania": "TZ", "namibia": "NA",
+    "france": "FR", "madagascar": "MG"
   };
-  var shareByNE = {};   // Natural Earth name -> {name, share}
-  latest.countries.forEach(function(pair){
-    var ne = ALIASES[norm(pair[0])] || pair[0];
-    shareByNE[norm(ne)] = { name: pair[0], share: pair[1] };
-  });
 
-  /* ---------- choropleth shading: sqrt scale so small shares still show ---------- */
+  /* ---------- YouTube-red shading ----------
+     The app's map lights its silhouettes in gold; this door lights
+     them red — deep maroon for the smallest shares rising to a true
+     YouTube red (#ff0000) at the top, on a sqrt curve so small
+     shares still show. Fill and glow follow the app's silhouette
+     treatment: a soft blurred glow under the fill, breathing. */
   function lerp(a,b,t){ return a + (b-a)*t; }
-  function shade(share, max){
-    if(share == null) return "#e9e0c8";                    // parchment — not yet lit
+  function redFor(share, max){
     var t = Math.sqrt(share / max);                          // 0..1
-    var lo = [220,232,210], hi = [23,61,39];                 // pale sage -> deepest vine
-    return "rgb(" + Math.round(lerp(lo[0],hi[0],t)) + "," +
-                    Math.round(lerp(lo[1],hi[1],t)) + "," +
-                    Math.round(lerp(lo[2],hi[2],t)) + ")";
-  }
-
-  /* ---------- tiny TopoJSON decoder (arcs + delta encoding) ---------- */
-  function decodeArcs(topo){
-    var sx = topo.transform.scale[0], sy = topo.transform.scale[1];
-    var tx = topo.transform.translate[0], ty = topo.transform.translate[1];
-    return topo.arcs.map(function(arc){
-      var x = 0, y = 0, pts = [];
-      for(var i = 0; i < arc.length; i++){
-        x += arc[i][0]; y += arc[i][1];
-        pts.push([x * sx + tx, y * sy + ty]);   // [lon, lat]
-      }
-      return pts;
-    });
-  }
-  function ringPoints(idx, arcs){
-    var pts = idx < 0 ? arcs[~idx].slice().reverse() : arcs[idx].slice();
-    return pts;
-  }
-  function geomRings(geom, arcs){
-    var polys = geom.type === "Polygon" ? [geom.arcs] : geom.arcs;
-    var out = [];
-    polys.forEach(function(poly){
-      poly.forEach(function(ring){
-        var pts = [];
-        ring.forEach(function(idx){
-          var p = ringPoints(idx, arcs);
-          if(pts.length && p.length) p = p.slice(1);
-          pts = pts.concat(p);
-        });
-        out.push(pts);
-      });
-    });
-    return out;
-  }
-  function project(lon, lat){
-    lat = Math.max(-60, Math.min(85, lat));
-    return [ (lon + 180) / 360 * 960, (85 - lat) / 145 * 480 ];
-  }
-  function pathFromRings(rings){
-    var d = "";
-    rings.forEach(function(ring){
-      ring.forEach(function(pt, i){
-        var p = project(pt[0], pt[1]);
-        d += (i === 0 ? "M" : "L") + p[0].toFixed(1) + " " + p[1].toFixed(1);
-      });
-      d += "Z";
-    });
-    return d;
-  }
-  function bboxCenter(rings){
-    var lons = [], miny = 1e9, maxy = -1e9;
-    rings.forEach(function(ring){ ring.forEach(function(pt){
-      lons.push(pt[0]);
-      if(pt[1] < miny) miny = pt[1]; if(pt[1] > maxy) maxy = pt[1];
-    });});
-    var minx = Math.min.apply(null, lons), maxx = Math.max.apply(null, lons);
-    var clon;
-    if(maxx - minx > 180){
-      // Crosses the antimeridian (Fiji): average with negative lons unwrapped.
-      var shifted = lons.map(function(l){ return l < 0 ? l + 360 : l; });
-      clon = (Math.min.apply(null, shifted) + Math.max.apply(null, shifted)) / 2;
-      if(clon > 180) clon -= 360;
-    } else {
-      clon = (minx + maxx) / 2;
-    }
-    return [ clon, (miny + maxy) / 2 ];
+    var lo = [90,26,18], hi = [255,0,0];                     // deep maroon -> YouTube red
+    return {
+      color: "rgb(" + Math.round(lerp(lo[0],hi[0],t)) + "," +
+                      Math.round(lerp(lo[1],hi[1],t)) + "," +
+                      Math.round(lerp(lo[2],hi[2],t)) + ")",
+      fill: 0.55 + 0.40 * t,    // ember at the foot, near-full at the top
+      glow: 0.10 + 0.22 * t     // the app's soft halo, scaled the same way
+    };
   }
 
   /* ---------- the map ---------- */
@@ -429,52 +396,101 @@
     el.addEventListener("blur", hideTip);
   }
 
-  fetch("world-110m.json").then(function(r){ return r.json(); }).then(function(topo){
-    var arcs = decodeArcs(topo);
-    var geoms = topo.objects.countries.geometries;
-    var centers = {};
-    geoms.forEach(function(g){
-      var neName = g.properties.name;
-      if(neName === "Antarctica") return;
-      var rec = shareByNE[norm(neName)];
-      var rings = geomRings(g, arcs);
-      if(rec) centers[norm(neName)] = bboxCenter(rings);
+  fetch("world-disc.json").then(function(r){ return r.json(); }).then(function(world){
+    /* ground layer — the world at rest: soft translucent parchment
+       over the deep field, exactly as the app's disc holds it */
+    var land = document.createElementNS(NS, "path");
+    land.setAttribute("d", world.land);
+    land.setAttribute("fill", "#e8d9ae");
+    land.setAttribute("fill-rule", "evenodd");
+    land.setAttribute("opacity", "0.13");
+    land.setAttribute("stroke", "#e8d9ae");
+    land.setAttribute("stroke-width", "0.6");
+    land.setAttribute("stroke-opacity", "0.12");
+    document.getElementById("mapland").appendChild(land);
+
+    // Geometry name index, so a future snapshot's new country is
+    // found by the geometry's own name when it has no table entry.
+    var codeByGeoName = {};
+    Object.keys(world.countries).forEach(function(code){
+      codeByGeoName[norm(world.countries[code].name)] = code;
+    });
+
+    var lights = document.getElementById("maplights");
+    var marks = document.getElementById("mapmarks");
+    var isles = [];
+    latest.countries.forEach(function(pair, i){
+      var code = ISO_BY_NAME[norm(pair[0])] || codeByGeoName[norm(pair[0])];
+      var geo = code && world.countries[code];
+      if(!geo) return;   // no silhouette: still counted in the table + graph
+      var rec = { name: pair[0], share: pair[1] };
+      var s = redFor(rec.share, maxShare);
+      /* a lit country, drawn the app's way: a soft outer glow, then
+         the fill itself, the whole light breathing gently */
+      var g = document.createElementNS(NS, "g");
+      g.setAttribute("class", "hb-glow");
+      g.style.animationDelay = ((i % 5) * 0.9) + "s";
+      var glow = document.createElementNS(NS, "path");
+      glow.setAttribute("d", geo.path);
+      glow.setAttribute("fill", s.color);
+      glow.setAttribute("fill-rule", "evenodd");
+      glow.setAttribute("opacity", s.glow.toFixed(3));
+      glow.setAttribute("filter", "url(#yt-soft)");
+      glow.setAttribute("pointer-events", "none");
+      g.appendChild(glow);
       var path = document.createElementNS(NS, "path");
-      path.setAttribute("d", pathFromRings(rings));
-      path.setAttribute("fill", shade(rec ? rec.share : null, maxShare));
-      if(rec){
-        path.setAttribute("class", "lit");
-        path.setAttribute("tabindex", "0");
-        path.setAttribute("role", "button");
-        path.setAttribute("aria-label", rec.name + " — " + rec.share.toFixed(1) + " percent of views");
-        var t = document.createElementNS(NS, "title");
-        t.textContent = rec.name + " — " + rec.share.toFixed(1) + "% of views";
-        path.appendChild(t);
-        wire(path, rec);
+      path.setAttribute("d", geo.path);
+      path.setAttribute("fill", s.color);
+      path.setAttribute("fill-rule", "evenodd");
+      path.setAttribute("fill-opacity", s.fill.toFixed(3));
+      path.setAttribute("stroke", "#ffd9cf");
+      path.setAttribute("stroke-width", "0.8");
+      path.setAttribute("stroke-opacity", "0.5");
+      path.setAttribute("class", "lit");
+      path.setAttribute("tabindex", "0");
+      path.setAttribute("role", "button");
+      path.setAttribute("aria-label", rec.name + " — " + rec.share.toFixed(1) + " percent of views");
+      var t = document.createElementNS(NS, "title");
+      t.textContent = rec.name + " — " + rec.share.toFixed(1) + "% of views";
+      path.appendChild(t);
+      wire(path, rec);
+      g.appendChild(path);
+      /* the heart — a small bright core at the country's center,
+         the same mark the app sets on its lit countries */
+      if(typeof geo.cx === "number" && typeof geo.cy === "number"){
+        var halo = document.createElementNS(NS, "circle");
+        halo.setAttribute("cx", geo.cx); halo.setAttribute("cy", geo.cy); halo.setAttribute("r", 7);
+        halo.setAttribute("fill", s.color); halo.setAttribute("opacity", "0.25");
+        halo.setAttribute("pointer-events", "none");
+        g.appendChild(halo);
+        var core = document.createElementNS(NS, "circle");
+        core.setAttribute("cx", geo.cx); core.setAttribute("cy", geo.cy); core.setAttribute("r", 3);
+        core.setAttribute("fill", "#ffe9e2");
+        core.setAttribute("pointer-events", "none");
+        g.appendChild(core);
+        if(norm(rec.name) === "fiji" || norm(rec.name) === "timor-leste"){
+          isles.push({ rec: rec, cx: geo.cx, cy: geo.cy });
+        }
       }
-      svg.appendChild(path);
+      lights.appendChild(g);
     });
     // Gold markers for small island nations, so they can be found.
-    ["Fiji", "Timor-Leste"].forEach(function(neName){
-      var rec = shareByNE[norm(neName)];
-      var c = centers[norm(neName)];
-      if(!rec || !c) return;
-      var p = project(c[0], c[1]);
+    isles.forEach(function(isle){
       var ring = document.createElementNS(NS, "circle");
-      ring.setAttribute("cx", p[0]); ring.setAttribute("cy", p[1]); ring.setAttribute("r", 9);
+      ring.setAttribute("cx", isle.cx); ring.setAttribute("cy", isle.cy); ring.setAttribute("r", 11);
       ring.setAttribute("class", "isle-ring");
-      svg.appendChild(ring);
+      marks.appendChild(ring);
       var dot = document.createElementNS(NS, "circle");
-      dot.setAttribute("cx", p[0]); dot.setAttribute("cy", p[1]); dot.setAttribute("r", 4.5);
+      dot.setAttribute("cx", isle.cx); dot.setAttribute("cy", isle.cy); dot.setAttribute("r", 5.5);
       dot.setAttribute("class", "isle");
       dot.setAttribute("tabindex", "0");
       dot.setAttribute("role", "button");
-      dot.setAttribute("aria-label", rec.name + " — " + rec.share.toFixed(1) + " percent of views");
+      dot.setAttribute("aria-label", isle.rec.name + " — " + isle.rec.share.toFixed(1) + " percent of views");
       var t2 = document.createElementNS(NS, "title");
-      t2.textContent = rec.name + " — " + rec.share.toFixed(1) + "% of views";
+      t2.textContent = isle.rec.name + " — " + isle.rec.share.toFixed(1) + "% of views";
       dot.appendChild(t2);
-      wire(dot, rec);
-      svg.appendChild(dot);
+      wire(dot, isle.rec);
+      marks.appendChild(dot);
     });
   }).catch(function(){
     var p = document.createElement("p");
