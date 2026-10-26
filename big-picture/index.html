@@ -118,6 +118,9 @@
   .litlist{list-style:none; margin:2.2vh 0}
   .litlist li{font-size:clamp(21px,2.1vw,36px); line-height:1.5; color:var(--cream-dim)}
   .litlist li strong{color:var(--gold)}
+  .placelist{list-style:none; margin:2.2vh 0}
+  .placelist li{font-size:clamp(21px,2.1vw,36px); line-height:1.55; color:var(--cream-dim)}
+  .placelist li strong{color:var(--gold)}
   /* ---------- doors / lists ---------- */
   .doors{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(400px,80vw),1fr)); gap:2.4vh 3vw; width:min(1200px,88vw); margin-top:4vh; text-align:left}
   .door{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:2.6vh 1.8vw}
@@ -318,11 +321,12 @@
         <div class="bignum">1,503</div>
         <p class="sub" style="margin-top:1.5vh">chapters of the Bible, read aloud by Grandpa Teddy —<br><strong>complete on October 8, 2026</strong></p>
         <div class="statrow">
-          <div class="stat"><div class="n" data-fresh="videos">383</div><div class="l">videos on the channel carry the reading and its stories</div></div>
+          <div class="stat"><div class="n" data-live="yt_videos">385</div><div class="l">videos on the channel carry the reading and its stories</div></div>
           <div class="stat"><div class="n">1</div><div class="l">voice telling the whole story — Grandpa Teddy, narrator of the farm and the Book</div></div>
         </div>
       </div>
     </div>
+    <p class="footnote" style="margin-top:3vh">Every take is verified word for word. Chapters that didn&rsquo;t pass are being rebuilt in Teddy&rsquo;s voice — until then they rest on a plain device voice. Today, 1,067 chapters serve Teddy&rsquo;s verified voice.</p>
   
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
@@ -333,7 +337,7 @@
     <p class="verse">&ldquo;Those which were sown on the good ground are those who hear the word, accept it, and bear fruit&hellip;&rdquo; <span class="vref">Mark 4:20</span></p>
     <h2 style="margin-bottom:3.5vh">Where the seeds have landed</h2>
     <div class="reachwrap">
-      <div class="mapbox" role="img" aria-label="World map with the United States and Australia lit gold — the countries where chapters have been counted read so far">
+      <div class="mapbox" role="img" aria-label="World map with the places lit gold — the places where chapters have been counted read so far — five countries and ten states">
         <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="500" cy="500" r="492" fill="#10281a"/>
           <circle cx="500" cy="500" r="478" fill="none" stroke="#d9a441" stroke-opacity=".45" stroke-width="2"/>
@@ -347,13 +351,14 @@
         </svg>
       </div>
       <div class="reachtext">
-        <p class="body">Carried into homes in <strong>38 countries</strong> — counted from the channel&rsquo;s own analytics. In the counted week (Oct 7&ndash;13), the named leaders were <strong>United States &middot; Philippines &middot; Indonesia &middot; Kenya</strong> (the United States 18% &middot; the Philippines 14% &middot; Indonesia 5% of that week&rsquo;s views) — and <strong>63% of the week&rsquo;s views came from all the other countries</strong>: a long tail of nations too wide to name one by one.</p>
-        <p class="body" style="margin-top:2.2vh">The app keeps a younger count of its own — its country eyes opened on October 18, 2026, and in the days since they have seen:</p>
-        <ul class="litlist" style="margin-top:1.2vh">
-          <li><strong>United States</strong> — <span data-fresh="lit-us">95 chapters read</span></li>
-          <li><strong>Australia</strong> — <span data-fresh="lit-au">1 chapter read</span></li>
+        <p class="body">Carried into homes in <strong>26 countries</strong> — counted from the channel&rsquo;s own analytics for September 28&ndash;October 25, 2026, with <strong>14,791 views</strong> in that window.</p>
+        <p class="body" style="margin-top:2.2vh">The app keeps a count of its own. Since October 15, 2026, its Earth map has lit in <strong>15 places</strong>:</p>
+        <ul class="placelist" style="margin-top:1.2vh">
+          <li><strong>Countries</strong> — United States &middot; Australia &middot; Ghana &middot; Bahamas &middot; Taiwan</li>
+          <li><strong>States</strong> — Florida &middot; Oregon &middot; New York &middot; Virginia &middot; Tennessee &middot; Iowa &middot; South Carolina &middot; Kansas &middot; Louisiana &middot; North Carolina</li>
         </ul>
-        <p class="body" style="margin-top:2.2vh">Counted by the app itself since October 15, 2026: <strong><span data-fresh="r-read">97</span> chapters read &middot; <span data-fresh="r-heard">50</span> heard &middot; <span data-fresh="r-done">25</span> listened through</strong> — counts of chapters, never of people.</p>
+        <p class="body" style="margin-top:2.2vh">On the night of October 23, God&rsquo;s Word was opened in <strong>Taiwan</strong> for the very first time — one chapter read.</p>
+        <p class="body" style="margin-top:2.2vh">Counted by the app itself since October 15, 2026 (counted Oct 25): <strong><span data-live="app_read">240</span> chapters read &middot; <span data-live="app_heard">141</span> heard &middot; <span data-live="app_done">62</span> listened through &middot; <span data-live="app_marked">71</span> marked &middot; <span data-live="app_books">2</span> books finished</strong> — counts of chapters, never of people.</p>
       </div>
     </div>
     <p class="footnote" style="margin-top:3.5vh">A country is counted only when a reader&rsquo;s visit carries one — so the true reach is at least what is shown here, and nothing is drawn bigger than the truth.</p>
@@ -400,12 +405,17 @@
       </div>
       <div class="gcol">
         <div class="gbar-wrap"><div class="gbar" style="height:100%"></div></div>
-        <div class="gv" data-fresh="g-subs">920</div>
-        <div class="gl">subscribers · <span data-fresh="g-date">Oct 22, 2026</span><br><span data-fresh="g-views">158,371</span> total views · <span data-fresh="g-videos">383</span> videos</div>
+        <div class="gv">920</div>
+        <div class="gl">subscribers · Oct 22, 2026<br>158,371 total views · 383 videos</div>
+      </div>
+      <div class="gcol">
+        <div class="gbar-wrap"><div class="gbar" style="height:100%"></div></div>
+        <div class="gv" data-live="yt_subs">924</div>
+        <div class="gl">subscribers · Oct 26, 2026<br><span data-live="yt_views">158,819</span> total views · <span data-live="yt_videos">385</span> videos</div>
       </div>
     </div>
     <p class="body" style="margin-top:4vh"><span data-fresh="delta">Yesterday alone: <strong><span data-fresh="d-subs">+3</span> subscribers</strong> and <strong><span data-fresh="d-views">+293</span> views</strong>. </span>Every figure from the Field Report&rsquo;s daily count — nothing rounded, nothing invented.</p>
-    <p class="footnote" data-fresh="g-asof" style="margin-top:2.5vh">Counted fresh from the Field Report — figures as of October 22, 2026.</p>
+    <p class="footnote" style="margin-top:2.5vh">Counted fresh from the Field Report — figures as of October 26, 2026.</p>
   
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
@@ -441,7 +451,7 @@
         </g>
       </svg>
     </div>
-    <p class="body" style="margin-top:3.5vh">On the same vine, the daily count: <strong>841 subscribers on Oct 13 &rarr; <span data-fresh="v-subs">920</span> on <span data-fresh="v-date">Oct 22</span></strong> &middot; views <strong>154,398 &rarr; <span data-fresh="v-views">158,371</span></strong> — every point from the Field Report&rsquo;s growth vine.</p>
+    <p class="body" style="margin-top:3.5vh">On the same vine, the daily count: <strong>841 subscribers on Oct 13 &rarr; <span data-live="yt_subs">924</span> on Oct 26</strong> &middot; views <strong>154,398 &rarr; <span data-live="yt_views">158,819</span></strong> — every point from the Field Report&rsquo;s growth vine.</p>
 
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
@@ -449,7 +459,7 @@
   <!-- 8 · THE FILMS -->
   <section class="slide" data-dwell="12">
     <div class="kicker">The Films</div>
-    <h2>Two films, one weekend</h2>
+    <h2>The Films</h2>
     <div class="films">
       <div class="film">
         <img src="https://i.ytimg.com/vi/z9pwCVw7Rf0/maxresdefault.jpg" alt="Thumbnail of the film The Gospel of Mark — Chapter 1">
@@ -460,6 +470,11 @@
         <img src="https://i.ytimg.com/vi/KCLqlTO3lSc/maxresdefault.jpg" alt="Thumbnail of the film Come and Hear — The Story of TruVINE">
         <div class="ft">Come and Hear — The Story of TruVINE</div>
         <div class="fd">What God has done — the testimony film, released October 18, 2026,<br>with the App Short &ldquo;The Whole Bible, Read Aloud — In One Free App&rdquo;</div>
+      </div>
+      <div class="film">
+        <a href="https://www.youtube.com/watch?v=2ZF3agQryng"><img src="https://i.ytimg.com/vi/2ZF3agQryng/maxresdefault.jpg" alt="Thumbnail of the film One Chapter Is Enough"></a>
+        <div class="ft">One Chapter Is Enough</div>
+        <div class="fd">The true story of the night God&rsquo;s Word first lit up Taiwan — released October 26, 2026</div>
       </div>
     </div>
   
@@ -478,7 +493,7 @@
       <div class="door"><div class="dt">The Elder Door</div><div class="dd">The Come and Hear page — a gentle front door that opens the story film for whoever arrives by it.</div></div>
     </div>
     <p class="body" style="margin-top:4vh">No accounts. No passwords. Nothing to pay — <strong>the door is open</strong>.</p>
-    <p class="footnote" style="margin-top:2.5vh">Counted fresh from the Field Report — <strong><span data-fresh="doors-open">9</span> of <span data-fresh="doors-checked">9</span> doors standing open</strong>, as of <span data-fresh="doors-date">October 22, 2026</span>.</p>
+    <p class="footnote" style="margin-top:2.5vh">Counted fresh from the Field Report — <strong>every door on the Key Ring standing open — 17 doors</strong>, counted October 26, 2026.</p>
   
     <img class="bug" src="truvine-emblem.png" alt="">
   </section>
@@ -526,9 +541,9 @@
     <div class="kicker">The Store &amp; the Work</div>
     <h2>The work of his hands</h2>
     <div class="statrow">
-      <div class="stat"><div class="n" data-fresh="w-products">47</div><div class="l">products in the TruVINE store — opened October 15, 2026, Scripture on garments, letter by letter</div></div>
+      <div class="stat"><div class="n" data-live="store_products">46</div><div class="l">products in the TruVINE store — opened October 15, 2026, Scripture on garments, letter by letter</div></div>
       <div class="stat"><div class="n" data-fresh="w-repos">277</div><div class="l">public projects on the builder&rsquo;s shelf — apps, sites, and ministry tools, built by hand</div></div>
-      <div class="stat"><div class="n" data-fresh="w-points">44,800</div><div class="l">Trailhead learning points banked (as of <span data-fresh="w-points-date">October 19, 2026</span>) — the study that keeps the tools sharp</div></div>
+      <div class="stat"><div class="n" data-fresh="w-points">44,800</div><div class="l">Trailhead learning points banked (as of October 26, 2026) — the study that keeps the tools sharp</div></div>
     </div>
     <p class="body" style="margin-top:4.5vh">The store and the shelf serve the same house: <strong>the ministry first</strong>, and the craft that carries it.</p>
   
@@ -946,6 +961,43 @@
       if (ld) setFresh('g-asof', 'Counted fresh from the Field Report — figures as of ' + ld + '.');
     }).catch(function(){ /* fail soft: the baked figures stand */ });
   })();
+})();
+</script>
+<script>
+/* Stay-current binding (Oct 26, 2026): this deck's current figures ride
+   the same live source as the portfolio — its stats.json — and the app
+   totals ride the app's own heartbeat. Stamped figures are the floor:
+   a fetched value replaces a stamp only when it is NOT lower, and any
+   fetch failure leaves the stamps standing. Only elements tagged
+   data-live move; every dated history point stays frozen as printed. */
+(function(){
+  if (!window.fetch) return;
+  function bump(key, val){
+    if (typeof val !== 'number' || !isFinite(val)) return;
+    var els = document.querySelectorAll('[data-live="' + key + '"]');
+    Array.prototype.forEach.call(els, function(el){
+      var cur = parseInt(String(el.textContent).replace(/[^0-9]/g, ''), 10);
+      if (isFinite(cur) && val < cur) return; /* never lower a stamp */
+      el.textContent = val.toLocaleString('en-US');
+    });
+  }
+  fetch('https://jasonnutt2027softwaredeveloper.vercel.app/stats.json')
+    .then(function(r){ if (!r.ok) throw new Error('stats'); return r.json(); })
+    .then(function(j){
+      var map = {};
+      (j.data || []).forEach(function(d){ if (d && d.id) map[d.id] = d.value; });
+      ['yt_subs', 'yt_views', 'yt_videos', 'store_products'].forEach(function(k){ bump(k, map[k]); });
+    }).catch(function(){ /* stamps stand */ });
+  fetch('https://word-of-god-risen.vercel.app/api/heartbeat')
+    .then(function(r){ if (!r.ok) throw new Error('heartbeat'); return r.json(); })
+    .then(function(j){
+      if (!j || j.since !== '2026-10-15' || !j.totals) return;
+      bump('app_read', j.totals.chaptersRead);
+      bump('app_heard', j.totals.chaptersHeard);
+      bump('app_done', j.totals.listensCompleted);
+      bump('app_marked', j.totals.listensMarked);
+      bump('app_books', j.totals.booksFinished);
+    }).catch(function(){ /* stamps stand */ });
 })();
 </script>
 </body>
