@@ -414,7 +414,7 @@
         <div class="gl">subscribers · Oct 26, 2026<br><span data-live="yt_views">158,819</span> total views · <span data-live="yt_videos">385</span> videos</div>
       </div>
     </div>
-    <p class="body" style="margin-top:4vh"><span data-fresh="delta">Yesterday alone: <strong><span data-fresh="d-subs">+3</span> subscribers</strong> and <strong><span data-fresh="d-views">+293</span> views</strong>. </span>Every figure from the Field Report&rsquo;s daily count — nothing rounded, nothing invented.</p>
+    <p class="body" style="margin-top:4vh">Since the daily count began on Oct 13: <strong><span data-live="inc_subs">+83</span> subscribers</strong> and <strong><span data-live="inc_views">+4,421</span> views</strong>. Every figure from the Field Report&rsquo;s daily count — nothing rounded, nothing invented.</p>
     <p class="footnote" style="margin-top:2.5vh">Counted fresh from the Field Report — figures as of October 26, 2026.</p>
   
     <img class="bug" src="truvine-emblem.png" alt="">
@@ -987,6 +987,19 @@
       var map = {};
       (j.data || []).forEach(function(d){ if (d && d.id) map[d.id] = d.value; });
       ['yt_subs', 'yt_views', 'yt_videos', 'store_products'].forEach(function(k){ bump(k, map[k]); });
+      /* season increments vs the Oct 13 baseline (841 subs · 154,398 views):
+         same never-lower guard, written with their leading + */
+      function inc(key, val){
+        if (typeof val !== 'number' || !isFinite(val)) return;
+        var els = document.querySelectorAll('[data-live="' + key + '"]');
+        Array.prototype.forEach.call(els, function(el){
+          var cur = parseInt(String(el.textContent).replace(/[^0-9]/g, ''), 10);
+          if (isFinite(cur) && val < cur) return;
+          el.textContent = '+' + val.toLocaleString('en-US');
+        });
+      }
+      if (typeof map.yt_subs === 'number') inc('inc_subs', map.yt_subs - 841);
+      if (typeof map.yt_views === 'number') inc('inc_views', map.yt_views - 154398);
     }).catch(function(){ /* stamps stand */ });
   fetch('https://word-of-god-risen.vercel.app/api/heartbeat')
     .then(function(r){ if (!r.ok) throw new Error('heartbeat'); return r.json(); })
