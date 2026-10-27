@@ -110,7 +110,11 @@
      cramped box he ruled out. Type big enough to read at arm's
      length, buttons tall enough for a thumb. On a wide screen it
      settles back into a centered card — with the type stepped up
-     there too. */
+     there too.
+     V2.1 (Jason's ruling, later the same night): every landmark
+     card carries a DOOR — one gold button to the very place the
+     landmark describes, opening in a new tab so the walk is
+     never lost (see DOORS beside CONFIG). */
   .veil{
     position:fixed; inset:0; z-index:40;
     background:rgba(6,20,12,.45);
@@ -283,6 +287,21 @@ var CONFIG = {
   flockFallback: { count: 841, asOf: "October 15, 2026" }  /* Will's barn-board figures */
 };
 
+/* ================= THE DOORS — every place opens somewhere =================
+   Each landmark card carries one gold door to the very place it
+   describes — the same doors on every skin; only the greeting
+   and the player change. A door opens in a new tab, so the
+   walk is never lost. The greeting card is the welcome, not a
+   place, and gets no door; the fold's closing card already
+   carries its own app door (see the card markup). */
+var DOORS = {
+  well:  { href:"https://word-of-god-risen.vercel.app/",        label:"Open the app" },
+  barn:  { href:"https://www.youtube.com/@TruVINE365",          label:"Watch the films" },
+  board: { href:"https://jnutt367.github.io/truvine/field-report/", label:"See the Field Report" },
+  gate:  { href:"https://jnutt367.github.io/truvine/links/",    label:"Open the Key Ring" },
+  porch: { href:"https://jnutt367.github.io/truvine/family-wall/",   label:"Visit the Family Wall" }
+};
+
 /* ================= THE LINES — Teddy's voice slots =================
    Every card is a line. When Teddy's recorded voice is ready, each
    line's file drops into audio/ and is listed in audio/manifest.json;
@@ -421,6 +440,12 @@ var ctx = cv.getContext('2d');
 
 var veil = document.getElementById('veil');
 var cardEl = document.getElementById('card');
+/* the closing card's own door, as written in the markup — kept
+   so a landmark's door never leaks onto the fold's card */
+var CLOSING_DOOR = (function(){
+  var el = document.getElementById('cardDoor');
+  return { href: el.getAttribute('href'), label: el.textContent };
+})();
 var srStatus = document.getElementById('srStatus');
 var hudSheep = document.getElementById('hudSheep');
 var hudFollow = document.getElementById('hudFollow');
@@ -462,7 +487,26 @@ function showCard(id){
   var c = document.getElementById('cardCount');
   if (id === 'board') { c.hidden = false; c.textContent = boardLine(); }
   else c.hidden = true;
-  document.getElementById('cardDoor').hidden = (id !== 'closing');
+  var doorEl = document.getElementById('cardDoor');
+  if (DOORS[id]) {
+    /* a landmark's door: gold, to the very place it describes,
+       opening in a new tab so the walk is never lost */
+    doorEl.href = DOORS[id].href;
+    doorEl.textContent = DOORS[id].label;
+    doorEl.setAttribute('target', '_blank');
+    doorEl.setAttribute('rel', 'noopener noreferrer');
+    doorEl.hidden = false;
+  } else if (id === 'closing') {
+    /* the fold's own app door, restored exactly as it stands
+       in the markup (captured at load, before any landmark) */
+    doorEl.setAttribute('href', CLOSING_DOOR.href);
+    doorEl.textContent = CLOSING_DOOR.label;
+    doorEl.removeAttribute('target');
+    doorEl.removeAttribute('rel');
+    doorEl.hidden = false;
+  } else {
+    doorEl.hidden = true;   /* the greeting is the welcome, not a place */
+  }
   document.getElementById('cardAgain').hidden = (id !== 'closing');
   var go = document.getElementById('cardGo');
   go.hidden = (id === 'closing');
