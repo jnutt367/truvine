@@ -9,10 +9,13 @@
   home to the fold. Every landmark tells one true thing.
   House law: there's no way to lose — no enemies, no timer,
   no fail state. Psalm 23 pace.
-  Teddy's walker is his locked canon portrait in a gold ring
-  (the medallion) — no invented walk cycle, no generation.
-  The sheep is the Pixar lamb from Will's own flock scene,
-  the same lamb that gathers in his Flock Trivia.
+  V2 (Jason's rulings from his own phone play, Oct 26, 2026):
+  Teddy WALKS — a little farmer drawn in code in the landmarks'
+  own flat style (straw hat, white beard, overalls), facing his
+  direction, legs stepping, a soft shadow at his feet. The sheep
+  are drawn sprites too — woolly bodies, heads, trotting legs.
+  No photo discs anywhere, no generations. And the cards are
+  full-width bottom sheets on a phone, big enough to read.
   Teddy's VOICE: every card carries a line id (see LINES in
   the script and audio/manifest.json). When his recorded
   lines are ready, they drop into audio/ and play on their
@@ -99,43 +102,70 @@
     white-space:nowrap; z-index:5;
   }
 
-  /* ---------- the card (Teddy's one true thing) ---------- */
+  /* ---------- the card (Teddy's one true thing) ----------
+     Phone first (Jason's ruling): the veil covers the whole
+     screen and the card is a full-width sheet rising from the
+     bottom of it — the pasture alone is too short a room on a
+     phone, and a card that must be scrolled inside it is the
+     cramped box he ruled out. Type big enough to read at arm's
+     length, buttons tall enough for a thumb. On a wide screen it
+     settles back into a centered card — with the type stepped up
+     there too. */
   .veil{
-    position:absolute; inset:0; z-index:8;
+    position:fixed; inset:0; z-index:40;
     background:rgba(6,20,12,.45);
     display:flex; align-items:flex-end; justify-content:center;
-    padding:14px;
+    padding:0;
   }
-  @media (min-width:700px){ .veil{ align-items:center; } }
   .card{
-    background:var(--paper); color:var(--ink); border:2.5px solid var(--gold);
-    border-radius:16px; max-width:600px; width:100%;
-    padding:24px 26px 20px; box-shadow:0 14px 40px rgba(0,0,0,.5);
+    background:var(--paper); color:var(--ink);
+    border:2.5px solid var(--gold); border-bottom:none;
+    border-radius:20px 20px 0 0;
+    width:100%; max-width:100%;
+    padding:28px 22px calc(26px + env(safe-area-inset-bottom, 0px));
+    box-shadow:0 -12px 40px rgba(0,0,0,.5);
     text-align:center; max-height:92%; overflow:auto;
+    animation:rise .3s ease-out;
   }
+  @keyframes rise{ from{ transform:translateY(28px); opacity:.3; } to{ transform:none; opacity:1; } }
   .card .kicker{
-    font-size:12.5px; font-weight:800; letter-spacing:2.4px;
+    font-size:13px; font-weight:800; letter-spacing:2.4px;
     text-transform:uppercase; color:var(--gold-d); font-family:Arial,sans-serif;
   }
-  .card h2{ font-size:27px; line-height:1.2; margin-top:6px; color:#14532d; }
+  .card h2{ font-size:30px; line-height:1.2; margin-top:6px; color:#14532d; }
   .card .verse{
-    margin-top:12px; font-size:19px; line-height:1.55; font-style:italic;
+    margin-top:13px; font-size:21px; line-height:1.55; font-style:italic;
     color:#33413a;
   }
-  .card .verse .ref{ display:block; margin-top:5px; font-size:15px;
+  .card .verse .ref{ display:block; margin-top:6px; font-size:16px;
     font-style:normal; font-weight:700; color:var(--gold-d); }
-  .card .line{ margin-top:11px; font-size:17.5px; line-height:1.6; }
-  .card .countline{ margin-top:9px; font-size:17.5px; font-weight:700; color:#14532d; }
-  .card .btns{ margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .card .line{ margin-top:12px; font-size:18px; line-height:1.62; }
+  .card .countline{ margin-top:10px; font-size:18px; font-weight:700; color:#14532d; }
+  .card .btns{ margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
   .btn{
-    font:inherit; font-size:17px; font-weight:700; cursor:pointer;
-    border-radius:999px; padding:12px 26px; text-decoration:none;
+    font:inherit; font-size:18px; font-weight:700; cursor:pointer;
+    border-radius:999px; padding:14px 28px; min-height:56px; text-decoration:none;
     background:#14532d; color:var(--cream); border:2px solid #14532d;
-    display:inline-block;
+    display:inline-flex; align-items:center; justify-content:center;
   }
   .btn:hover{ background:#1c6b3c; }
   .btn.gold{ background:var(--gold); border-color:var(--gold); color:var(--green); }
   .btn.gold:hover{ background:#e5b654; }
+  @media (max-width:699px){
+    .card .btns .btn{ flex:1 1 100%; }
+  }
+  @media (min-width:700px){
+    .veil{ align-items:center; padding:24px; }
+    .card{
+      max-width:660px; border-bottom:2.5px solid var(--gold);
+      border-radius:18px; padding:32px 36px 28px;
+      box-shadow:0 14px 40px rgba(0,0,0,.5);
+    }
+    .card h2{ font-size:33px; }
+    .card .verse{ font-size:22px; }
+    .card .line{ font-size:19px; }
+    .card .countline{ font-size:19px; }
+  }
 
   /* ---------- touch joystick ---------- */
   .joy{
@@ -203,7 +233,7 @@
 
   <div class="field" id="game">
     <canvas id="pasture" width="960" height="640" tabindex="0" role="img"
-      aria-label="The farm pasture. You walk as Grandpa Teddy, a gold-ringed medallion with his portrait. Eight sheep wait around the well, the barn, the field board, the porch and the open grass. The fenced fold with its gate waits at the lower right."></canvas>
+      aria-label="The farm pasture. You walk as Grandpa Teddy, a little farmer in a straw hat and overalls. Eight sheep wait around the well, the barn, the field board, the porch and the open grass. The fenced fold with its gate waits at the lower right."></canvas>
     <div class="pad-note" id="padNote" hidden>🎮 Controller connected — walk with the stick or D-pad, A keeps walking</div>
 
     <div class="joy" id="joy" aria-hidden="true"><div class="knob" id="joyKnob"></div></div>
@@ -386,8 +416,8 @@ var SHEEP_HOME = [
 
 var cv = document.getElementById('pasture');
 var ctx = cv.getContext('2d');
-var teddyImg = new Image(); teddyImg.src = 'teddy-medallion.png';
-var sheepImg = new Image(); sheepImg.src = 'sheep-token.png';
+/* v2: no photo tokens anywhere — Teddy and the sheep are drawn
+   sprites, shapes in the landmarks' own flat style (see draw). */
 
 var veil = document.getElementById('veil');
 var cardEl = document.getElementById('card');
@@ -397,10 +427,11 @@ var hudFollow = document.getElementById('hudFollow');
 
 var teddy, trail, sheep, followers, homed, slotCursor, seen, cardId, won, pulses;
 function resetWorld(){
-  teddy = { x:480, y:228, moving:false };
+  teddy = { x:480, y:228, moving:false, dir:'down', phase:0 };
   trail = [{ x:teddy.x, y:teddy.y }];
   sheep = SHEEP_HOME.map(function(p, i){
-    return { x:p.x, y:p.y, state:'wait', slot:null, phase:i * 1.37 };
+    return { x:p.x, y:p.y, state:'wait', slot:null, phase:i * 1.37,
+             fx:0, fy:1, moving:false };
   });
   followers = []; homed = 0; slotCursor = 0; seen = {}; won = false; pulses = [];
   updateHUD();
@@ -545,6 +576,10 @@ function update(dt, now){
   var SPEED = 170;
   teddy.moving = (iv.x !== 0 || iv.y !== 0);
   if (teddy.moving) {
+    /* he faces where he walks, and his legs keep the beat */
+    if (Math.abs(iv.x) > Math.abs(iv.y)) teddy.dir = iv.x < 0 ? 'left' : 'right';
+    else teddy.dir = iv.y < 0 ? 'up' : 'down';
+    teddy.phase += dt * 10.5;
     teddy.x += iv.x * SPEED * dt;
     teddy.y += iv.y * SPEED * dt;
     teddy.x = Math.max(30, Math.min(W - 30, teddy.x));
@@ -568,10 +603,12 @@ function update(dt, now){
     var s = followers[i];
     var tp = trail[Math.min((i + 1) * 6, trail.length - 1)];
     var dx = tp.x - s.x, dy = tp.y - s.y, d = Math.hypot(dx, dy);
+    s.moving = false;
     if (d > 2) {
       var sp = (SPEED + 80) * (d < 26 ? 0.35 + 0.65 * d / 26 : 1);
       var step = Math.min(d, sp * dt);
       s.x += dx / d * step; s.y += dy / d * step;
+      if (step > 0.05) { s.fx = dx / d; s.fy = dy / d; s.moving = true; s.phase += dt * 11; }
     }
     if (s.x > PEN.x0 + 16 && s.x < PEN.x1 - 16 && s.y > PEN.y0 + 16 && s.y < PEN.y1 - 16) {
       followers.splice(i, 1);
@@ -585,7 +622,7 @@ function update(dt, now){
     if (sh.state === 'homing') {
       var hx = sh.slot.x - sh.x, hy = sh.slot.y - sh.y, hd = Math.hypot(hx, hy);
       if (hd < 6) {
-        sh.state = 'home'; homed++;
+        sh.state = 'home'; sh.moving = false; homed++;
         if (!REDUCE) pulses.push({ x:sh.slot.x, y:sh.slot.y, t:0 });
         announce(homed + ' of 8 sheep home in the fold.');
         updateHUD();
@@ -596,6 +633,8 @@ function update(dt, now){
       } else {
         var hstep = Math.min(hd, 130 * dt);
         sh.x += hx / hd * hstep; sh.y += hy / hd * hstep;
+        if (hd > 0.01) { sh.fx = hx / hd; sh.fy = hy / hd; }
+        sh.moving = true; sh.phase += dt * 11;
       }
     } else if (sh.state === 'wait') {
       if (Math.hypot(teddy.x - sh.x, teddy.y - sh.y) < 44) {
@@ -738,15 +777,154 @@ function drawFold(){
   label((PEN.x0 + PEN.x1) / 2, PEN.y0 - 14, 'THE FOLD');
   label(PEN.x0 - 4, PEN.gateY1 + 34, 'THE GATE');
 }
-function drawSheepToken(s, size){
-  ctx.fillStyle = 'rgba(10,32,19,.25)';
-  ctx.beginPath(); ctx.ellipse(s.x, s.y + size * 0.42, size * 0.36, size * 0.13, 0, 0, Math.PI * 2); ctx.fill();
-  if (sheepImg.complete && sheepImg.naturalWidth) {
-    ctx.drawImage(sheepImg, s.x - size / 2, s.y - size / 2, size, size);
-  } else {
-    ctx.fillStyle = '#faf6e8';
-    ctx.beginPath(); ctx.arc(s.x, s.y, size / 2, 0, Math.PI * 2); ctx.fill();
+/* ---------- the sprites — drawn in code, in the landmarks' own
+   flat style. No photographs, no discs, no generations: a little
+   farmer and his sheep, standing in the field on their own
+   shadows, legs stepping and trotting as they go. ---------- */
+function drawSheepSprite(s, px, yOff){
+  var y = s.y + (yOff || 0);
+  var trotting = s.moving && !REDUCE;
+  var trot = trotting ? Math.sin(s.phase) : 0;
+  var bounce = trotting ? -Math.abs(Math.sin(s.phase)) * 2.2 : 0;
+  ctx.fillStyle = 'rgba(10,32,19,.28)';
+  ctx.beginPath(); ctx.ellipse(s.x, y + px * 0.36, px * 0.38, px * 0.12, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.save();
+  ctx.translate(s.x, y + bounce);
+  ctx.scale(px / 48, px / 48);
+  /* little legs, trotting in diagonal pairs */
+  ctx.fillStyle = '#4c443a';
+  rr(-15, 8 + trot * 2.4, 5.5, 11, 2.5); ctx.fill();
+  rr(10, 8 + trot * 2.4, 5.5, 11, 2.5); ctx.fill();
+  rr(-5, 9 - trot * 2.4, 5.5, 11, 2.5); ctx.fill();
+  rr(16, 9 - trot * 2.4, 5.5, 11, 2.5); ctx.fill();
+  /* the wool — a soft cloud of circles */
+  ctx.fillStyle = '#e9e1c8';
+  ctx.beginPath(); ctx.ellipse(0, 1, 21, 15, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#faf5e2';
+  var puffs = [[-13,-6,8],[-5,-10,9],[4,-10,9],[13,-6,8],[-16,2,7],[16,2,7],[-8,4,9],[7,4,9],[0,-3,10]];
+  for (var i = 0; i < puffs.length; i++) {
+    ctx.beginPath(); ctx.arc(puffs[i][0], puffs[i][1], puffs[i][2], 0, Math.PI * 2); ctx.fill();
   }
+  /* a tail puff at the back */
+  ctx.fillStyle = '#e9e1c8';
+  ctx.beginPath(); ctx.arc(-s.fx * 19, -3 - s.fy * 5, 5, 0, Math.PI * 2); ctx.fill();
+  /* the head, turned the way she is walking */
+  var hx = s.fx * 16, hy = 5 + s.fy * 7;
+  ctx.fillStyle = '#ddd2b2';
+  ctx.beginPath(); ctx.ellipse(hx - 8, hy - 3, 4.6, 2.7, 0.5, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(hx + 8, hy - 3, 4.6, 2.7, -0.5, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#4c443a';
+  ctx.beginPath(); ctx.ellipse(hx, hy, 7.5, 6.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#faf5e2';
+  ctx.beginPath(); ctx.arc(hx - s.fx * 2, hy - 6, 4, 0, Math.PI * 2); ctx.fill();
+  if (s.fy > 0.2) {
+    ctx.fillStyle = '#faf6e8';
+    ctx.beginPath(); ctx.arc(hx - 3, hy - 1, 1.2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(hx + 3, hy - 1, 1.2, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+}
+function drawTeddySprite(){
+  var moving = teddy.moving && !REDUCE;
+  var step = moving ? Math.sin(teddy.phase) : 0;
+  var bob = moving ? -Math.abs(Math.cos(teddy.phase)) * 2 : 0;
+  /* the soft shadow at his feet — he stands IN the field */
+  ctx.fillStyle = 'rgba(10,32,19,.3)';
+  ctx.beginPath(); ctx.ellipse(teddy.x, teddy.y + 34, 25, 8.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.save();
+  ctx.translate(teddy.x, teddy.y + bob);
+  ctx.scale(1.12, 1.12);
+  var dir = teddy.dir;
+  if (dir === 'left') { ctx.scale(-1, 1); dir = 'right'; }
+  var HAT = '#dec27c', HAT2 = '#e8cd8a', BAND = '#8a5a2b',
+      SKIN = '#eec39b', SKIN2 = '#e0aa7e', BEARD = '#f7f3e8',
+      SHIRT = '#a84b38', DENIM = '#3d5a80', DENIM2 = '#4a6b99', BOOT = '#5d4028';
+  /* legs — pant legs and boots, stepping as he walks */
+  ctx.fillStyle = DENIM;
+  if (dir === 'right') {
+    rr(2 + step * 5 - 5, 10, 10, 13, 4); ctx.fill();
+    rr(-2 - step * 5 - 5, 10, 10, 13, 4); ctx.fill();
+    ctx.fillStyle = BOOT;
+    ctx.beginPath(); ctx.ellipse(3 + step * 5, 24, 6.5, 4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-3 - step * 5, 24, 6.5, 4, 0, 0, Math.PI * 2); ctx.fill();
+  } else {
+    rr(-13, 10 + step * 3.2, 10, 13, 4); ctx.fill();
+    rr(3, 10 - step * 3.2, 10, 13, 4); ctx.fill();
+    ctx.fillStyle = BOOT;
+    ctx.beginPath(); ctx.ellipse(-8, 24 + step * 3.2, 6.5, 4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(8, 24 - step * 3.2, 6.5, 4, 0, 0, Math.PI * 2); ctx.fill();
+  }
+  /* torso — plaid shirt over overalls */
+  if (dir === 'right') {
+    ctx.fillStyle = SHIRT; rr(-12, -10, 25, 10, 4); ctx.fill();
+    ctx.fillStyle = DENIM; rr(-12, -2, 25, 20, 6); ctx.fill();
+    ctx.fillStyle = DENIM2; rr(0, -2, 13, 12, 3); ctx.fill();
+    /* one arm, swinging against the step */
+    ctx.fillStyle = SHIRT; rr(6 + step * 2.5, -4, 8.5, 16, 4); ctx.fill();
+    ctx.fillStyle = SKIN;
+    ctx.beginPath(); ctx.arc(10 + step * 2.5, 14, 4, 0, Math.PI * 2); ctx.fill();
+  } else {
+    ctx.fillStyle = SHIRT; rr(-17, -10, 34, 10, 4); ctx.fill();
+    ctx.fillStyle = DENIM; rr(-16, -2, 32, 20, 6); ctx.fill();
+    ctx.fillStyle = DENIM2; rr(-9, -2, 18, 12, 3); ctx.fill();
+    ctx.fillStyle = DENIM;
+    rr(-13, -10, 5, 9, 2); ctx.fill();
+    rr(8, -10, 5, 9, 2); ctx.fill();
+    ctx.fillStyle = '#d9a441';
+    ctx.beginPath(); ctx.arc(-8, 2, 1.7, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(8, 2, 1.7, 0, Math.PI * 2); ctx.fill();
+    /* arms at his sides, swinging as he walks */
+    ctx.fillStyle = SHIRT;
+    rr(-23.5, -6 - step * 3, 9, 17, 4); ctx.fill();
+    rr(14.5, -6 + step * 3, 9, 17, 4); ctx.fill();
+    ctx.fillStyle = SKIN;
+    ctx.beginPath(); ctx.arc(-19, 13 - step * 3, 4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(19, 13 + step * 3, 4, 0, Math.PI * 2); ctx.fill();
+  }
+  /* the head — hat, face and beard, by the way he faces */
+  if (dir === 'up') {
+    ctx.fillStyle = SKIN; rr(-4, -10, 8, 7, 2); ctx.fill();
+    ctx.fillStyle = BEARD;
+    ctx.beginPath(); ctx.arc(-12.5, -11, 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(12.5, -11, 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = HAT;
+    ctx.beginPath(); ctx.ellipse(0, -18, 22, 10.5, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = HAT2;
+    ctx.beginPath(); ctx.ellipse(0, -20, 11.5, 9, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = BAND; rr(-11.5, -23.5, 23, 4.5, 2); ctx.fill();
+  } else if (dir === 'right') {
+    ctx.fillStyle = SKIN;
+    ctx.beginPath(); ctx.arc(5, -17, 11.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = BEARD;
+    ctx.beginPath(); ctx.ellipse(11, -11, 7, 9.5, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(7, -6, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = SKIN2;
+    ctx.beginPath(); ctx.arc(15.5, -16.5, 2.4, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#24313d';
+    ctx.beginPath(); ctx.arc(8, -19.5, 1.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = HAT;
+    ctx.beginPath(); ctx.ellipse(3, -26, 19, 5.5, -0.06, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = HAT2;
+    ctx.beginPath(); ctx.arc(1, -26, 10, Math.PI, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = BAND; rr(-9, -29, 20, 4, 2); ctx.fill();
+  } else { /* down — his face, the way the farm knows it */
+    ctx.fillStyle = SKIN;
+    ctx.beginPath(); ctx.arc(0, -17, 12.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = BEARD;
+    ctx.beginPath(); ctx.arc(0, -17, 12.5, Math.PI * 0.18, Math.PI * 0.82); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(0, -10, 10, 6.5, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = SKIN2;
+    ctx.beginPath(); ctx.arc(0, -16, 2.1, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#24313d';
+    ctx.beginPath(); ctx.arc(-4.5, -19.5, 1.5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(4.5, -19.5, 1.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = HAT2;
+    ctx.beginPath(); ctx.arc(0, -27, 11, Math.PI, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = BAND; rr(-11, -29.5, 22, 4, 2); ctx.fill();
+    ctx.fillStyle = HAT;
+    ctx.beginPath(); ctx.ellipse(0, -26.5, 21, 6, 0, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
 }
 function draw(now){
   ctx.fillStyle = '#2f6b3a';
@@ -767,9 +945,9 @@ function draw(now){
     var s = sheep[i];
     if (s.state === 'follow') continue;
     var bob = (!REDUCE && s.state === 'wait') ? Math.sin(t * 2 + s.phase) * 2 : 0;
-    drawSheepToken({ x:s.x, y:s.y + bob }, s.state === 'home' ? 48 : 56);
+    drawSheepSprite(s, s.state === 'home' ? 48 : 56, bob);
   }
-  for (var f = followers.length - 1; f >= 0; f--) drawSheepToken(followers[f], 52);
+  for (var f = followers.length - 1; f >= 0; f--) drawSheepSprite(followers[f], 52, 0);
   /* pulses */
   for (var p = 0; p < pulses.length; p++) {
     var pu = pulses[p], pr = 8 + pu.t * 46;
@@ -777,18 +955,8 @@ function draw(now){
     ctx.lineWidth = 3;
     ctx.beginPath(); ctx.arc(pu.x, pu.y, pr, 0, Math.PI * 2); ctx.stroke();
   }
-  /* Teddy — the medallion, gliding, a shepherd's bob when he walks */
-  ctx.fillStyle = 'rgba(10,32,19,.3)';
-  ctx.beginPath(); ctx.ellipse(teddy.x, teddy.y + 38, 30, 10, 0, 0, Math.PI * 2); ctx.fill();
-  var tbob = (teddy.moving && !REDUCE) ? -Math.abs(Math.sin(t * 9)) * 4 : 0;
-  if (teddyImg.complete && teddyImg.naturalWidth) {
-    ctx.drawImage(teddyImg, teddy.x - 44, teddy.y - 44 + tbob, 88, 88);
-  } else {
-    ctx.fillStyle = '#d9a441';
-    ctx.beginPath(); ctx.arc(teddy.x, teddy.y + tbob, 40, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#0a2013'; ctx.font = '700 15px Georgia, serif'; ctx.textAlign = 'center';
-    ctx.fillText('Teddy', teddy.x, teddy.y + 5 + tbob);
-  }
+  /* Teddy — the little farmer himself, walking */
+  drawTeddySprite();
 }
 
 /* ---------- the loop ---------- */
@@ -807,7 +975,8 @@ function frame(now){
 window.GTF = {
   state: function(){
     return {
-      teddy: { x:Math.round(teddy.x), y:Math.round(teddy.y) },
+      teddy: { x:Math.round(teddy.x), y:Math.round(teddy.y), dir:teddy.dir,
+               moving:teddy.moving, phase:+teddy.phase.toFixed(2) },
       waiting: sheep.filter(function(s){ return s.state === 'wait'; }).length,
       sheepPos: sheep.map(function(s){ return { x:Math.round(s.x), y:Math.round(s.y), state:s.state }; }),
       following: followers.length,
