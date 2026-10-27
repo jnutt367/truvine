@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  WILL'S KEY RING — a gift page for Will, Jason's friend from
+  the Circle K counter, where they talk about faith.
+  Est. October 26, 2026.
+
+  Will was the FIRST welcome gift (October 15, 2026) — the
+  first sheep, in Jason's words, and every single sheep gets
+  special treatment (Luke 15 · John 10:16). This page is his
+  own ring of doors, in the family of Jason's Key Ring
+  (../links/), and it holds the TWO MAPS together on one
+  page: the YouTube channel's Nations map (in YouTube red)
+  and the Word of God Risen app's Earth map (in gold).
+
+  HONESTY RULES (the family's, unchanged):
+  · Every figure carries its date or window. Nothing invented.
+  · The share of views YouTube could not place in any country
+    is drawn pale and hatched and named — never a country.
+  · The app's lit places come from the app's own record
+    (known-places.json, checked Oct 26, 2026).
+  · The emblem is the REAL clean asset, flat, whole, at its
+    true proportions — never redrawn.
+  · The struggle is told as plainly as the fruit: witness,
+    not hype (Philippians 2:3). Jason has already told Will
+    this story at the counter; this page just keeps it.
+  This page is a personal gift, shared by link only. Jason
+  sends the link himself.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Will's Key Ring — TruVINE</title>
+<meta name="description" content="Will's own ring of doors — both maps together, and everything that's happened since his gift. A page made for one friend, by name.">
+<style>
+  :root{
+    --bg:#0c1f16; --bg2:#0a1a11; --panel:#122a1c; --panel2:#16331f;
+    --vine:#2d5a3d; --gold:#d9a441; --gold-soft:#c9a227;
+    --cream:#f3ecdd; --cream-dim:#d8dcc6; --sage:#a9bfa5;
+    --line:rgba(217,164,65,.35);
+    --parchment:#e9e0c8; --ink:#1d1a12;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--bg2)}
+  body{
+    font-family: ui-sans-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:var(--cream);
+    background: radial-gradient(120% 60% at 50% 0%, #12301f 0%, var(--bg) 55%, var(--bg2) 100%);
+    min-height:100vh; min-height:100dvh;
+    line-height:1.55;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:28px 18px 40px}
+  a{color:var(--gold)}
+  a:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--gold); outline-offset:3px; border-radius:6px;
+  }
+  .skip{
+    position:absolute; left:-9999px; top:0; background:var(--gold);
+    color:#0c1f16; padding:10px 18px; font-weight:700; z-index:30; border-radius:0 0 10px 0;
+  }
+  .skip:focus-visible{left:0}
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap;
+  }
+
+  /* ---------- header ---------- */
+  header{text-align:center;padding:18px 0 6px}
+  .emblem{height:92px;width:auto;margin:0 auto 10px;display:block}
+  .kicker{
+    font-size:13px; letter-spacing:.42em; text-transform:uppercase;
+    color:var(--gold); font-weight:600; margin-bottom:10px;
+  }
+  h1{
+    font-family:Georgia,"Times New Roman",Times,serif; font-weight:700;
+    font-size:clamp(34px,7vw,58px); line-height:1.06; color:var(--cream);
+  }
+  .subtitle{
+    margin:14px auto 0; max-width:44em; font-size:clamp(16px,2.6vw,19px);
+    color:var(--cream-dim);
+  }
+  .subtitle strong{color:var(--cream)}
+  .door-note{
+    margin:12px auto 0; max-width:44em; font-size:14.5px; color:var(--sage);
+  }
+
+  /* ---------- panels ---------- */
+  section.panel{
+    background:linear-gradient(180deg, var(--panel2), var(--panel));
+    border:1px solid var(--line); border-radius:18px;
+    padding:22px 20px 24px; margin-top:26px;
+  }
+  h2{
+    font-family:Georgia,"Times New Roman",Times,serif; font-weight:700;
+    font-size:clamp(23px,4.4vw,31px); color:var(--cream); line-height:1.15;
+  }
+  h3.map-name{
+    font-family:Georgia,"Times New Roman",Times,serif; font-weight:700;
+    font-size:clamp(20px,3.8vw,26px); color:var(--cream); line-height:1.2;
+    margin-top:28px;
+  }
+  h3.map-name:first-of-type{margin-top:18px}
+  .panel .sub{color:var(--sage); font-size:15px; margin-top:6px; max-width:46em}
+  .panel p.body{color:var(--cream-dim); font-size:16px; margin-top:10px; max-width:46em}
+  .panel p.body strong{color:var(--cream)}
+
+  /* ---------- maps — the app's disc, two lightings ---------- */
+  .map-frame{position:relative;margin:14px auto 0;max-width:660px}
+  .discmap{width:100%;height:auto;display:block}
+  .discmap path.lit{cursor:pointer}
+  .discmap path.lit:hover{stroke:var(--gold);stroke-width:1.6}
+  .discmap path.lit:focus-visible{outline:none;stroke:var(--gold);stroke-width:1.8}
+  .discmap .isle{fill:var(--gold);stroke:#0c1f16;stroke-width:1;cursor:pointer}
+  .discmap .isle-ring{fill:none;stroke:var(--gold);stroke-width:1.6;opacity:.75;pointer-events:none}
+  @keyframes hb-breathe{from{opacity:.55}to{opacity:1}}
+  .hb-glow{animation:hb-breathe 4.5s ease-in-out infinite alternate}
+  .map-tip{
+    position:absolute; pointer-events:none; z-index:5;
+    background:#0a1a11; color:var(--cream); border:1px solid var(--gold);
+    border-radius:10px; padding:7px 11px; font-size:14.5px; font-weight:600;
+    transform:translate(-50%,-130%); white-space:nowrap; display:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);
+  }
+  .map-tip .pct{color:var(--gold)}
+  .legend{
+    display:flex; align-items:center; gap:10px; margin-top:12px;
+    font-size:13.5px; color:var(--sage); flex-wrap:wrap;
+  }
+  .legend .bar{
+    flex:1 1 140px; height:10px; border-radius:5px; min-width:120px;
+    background:linear-gradient(90deg,#5a1a12,#91110c,#c70906,#ff0000);
+    border:1px solid rgba(12,31,22,.6);
+  }
+  .legend .bar-gold{
+    flex:1 1 140px; height:10px; border-radius:5px; min-width:120px;
+    background:linear-gradient(90deg,#7a5c14,#c9a227,#d9a441);
+    border:1px solid rgba(12,31,22,.6);
+  }
+  .legend .swatch{
+    width:14px;height:14px;border-radius:4px;background:var(--parchment);
+    border:1px solid rgba(12,31,22,.6); display:inline-block; vertical-align:-2px;
+  }
+  .out-link{margin-top:16px; font-size:16px}
+  .out-link a{font-weight:700}
+
+  /* ---------- stacked graph (latest snapshot) ---------- */
+  .chart{
+    display:flex; align-items:stretch; gap:26px; margin-top:20px;
+    padding:0 4px; justify-content:center;
+  }
+  .snap-col{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .stack{
+    width:min(150px,34vw); height:340px; display:flex; flex-direction:column-reverse;
+    border-radius:10px; overflow:hidden; border:1px solid rgba(12,31,22,.65);
+    background:#e5dcc0;
+  }
+  .band{
+    width:100%; display:flex; align-items:center; justify-content:center;
+    color:#0c1f16; font-weight:700; font-size:13.5px; text-align:center;
+    padding:0 6px; overflow:hidden;
+  }
+  .band small{font-weight:600;font-size:12px}
+  .band-unplaced{
+    background-color:var(--parchment);
+    background-image:repeating-linear-gradient(45deg, rgba(67,80,61,.20) 0 6px, rgba(67,80,61,0) 6px 12px);
+    border:2px dashed rgba(67,80,61,.55);
+  }
+  .snap-date{font-size:14px;color:var(--cream-dim);text-align:center;max-width:190px}
+  .snap-date strong{color:var(--cream);display:block;font-size:15px}
+  .chart-legend{list-style:none;margin-top:18px;display:grid;gap:7px}
+  .chart-legend li{display:flex;align-items:baseline;gap:9px;font-size:15.5px}
+  .chart-legend .dot{
+    flex:0 0 auto; width:14px;height:14px;border-radius:4px; transform:translateY(2px);
+    border:1px solid rgba(12,31,22,.55);
+  }
+  .chart-legend .dot-unplaced{
+    background-color:var(--parchment);
+    background-image:repeating-linear-gradient(45deg, rgba(67,80,61,.22) 0 4px, rgba(67,80,61,0) 4px 8px);
+    border:1.5px dashed rgba(67,80,61,.65);
+  }
+  .chart-legend .pct{color:var(--gold);font-weight:700;margin-left:auto;font-variant-numeric:tabular-nums}
+  .honest{
+    margin-top:22px; border:1px solid var(--line); border-radius:14px;
+    background:rgba(217,164,65,.07); padding:16px 18px; font-size:15.5px;
+    color:var(--cream-dim);
+  }
+  .honest strong{color:var(--cream)}
+
+  /* ---------- stat chips + lit-place chips ---------- */
+  .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+  .stat{
+    flex:1 1 140px; background:rgba(217,164,65,.08); border:1px solid var(--line);
+    border-radius:12px; padding:12px 14px; text-align:center;
+  }
+  .stat .n{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:27px; font-weight:800; color:var(--gold); line-height:1.1;
+  }
+  .stat .l{font-size:13.5px; color:var(--cream-dim); margin-top:3px}
+  .chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chips li{
+    border:1px solid var(--line); background:var(--panel2); border-radius:999px;
+    padding:6px 13px; font-size:14.5px; color:var(--cream);
+  }
+  .chips-label{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-top:16px}
+
+  /* ---------- timeline ---------- */
+  .timeline{list-style:none;margin-top:6px}
+  .timeline li{
+    display:flex; gap:16px; padding:13px 2px;
+    border-bottom:1px solid rgba(217,164,65,.15);
+  }
+  .timeline li:last-child{border-bottom:none}
+  .t-date{flex:0 0 92px; color:var(--gold); font-weight:700; font-size:15px; padding-top:2px}
+  .t-body{font-size:16px; color:var(--cream-dim)}
+  .t-body strong{color:var(--cream)}
+  @media (max-width:560px){
+    .timeline li{flex-direction:column; gap:2px}
+    .t-date{flex:none}
+  }
+
+  /* ---------- the fight ---------- */
+  .fight-item{margin-top:18px}
+  .fight-item h3{
+    font-family:Georgia,"Times New Roman",Times,serif; font-weight:700;
+    font-size:19px; color:var(--gold); line-height:1.25;
+  }
+  .fight-item p{color:var(--cream-dim); font-size:16px; margin-top:7px; max-width:46em}
+  .fight-item p strong{color:var(--cream)}
+  .fight-item .verse-line{font-style:italic; color:var(--cream)}
+  .pray{
+    margin-top:22px; border:1px solid var(--line); border-radius:14px;
+    background:rgba(217,164,65,.07); padding:16px 18px; font-size:16px;
+    color:var(--cream-dim);
+  }
+  .pray strong{color:var(--cream)}
+
+  /* ---------- doors — the Key Ring rows ---------- */
+  a.row{
+    display:flex; align-items:center; gap:14px; background:var(--cream); color:var(--ink);
+    text-decoration:none; border-radius:14px; padding:12px 16px; margin:0 0 10px; min-height:64px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.35);
+  }
+  a.row:active{transform:scale(.99)}
+  .badge{
+    flex:0 0 auto; width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:21px; font-weight:bold; color:#fff; font-family:Arial, sans-serif;
+  }
+  .b-yt{background:#c4302b} .b-book{background:#7a4f16} .b-door{background:#14532d}
+  .b-map{background:#1d4ed8} .b-game{background:#2d5a3d} .b-ring{background:#8a6410}
+  .lbl{font-size:19px; font-weight:bold; line-height:1.15}
+  .sub2{font-size:14.5px; color:#5a5342; font-weight:normal}
+
+  footer{
+    margin-top:30px; text-align:center; color:var(--sage); font-size:14px;
+    border-top:1px solid rgba(217,164,65,.18); padding-top:18px;
+  }
+  footer .with-love{
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:18px; color:var(--cream); margin-bottom:8px;
+  }
+  footer .verse{
+    font-family:Georgia,"Times New Roman",Times,serif; font-style:italic;
+    color:var(--cream-dim); font-size:15.5px; max-width:44em; margin:0 auto;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .discmap path.lit{transition:stroke .15s ease}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#doors">Skip to Will's doors</a>
+<div class="wrap">
+
+  <header>
+    <img class="emblem" src="truvine-emblem.png" width="276" height="193"
+         alt="The TruVINE emblem — a vine growing through a triangle, drawn by Jason's brother Brian">
+    <p class="kicker">A Gift for Will</p>
+    <h1>Will&rsquo;s Key Ring</h1>
+    <p class="subtitle">Will — this one&rsquo;s yours. Everything in one place, so you can see
+      what the Lord&rsquo;s been doing since the night we first talked about it.
+      <strong>— Jason, your Circle K friend</strong></p>
+    <p class="door-note">You were the first, Will — the first welcome gift, the first game,
+      the first of all of it. Around here, every single sheep gets special treatment.
+      This ring is yours to keep.</p>
+  </header>
+
+  <!-- ================= TWO MAPS, ONE STORY ================= -->
+  <section class="panel" aria-labelledby="maps-h">
+    <h2 id="maps-h">Two maps, one story</h2>
+    <p class="sub">Two maps hang side by side in this work: one for the YouTube channel,
+      one for the Bible app. They are never blended — but here, for you, they finally
+      sit on the same page.</p>
+
+    <h3 class="map-name">TruVINE on YouTube — the Nations</h3>
+    <p class="sub">Where the channel was watched in the <strong>last 28 days</strong>
+      (Sep&nbsp;28 – Oct&nbsp;25, 2026) · <strong>14,791 views</strong> ·
+      <strong>26 countries</strong>. The United States glows brightest, the Philippines
+      right behind it — and Fiji and Timor-Leste carry gold rings, so the smallest
+      islands don&rsquo;t get missed.</p>
+    <div class="map-frame">
+      <svg class="discmap" id="worldmap" viewBox="0 0 1000 1000" role="img"
+           aria-label="World map drawn as a disc, the same map as the Word of God Risen Bible app. Twenty-six countries are shaded red by their share of the TruVINE channel's views in the last 28 days. The United States is the deepest red at 19.5 percent, then the Philippines at 14.5 percent. The full breakdown is in the graph below.">
+        <defs>
+          <filter id="yt-soft" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="7"/>
+          </filter>
+        </defs>
+        <circle cx="500" cy="500" r="486" fill="#e4b95c" opacity="0.04"/>
+        <circle cx="500" cy="500" r="470" fill="none" stroke="#e8d9ae" stroke-width="1" opacity="0.18"/>
+        <g id="a-land"></g>
+        <g id="a-lights"></g>
+        <g id="a-marks"></g>
+      </svg>
+      <div class="map-tip" id="a-tip" role="status"></div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span>Smaller share</span>
+      <span class="bar"></span>
+      <span>Larger share</span>
+      <span><span class="swatch"></span> Not yet watching</span>
+    </div>
+
+    <div class="chart" id="chart" role="img"
+         aria-label="Stacked column of view share by country, snapshot of October 26, 2026."></div>
+    <ul class="chart-legend" id="chart-legend"></ul>
+    <div class="honest">
+      <p><strong>Read it honestly:</strong> these are shares of <strong>all</strong> views,
+        exactly as YouTube reports them. YouTube could not place
+        <strong><span id="unplaced-pct">47.1</span>% of this month&rsquo;s views</strong> in any
+        country — that pale hatched band at the foot of the column is <strong>not a place</strong>,
+        and no country here gets credited with it.</p>
+    </div>
+    <p class="out-link">The whole story, week by week: <a href="../nations/">See the Nations page →</a></p>
+    <noscript><p class="sub">The maps and graph need JavaScript to draw — the Nations page carries every number in a table.</p></noscript>
+
+    <h3 class="map-name">Word of God Risen — the Earth map</h3>
+    <p class="sub">The Bible app&rsquo;s own map: every place where somebody has opened
+      the Word and a light came on. Gold is lit — <strong>16 places</strong> so far:
+      five countries, and eleven states at home.</p>
+    <div class="map-frame">
+      <svg class="discmap" id="earthmap" viewBox="0 0 1000 1000" role="img"
+           aria-label="The Earth map of the Word of God Risen Bible app, drawn as a flat disc. Sixteen places are lit in gold: the countries Australia, the Bahamas, Ghana, Taiwan and the United States, and within the United States the states Florida, Oregon, New York, Virginia, Tennessee, Iowa, South Carolina, Kansas, Louisiana, North Carolina and California. The lit places are also listed in words below the map.">
+        <defs>
+          <filter id="gold-soft" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="7"/>
+          </filter>
+        </defs>
+        <circle cx="500" cy="500" r="486" fill="#e4b95c" opacity="0.04"/>
+        <circle cx="500" cy="500" r="470" fill="none" stroke="#e8d9ae" stroke-width="1" opacity="0.18"/>
+        <g id="b-land"></g>
+        <g id="b-lights"></g>
+        <g id="b-marks"></g>
+      </svg>
+      <div class="map-tip" id="b-tip" role="status"></div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span>Lit</span>
+      <span class="bar-gold"></span>
+      <span><span class="swatch"></span> Not yet lit</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">16</div><div class="l">places lit — 5 countries · 11 states</div></div>
+      <div class="stat"><div class="n">265</div><div class="l">chapters read since Oct 15</div></div>
+      <div class="stat"><div class="n">154</div><div class="l">chapters heard since Oct 15</div></div>
+      <div class="stat"><div class="n">81</div><div class="l">marked complete since Oct 15</div></div>
+    </div>
+    <p class="chips-label">The countries</p>
+    <ul class="chips">
+      <li>United States</li><li>Australia</li><li>Ghana</li><li>Bahamas</li><li>Taiwan</li>
+    </ul>
+    <p class="chips-label">The states, in the order they lit</p>
+    <ul class="chips">
+      <li>Florida</li><li>Oregon</li><li>New York</li><li>Virginia</li><li>Tennessee</li>
+      <li>Iowa</li><li>South Carolina</li><li>Kansas</li><li>Louisiana</li>
+      <li>North Carolina</li><li>California — today</li>
+    </ul>
+    <p class="out-link">Open it and read — or just listen: <a href="https://word-of-god-risen.vercel.app/">Open the app →</a></p>
+  </section>
+
+  <!-- ================= SINCE YOUR GIFT ================= -->
+  <section class="panel" aria-labelledby="since-h">
+    <h2 id="since-h">Since your gift</h2>
+    <p class="sub">Your gift was the night of October 15, Will. Eleven days later,
+      here is what&rsquo;s been going on — counted plain, the way this family counts
+      everything: witness, not boasting. God gave the increase.</p>
+    <ul class="timeline">
+      <li>
+        <span class="t-date">Oct 15</span>
+        <span class="t-body"><strong>Your gift.</strong> Jason had your welcome page, your film
+          and your game made in one night — you were the first, before there was a
+          Family Wall or a Nations map or any of what&rsquo;s below.</span>
+      </li>
+      <li>
+        <span class="t-date">Oct 18</span>
+        <span class="t-body"><strong>Australia opened the app</strong> — the first light
+          an ocean away.</span>
+      </li>
+      <li>
+        <span class="t-date">Oct 21</span>
+        <span class="t-body"><strong>Ghana lit</strong> on the app&rsquo;s Earth map — and Jason
+          shared the app with your co-worker there at Circle K.</span>
+      </li>
+      <li>
+        <span class="t-date">Oct 23</span>
+        <span class="t-body"><strong>Taiwan lit</strong> — the first country in Asia — the
+          Bahamas lit the same stretch, and <strong>the Nations map was born</strong>:
+          the channel&rsquo;s own map, the red one above.</span>
+      </li>
+      <li>
+        <span class="t-date">Oct 24</span>
+        <span class="t-body"><strong>The prayers changed their rhythm:</strong> now, when a new
+          place lights, its prayer goes out the <strong>same day</strong> — nobody waits
+          to be prayed for.</span>
+      </li>
+      <li>
+        <span class="t-date">Oct 25</span>
+        <span class="t-body"><strong>TruVINE reached Instagram</strong> — the same films,
+          carried to one more porch.</span>
+      </li>
+      <li>
+        <span class="t-date">Oct 26</span>
+        <span class="t-body"><strong>Today: California lit</strong> — the 16th place on the
+          Earth map — and its prayer went out the same day. And the new film,
+          <strong>One Chapter Is Enough</strong>, was released.</span>
+      </li>
+    </ul>
+    <div class="stats">
+      <div class="stat"><div class="n">924</div><div class="l">subscribers today</div></div>
+      <div class="stat"><div class="n">158,886</div><div class="l">views, all counted</div></div>
+      <div class="stat"><div class="n">386</div><div class="l">videos on the channel</div></div>
+    </div>
+    <p class="out-link">The new film, released today:
+      <a href="https://www.youtube.com/watch?v=2ZF3agQryng">Watch &ldquo;One Chapter Is Enough&rdquo; →</a></p>
+  </section>
+
+  <!-- ================= THE FIGHT BEHIND IT ================= -->
+  <section class="panel" aria-labelledby="fight-h">
+    <h2 id="fight-h">The Fight Behind It — What We&rsquo;re Working Through</h2>
+    <p class="sub">Jason&rsquo;s told you some of this at the counter, Will. Here it is in
+      one place — plain and honest, the struggle told the same way as the fruit.</p>
+
+    <div class="fight-item">
+      <h3>Teddy&rsquo;s voice — the chapters being rebuilt</h3>
+      <p>Every chapter in the app is checked <strong>word for word</strong> against the Bible
+        text. This fall, some of Grandpa Teddy&rsquo;s recordings were found coming out
+        wrong — garbled in places, looping, words missing. So Jason set a rule that
+        doesn&rsquo;t bend: <strong>the moment a chapter is flagged, it comes down first and
+        gets checked after.</strong> Nobody hears God&rsquo;s Word wrong on our watch —
+        <span class="verse-line">&ldquo;God is not the God of confusion, but of order&rdquo;</span>
+        (1 Corinthians 14:33).</p>
+      <p>Right now <strong>453 of the 1,520 chapters are down</strong> and being rebuilt
+        clean, one at a time — and each one has to pass the word-for-word check before
+        it goes back up. <strong>Nine are already fixed and back.</strong> The
+        <strong>1,067 chapters still up are verified clean.</strong></p>
+    </div>
+
+    <div class="fight-item">
+      <h3>The lights — when the counting went dark</h3>
+      <p>You know the little lights on the Earth map — one blooms when a new place opens
+        the Word. For a stretch, <strong>the counting behind them went dark</strong>: the
+        storage it lived in, on Vercel where the app runs, overflowed its limits.
+        The readers never stopped reading — only the tally went out.</p>
+      <p>The counting has since <strong>moved to a new home, and the lights are back
+        on</strong> — every place that has lit since is counted again.
+        <strong>California lit today, and it was counted.</strong></p>
+    </div>
+
+    <div class="pray">
+      <p><strong>Pray with us, Will</strong> — that Teddy&rsquo;s voice comes back clean, and
+        every one of those chapters finds its way home. You&rsquo;re a friend of this work;
+        Jason wanted you to know the fight as well as the fruit.</p>
+    </div>
+  </section>
+
+  <!-- ================= WILL'S DOORS ================= -->
+  <section class="panel" aria-labelledby="doors-h">
+    <h2 id="doors-h">Your doors</h2>
+    <p class="sub">Every one of them opens, Will. Start anywhere.</p>
+    <div style="margin-top:16px" id="doors">
+      <a class="row" href="../for-will-d59748/"><span class="badge b-door">🎬</span><span><span class="lbl">Your welcome film &amp; gift page</span><br><span class="sub2">For Will — your board, your film, the whole first gift</span></span></a>
+      <a class="row" href="../for-will-game/"><span class="badge b-game">🐑</span><span><span class="lbl">Your flock game</span><br><span class="sub2">Six gentle questions, one sheep at a time — there&rsquo;s no way to lose</span></span></a>
+      <a class="row" href="../for-will-invitation-b3dc9e/"><span class="badge b-door">🧱</span><span><span class="lbl">Your Family Wall invitation</span><br><span class="sub2">A place is kept for you — the door&rsquo;s open whenever</span></span></a>
+      <a class="row" href="https://word-of-god-risen.vercel.app/"><span class="badge b-book">📖</span><span><span class="lbl">Word of God Risen</span><br><span class="sub2">The whole Bible, read aloud by Grandpa Teddy — free</span></span></a>
+      <a class="row" href="https://www.youtube.com/@TruVINE365"><span class="badge b-yt">▶</span><span><span class="lbl">TruVINE on YouTube</span><br><span class="sub2">The channel — every film and Short</span></span></a>
+      <a class="row" href="../links/"><span class="badge b-ring">🔑</span><span><span class="lbl">Jason&rsquo;s Key Ring</span><br><span class="sub2">Every door on the farm, on one ring</span></span></a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="with-love">With love, from TruVINE</p>
+    <p class="verse">&ldquo;I have other sheep, which are not of this fold. I must bring them
+      also, and they will hear my voice. They will become one flock with one shepherd.&rdquo;
+      — John 10:16 (WEB)</p>
+    <p style="margin-top:10px">Made for Will · October 26, 2026 · The figures carry their dates, the way this family counts everything</p>
+  </footer>
+
+</div>
+
+<script src="nations-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  function norm(s){
+    return s.replace(/[’‘]/g,"'").replace(/\s+/g," ").trim().toLowerCase();
+  }
+
+  /* ================= shared tooltip wiring ================= */
+  function makeTip(svg, tip){
+    function show(html, x, y){
+      tip.innerHTML = html;
+      tip.style.display = "block";
+      tip.style.left = x + "px";
+      tip.style.top = y + "px";
+    }
+    function hide(){ tip.style.display = "none"; }
+    function framePos(evt){
+      var host = svg.parentElement.getBoundingClientRect();
+      var cx = (evt.touches && evt.touches[0]) ? evt.touches[0].clientX : evt.clientX;
+      var cy = (evt.touches && evt.touches[0]) ? evt.touches[0].clientY : evt.clientY;
+      return [cx - host.left, cy - host.top];
+    }
+    return {
+      wire: function(el, html){
+        el.addEventListener("pointermove", function(e){ var p = framePos(e); show(html, p[0], p[1]); });
+        el.addEventListener("pointerdown", function(e){ var p = framePos(e); show(html, p[0], p[1]); });
+        el.addEventListener("pointerleave", hide);
+        el.addEventListener("focus", function(){
+          var b = el.getBoundingClientRect(), host = svg.parentElement.getBoundingClientRect();
+          show(html, b.left - host.left + b.width / 2, b.top - host.top);
+        });
+        el.addEventListener("blur", hide);
+      }
+    };
+  }
+  function el(name, attrs){
+    var n = document.createElementNS(NS, name);
+    for(var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function drawLand(world, gId){
+    var land = el("path", {
+      "d": world.land, "fill": "#e8d9ae", "fill-rule": "evenodd",
+      "opacity": "0.13", "stroke": "#e8d9ae", "stroke-width": "0.6", "stroke-opacity": "0.12"
+    });
+    document.getElementById(gId).appendChild(land);
+  }
+  function heart(g, cx, cy, color, coreFill){
+    g.appendChild(el("circle", { cx: cx, cy: cy, r: 7, fill: color, opacity: "0.25", "pointer-events": "none" }));
+    g.appendChild(el("circle", { cx: cx, cy: cy, r: 3, fill: coreFill, "pointer-events": "none" }));
+  }
+
+  /* ================= Panel A — the Nations, in YouTube red ================= */
+  var data = window.NATIONS_DATA;
+  var latest = null;
+  if(data){
+    var series = data.snapshots.filter(function(s){ return Array.isArray(s.countries); });
+    latest = series[series.length - 1];
+  }
+  var ISO_BY_NAME = {
+    "united states": "US", "philippines": "PH", "indonesia": "ID",
+    "brazil": "BR", "south africa": "ZA", "india": "IN", "mexico": "MX",
+    "timor-leste": "TL", "kenya": "KE", "italy": "IT",
+    "myanmar (burma)": "MM", "vietnam": "VN", "thailand": "TH",
+    "ethiopia": "ET", "zambia": "ZM", "armenia": "AM", "uganda": "UG",
+    "papua new guinea": "PG", "peru": "PE", "fiji": "FJ", "poland": "PL",
+    "côte d'ivoire": "CI", "tanzania": "TZ", "namibia": "NA",
+    "france": "FR", "madagascar": "MG"
+  };
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function redFor(share, max){
+    var t = Math.sqrt(share / max);
+    var lo = [90,26,18], hi = [255,0,0];
+    return {
+      color: "rgb(" + Math.round(lerp(lo[0],hi[0],t)) + "," +
+                      Math.round(lerp(lo[1],hi[1],t)) + "," +
+                      Math.round(lerp(lo[2],hi[2],t)) + ")",
+      fill: 0.55 + 0.40 * t,
+      glow: 0.10 + 0.22 * t
+    };
+  }
+  function renderNations(world){
+    if(!latest) return;
+    drawLand(world, "a-land");
+    var codeByGeoName = {};
+    Object.keys(world.countries).forEach(function(code){
+      codeByGeoName[norm(world.countries[code].name)] = code;
+    });
+    var svg = document.getElementById("worldmap");
+    var tipper = makeTip(svg, document.getElementById("a-tip"));
+    var lights = document.getElementById("a-lights");
+    var marks = document.getElementById("a-marks");
+    var maxShare = Math.max.apply(null, latest.countries.map(function(c){ return c[1]; }));
+    var isles = [];
+    latest.countries.forEach(function(pair, i){
+      var code = ISO_BY_NAME[norm(pair[0])] || codeByGeoName[norm(pair[0])];
+      var geo = code && world.countries[code];
+      if(!geo) return;
+      var rec = { name: pair[0], share: pair[1] };
+      var s = redFor(rec.share, maxShare);
+      var g = el("g", { "class": "hb-glow" });
+      g.style.animationDelay = ((i % 5) * 0.9) + "s";
+      g.appendChild(el("path", {
+        "d": geo.path, "fill": s.color, "fill-rule": "evenodd",
+        "opacity": s.glow.toFixed(3), "filter": "url(#yt-soft)", "pointer-events": "none"
+      }));
+      var path = el("path", {
+        "d": geo.path, "fill": s.color, "fill-rule": "evenodd",
+        "fill-opacity": s.fill.toFixed(3), "stroke": "#ffd9cf",
+        "stroke-width": "0.8", "stroke-opacity": "0.5",
+        "class": "lit", "tabindex": "0", "role": "button",
+        "aria-label": rec.name + " — " + rec.share.toFixed(1) + " percent of views"
+      });
+      var t = el("title", {});
+      t.textContent = rec.name + " — " + rec.share.toFixed(1) + "% of views";
+      path.appendChild(t);
+      tipper.wire(path, rec.name + " — <span class='pct'>" + rec.share.toFixed(1) + "%</span> of views");
+      g.appendChild(path);
+      if(typeof geo.cx === "number" && typeof geo.cy === "number"){
+        heart(g, geo.cx, geo.cy, s.color, "#ffe9e2");
+        if(norm(rec.name) === "fiji" || norm(rec.name) === "timor-leste"){
+          isles.push({ rec: rec, cx: geo.cx, cy: geo.cy });
+        }
+      }
+      lights.appendChild(g);
+    });
+    isles.forEach(function(isle){
+      marks.appendChild(el("circle", { cx: isle.cx, cy: isle.cy, r: 11, "class": "isle-ring" }));
+      var dot = el("circle", {
+        cx: isle.cx, cy: isle.cy, r: 5.5, "class": "isle", "tabindex": "0", "role": "button",
+        "aria-label": isle.rec.name + " — " + isle.rec.share.toFixed(1) + " percent of views"
+      });
+      var t2 = el("title", {});
+      t2.textContent = isle.rec.name + " — " + isle.rec.share.toFixed(1) + "% of views";
+      dot.appendChild(t2);
+      tipper.wire(dot, isle.rec.name + " — <span class='pct'>" + isle.rec.share.toFixed(1) + "%</span> of views");
+      marks.appendChild(dot);
+    });
+  }
+
+  /* ================= Panel B — the Earth map, in gold ================= */
+  var LIT_COUNTRIES = ["AU", "GH", "TW"];       // + US beneath its lit states
+  var RING_CODES = ["BS", "TW"];                // small islands get a gold ring
+  var LIT_STATES = ["US-FL","US-OR","US-NY","US-VA","US-TN","US-IA","US-SC","US-KS","US-LA","US-NC","US-CA"];
+  var GOLD = "#d9a441";
+  function renderEarth(world){
+    drawLand(world, "b-land");
+    var svg = document.getElementById("earthmap");
+    var tipper = makeTip(svg, document.getElementById("b-tip"));
+    var lights = document.getElementById("b-lights");
+    var marks = document.getElementById("b-marks");
+    var rings = [];
+    function litPath(d, name, fillOpacity, delay){
+      var g = el("g", { "class": "hb-glow" });
+      g.style.animationDelay = delay + "s";
+      g.appendChild(el("path", {
+        "d": d, "fill": GOLD, "fill-rule": "evenodd",
+        "opacity": "0.18", "filter": "url(#gold-soft)", "pointer-events": "none"
+      }));
+      var path = el("path", {
+        "d": d, "fill": GOLD, "fill-rule": "evenodd",
+        "fill-opacity": fillOpacity, "stroke": "#ffe9b0",
+        "stroke-width": "0.8", "stroke-opacity": "0.55",
+        "class": "lit", "tabindex": "0", "role": "button",
+        "aria-label": name + " — lit in Word of God Risen"
+      });
+      var t = el("title", {});
+      t.textContent = name + " — lit";
+      path.appendChild(t);
+      tipper.wire(path, name + " — <span class='pct'>lit</span>");
+      g.appendChild(path);
+      lights.appendChild(g);
+      return g;
+    }
+    // The United States, lit as a country — softer, because its lit
+    // states carry the detail on top of it.
+    var us = world.countries["US"];
+    if(us){
+      lights.appendChild(el("path", {
+        "d": us.path, "fill": GOLD, "fill-rule": "evenodd",
+        "fill-opacity": "0.34", "pointer-events": "none"
+      }));
+    }
+    LIT_COUNTRIES.forEach(function(code, i){
+      var geo = world.countries[code];
+      if(!geo) return;
+      var g = litPath(geo.path, geo.name, "0.88", (i % 5) * 0.9);
+      if(typeof geo.cx === "number") heart(g, geo.cx, geo.cy, GOLD, "#fff3d6");
+      if(RING_CODES.indexOf(code) >= 0) rings.push(geo);
+    });
+    // The Bahamas — a whisper of islands; mark it so it isn't missed.
+    var bs = world.countries["BS"];
+    if(bs){
+      var g2 = litPath(bs.path, bs.name, "0.9", 0.4);
+      if(typeof bs.cx === "number"){ heart(g2, bs.cx, bs.cy, GOLD, "#fff3d6"); rings.push(bs); }
+    }
+    LIT_STATES.forEach(function(code, i){
+      var geo = world.subdivisions && world.subdivisions[code];
+      if(!geo) return;
+      var g = litPath(geo.path, geo.name, "0.95", (i % 5) * 0.7);
+      if(typeof geo.cx === "number") heart(g, geo.cx, geo.cy, GOLD, "#fff3d6");
+    });
+    rings.forEach(function(geo){
+      marks.appendChild(el("circle", { cx: geo.cx, cy: geo.cy, r: 11, "class": "isle-ring" }));
+      var dot = el("circle", {
+        cx: geo.cx, cy: geo.cy, r: 5.5, "class": "isle", "tabindex": "0", "role": "button",
+        "aria-label": geo.name + " — lit in Word of God Risen"
+      });
+      var t2 = el("title", {});
+      t2.textContent = geo.name + " — lit";
+      dot.appendChild(t2);
+      tipper.wire(dot, geo.name + " — <span class='pct'>lit</span>");
+      marks.appendChild(dot);
+    });
+  }
+
+  fetch("world-disc.json").then(function(r){ return r.json(); }).then(function(world){
+    renderNations(world);
+    renderEarth(world);
+  }).catch(function(){
+    ["worldmap", "earthmap"].forEach(function(id){
+      var svg = document.getElementById(id);
+      var p = document.createElement("p");
+      p.className = "sub";
+      p.textContent = "The map could not be drawn just now — the story it tells is in the words on this page.";
+      svg.parentElement.appendChild(p);
+    });
+  });
+
+  /* ================= the graph — latest snapshot only ================= */
+  var NAMED = [
+    { name: "United States",  color: "#1e4d2e", text: "#f3ecdd" },
+    { name: "Philippines",    color: "#d9a441", text: "#0c1f16" },
+    { name: "Indonesia",      color: "#5da463", text: "#0c1f16" },
+    { name: "Brazil",         color: "#8fbf7f", text: "#0c1f16" },
+    { name: "South Africa",   color: "#c9a227", text: "#0c1f16" },
+    { name: "India",          color: "#3f7d4e", text: "#f3ecdd" },
+    { name: "Mexico",         color: "#a8c686", text: "#0c1f16" }
+  ];
+  var SPARE_COLORS = ["#8a6d2f", "#557a5e", "#96762f"];
+  function round1(v){ return Math.round(v * 10) / 10; }
+  function bandsFor(snap){
+    var namedDefs = {};
+    NAMED.forEach(function(b){ namedDefs[norm(b.name)] = b; });
+    var named = [], extras = [], tail = 0, spare = 0;
+    snap.countries.forEach(function(c){
+      if(c[1] >= 1.0){
+        if(namedDefs[norm(c[0])]) named.push({ band: namedDefs[norm(c[0])], share: c[1] });
+        else extras.push(c);
+      } else {
+        tail += c[1];
+      }
+    });
+    named.sort(function(a, b){ return NAMED.indexOf(a.band) - NAMED.indexOf(b.band); });
+    extras.forEach(function(c){
+      named.push({ band: { name: c[0], color: SPARE_COLORS[spare++ % SPARE_COLORS.length], text: "#f3ecdd" }, share: c[1] });
+    });
+    var out = named;
+    out.push({ band: { name: "Other nations, each under 1%", color: "#79a24d", text: "#0c1f16", noLabel: true },
+               share: round1(tail) });
+    var placed = 0;
+    out.forEach(function(e){ placed += e.share; });
+    out.push({ band: { name: "Views YouTube couldn't place in any country", text: "#43503d",
+                       cls: "band-unplaced", dotCls: "dot-unplaced", label: "Not placed by YouTube" },
+               share: round1(100 - placed) });
+    return out;
+  }
+  function fmtDate(iso){
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var p = iso.split("-");
+    return months[parseInt(p[1], 10) - 1] + " " + parseInt(p[2], 10) + ", " + p[0];
+  }
+  if(latest){
+    var bands = bandsFor(latest);
+    var chart = document.getElementById("chart");
+    var col = document.createElement("div");
+    col.className = "snap-col";
+    var stack = document.createElement("div");
+    stack.className = "stack";
+    bands.slice().reverse().forEach(function(entry){
+      var div = document.createElement("div");
+      div.className = "band" + (entry.band.cls ? " " + entry.band.cls : "");
+      div.style.height = entry.share + "%";
+      if(!entry.band.cls) div.style.background = entry.band.color;
+      div.style.color = entry.band.text;
+      if(entry.share >= 4){
+        if(entry.band.label){
+          div.textContent = entry.band.label;
+        } else if(!entry.band.noLabel){
+          div.innerHTML = entry.band.name + "&nbsp;<small>" + entry.share.toFixed(1) + "%</small>";
+        }
+      }
+      stack.appendChild(div);
+    });
+    var cap = document.createElement("p");
+    cap.className = "snap-date";
+    cap.innerHTML = "<strong>Snapshot</strong>" + fmtDate(latest.captured) +
+      "<br>last 28 days of watching";
+    col.appendChild(stack);
+    col.appendChild(cap);
+    chart.appendChild(col);
+    var legend = document.getElementById("chart-legend");
+    bands.forEach(function(entry){
+      var li = document.createElement("li");
+      var dot = entry.band.dotCls
+        ? "<span class='dot " + entry.band.dotCls + "'></span>"
+        : "<span class='dot' style='background:" + entry.band.color + "'></span>";
+      li.innerHTML = dot + entry.band.name +
+        "<span class='pct'>" + entry.share.toFixed(1) + "%</span>";
+      legend.appendChild(li);
+    });
+    var unplaced = bands[bands.length - 1].share;
+    var upEl = document.getElementById("unplaced-pct");
+    if(upEl) upEl.textContent = unplaced.toFixed(1);
+    var desc = bands.map(function(e){
+      return e.band.name + " " + e.share.toFixed(1) + " percent";
+    }).join(", ");
+    chart.setAttribute("aria-label",
+      "Stacked column chart of view share by country. Snapshot, " +
+      fmtDate(latest.captured) + ": " + desc + ".");
+  }
+})();
+</script>
+</body>
+</html>
