@@ -128,13 +128,28 @@
   }
 
   /* ---------- stacked graph ---------- */
+  /* The columns ride in a sideways-scrolling strip: each card keeps a
+     fixed readable width and the strip scrolls with snap, so on a phone
+     no column is ever squeezed or clipped at the screen's edge. Soft
+     fades at both ends hint that the strip travels. */
   .chart{
     display:flex; align-items:stretch; gap:26px; margin-top:20px;
-    padding:0 4px;
+    padding:0 4px 8px;
+    overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin; scrollbar-color:rgba(217,164,65,.45) transparent;
+    -webkit-mask-image:linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 18px), transparent);
+    mask-image:linear-gradient(to right, transparent, #000 18px, #000 calc(100% - 18px), transparent);
   }
-  .snap-col{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .chart::-webkit-scrollbar{height:6px}
+  .chart::-webkit-scrollbar-thumb{background:rgba(217,164,65,.35);border-radius:3px}
+  .snap-col{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    flex:0 0 250px; scroll-snap-align:start;
+  }
   .stack{
-    width:min(150px,34vw); height:340px; display:flex; flex-direction:column-reverse;
+    width:100%; height:340px; display:flex; flex-direction:column-reverse;
     border-radius:10px; overflow:hidden; border:1px solid rgba(12,31,22,.65);
     background:#e5dcc0;
   }
@@ -604,6 +619,9 @@
         fmtDate(snap.captured) + ": " + desc + ".");
     }
   });
+  // The strip scrolls sideways; open it on the NEWEST column (the last
+  // one) — that is the snapshot visitors come to check.
+  chart.scrollLeft = chart.scrollWidth;
 })();
 </script>
 </body>
