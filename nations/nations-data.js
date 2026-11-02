@@ -270,6 +270,147 @@ window.NATIONS_DATA = {
    ]
   },
   {
+   "captured": "2026-11-02",
+   "period": "last 28 days (Oct 5 - Nov 1, 2026)",
+   "total_views": 16057,
+   "countries": [
+    [
+     "United States",
+     18.5
+    ],
+    [
+     "Philippines",
+     12.8
+    ],
+    [
+     "Indonesia",
+     5.1
+    ],
+    [
+     "Brazil",
+     2.1
+    ],
+    [
+     "India",
+     2.0
+    ],
+    [
+     "South Africa",
+     1.7
+    ],
+    [
+     "Kenya",
+     1.0
+    ],
+    [
+     "Mexico",
+     1.0
+    ],
+    [
+     "Timor-Leste",
+     0.8
+    ],
+    [
+     "Italy",
+     0.6
+    ],
+    [
+     "Myanmar (Burma)",
+     0.5
+    ],
+    [
+     "Uganda",
+     0.5
+    ],
+    [
+     "Vietnam",
+     0.5
+    ],
+    [
+     "Thailand",
+     0.4
+    ],
+    [
+     "Ethiopia",
+     0.4
+    ],
+    [
+     "Zambia",
+     0.4
+    ],
+    [
+     "Armenia",
+     0.4
+    ],
+    [
+     "Papua New Guinea",
+     0.3
+    ],
+    [
+     "Peru",
+     0.3
+    ],
+    [
+     "Fiji",
+     0.3
+    ],
+    [
+     "Poland",
+     0.2
+    ],
+    [
+     "Côte d’Ivoire",
+     0.2
+    ],
+    [
+     "United Kingdom",
+     0.2
+    ],
+    [
+     "Uzbekistan",
+     0.2
+    ],
+    [
+     "Tanzania",
+     0.2
+    ],
+    [
+     "Namibia",
+     0.2
+    ],
+    [
+     "France",
+     0.2
+    ],
+    [
+     "Madagascar",
+     0.1
+    ]
+   ],
+   "watch_time_share_top": [
+    [
+     "United States",
+     46.8
+    ],
+    [
+     "Philippines",
+     5.1
+    ],
+    [
+     "Indonesia",
+     1.5
+    ],
+    [
+     "India",
+     1.3
+    ],
+    [
+     "South Africa",
+     1.2
+    ]
+   ]
+  },
+  {
    "captured": "2026-10-22",
    "period": "lifetime (Nov 11, 2024 - Oct 21, 2026)",
    "total_views": 160259,
