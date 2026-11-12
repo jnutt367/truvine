@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>For Ralph — a note from Jason · TruVINE</title>
+<meta name="description" content="A note from Jason to his old friend Ralph: the daily trivia, a Veterans Day thought, and a small thing he's been building that he finally wanted to share — plus one honest favor to ask.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,600;0,800;1,600&family=Noto+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-950:#0B2417; --green-900:#0E2E1F; --green-800:#143A28; --green-700:#1E4D34;
+    --gold:#D9B45C; --gold-deep:#C08A1E; --gold-bright:#F0CE7E;
+    --cream:#F7F0DA; --parchment:#FCF8EC; --ink:#22302A; --muted-l:#46564C; --muted-d:#C9D6C4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background:
+      radial-gradient(1200px 620px at 50% -120px, #17452C 0%, rgba(23,69,44,0) 60%),
+      var(--green-950);
+    color: var(--cream);
+    font-family: "Noto Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .serif { font-family: "Noto Serif Display", Georgia, "Times New Roman", serif; }
+  a { color: var(--gold-bright); }
+  a:focus-visible {
+    outline: 3px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
+  }
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 50;
+    background: var(--gold); color: var(--green-950); font-weight: 800;
+    padding: 10px 18px; border-radius: 0 0 12px 0;
+  }
+  .skip:focus-visible { left: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 72px; }
+
+  /* ---------- Title plate ---------- */
+  .plate { text-align: center; padding: 72px 0 8px; }
+  .overline {
+    font-size: 13.5px; font-weight: 800; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .plate h1 {
+    margin-top: 10px; font-size: clamp(52px, 9vw, 84px); line-height: 1.05;
+    font-weight: 800; color: var(--cream);
+  }
+  .plate .rule {
+    width: 120px; height: 3px; background: var(--gold-deep);
+    margin: 26px auto 0; border-radius: 2px;
+  }
+  .invitation {
+    margin: 26px auto 0; max-width: 34em;
+    font-size: clamp(20px, 3.4vw, 25px); line-height: 1.5; font-style: italic; color: var(--cream);
+  }
+  .invitation-by { margin-top: 14px; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted-d); }
+
+  /* ---------- Sections ---------- */
+  section.movement { margin-top: 84px; }
+  .sec-head { text-align: center; margin-bottom: 30px; }
+  .sec-head .kicker {
+    font-size: 12.5px; font-weight: 800; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .sec-head h2 { margin-top: 8px; font-size: clamp(32px, 5.4vw, 44px); font-weight: 800; color: var(--cream); line-height: 1.15; }
+  .sec-head .sub { margin-top: 8px; font-size: 17px; color: var(--muted-d); }
+  .sec-head .rule { width: 74px; height: 2px; background: var(--gold-deep); margin: 18px auto 0; border-radius: 2px; }
+
+  /* ---------- The letter ---------- */
+  .letter {
+    background: var(--parchment); color: var(--ink);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(28px, 5vw, 52px);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    max-width: 800px; margin: 0 auto;
+  }
+  .letter p { font-size: 18.5px; line-height: 1.75; }
+  .letter p + p { margin-top: 18px; }
+  .letter .sign { margin-top: 26px; font-size: 20px; }
+  .letter .ps { margin-top: 22px; font-size: 16px; color: var(--muted-l); }
+
+  /* ---------- The doors ---------- */
+  .doors { max-width: 800px; margin: 0 auto; text-align: center; }
+  .door-btn {
+    display: inline-block; margin-top: 10px;
+    background: var(--gold); color: var(--green-950);
+    font-size: 20px; font-weight: 800; text-decoration: none;
+    padding: 18px 38px; border-radius: 14px; border: 2px solid var(--gold-deep);
+    box-shadow: 0 14px 32px rgba(0,0,0,.4);
+  }
+  .door-btn:hover { background: var(--gold-bright); }
+  .door-alt {
+    display: inline-block; margin-top: 18px; margin-left: 0;
+    background: transparent; color: var(--gold-bright);
+    font-size: 17px; font-weight: 700; text-decoration: none;
+    padding: 13px 28px; border-radius: 14px; border: 2px solid var(--gold-deep);
+  }
+  .door-alt:hover { background: var(--green-800); }
+  .doors .door-note { margin-top: 20px; font-size: 16.5px; color: var(--muted-d); }
+  .doors .first-step {
+    margin: 28px auto 0; max-width: 34em; font-size: 18px; line-height: 1.7; color: var(--cream);
+  }
+  .doors .first-step strong { color: var(--gold-bright); }
+
+  /* ---------- Bonus round ---------- */
+  .bonus {
+    background: var(--green-900); color: var(--cream);
+    border: 2px solid var(--gold-deep); border-radius: 20px;
+    padding: clamp(26px, 5vw, 44px);
+    max-width: 800px; margin: 0 auto; text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  }
+  .bonus .kicker {
+    font-size: 12.5px; font-weight: 800; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .bonus .q { margin-top: 14px; font-size: clamp(21px, 3.6vw, 26px); line-height: 1.5; font-style: italic; }
+  .bonus details { margin-top: 22px; }
+  .bonus summary {
+    display: inline-block; cursor: pointer; list-style: none;
+    background: var(--gold); color: var(--green-950); font-weight: 800; font-size: 16px;
+    padding: 11px 26px; border-radius: 10px; border: 2px solid var(--gold-deep);
+  }
+  .bonus summary::-webkit-details-marker { display: none; }
+  .bonus summary:hover { background: var(--gold-bright); }
+  .bonus .answer { margin-top: 20px; font-size: 18.5px; line-height: 1.65; }
+  .bonus .answer strong { color: var(--gold-bright); }
+
+  /* ---------- Closing ---------- */
+  .closing { margin-top: 96px; text-align: center; }
+  .closing .vine { font-size: 34px; color: var(--gold); letter-spacing: 10px; }
+  .closing .prepared { margin-top: 16px; font-size: 16.5px; color: var(--muted-d); }
+  footer { margin-top: 34px; border-top: 2px solid var(--green-700); padding-top: 22px; text-align: center; }
+  footer p { font-size: 15px; color: var(--muted-d); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .plate, section.movement, .closing { animation: rise .7s ease-out both; }
+    section.movement:nth-of-type(2) { animation-delay: .05s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+
+  <header class="plate">
+    <p class="overline">TruVINE · A Note From Jason</p>
+    <h1 class="serif">For Ralph</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="invitation serif">&ldquo;Forty-some years of friendship, and I realized I&rsquo;d never actually shown you the thing I&rsquo;ve been building.&rdquo;</p>
+    <p class="invitation-by">From Jason — to the champ</p>
+  </header>
+
+  <main id="main">
+
+    <section class="movement" aria-labelledby="letter-h">
+      <div class="sec-head">
+        <p class="kicker">First</p>
+        <h2 id="letter-h" class="serif">The Note</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="letter">
+        <p>Hey Ralph —</p>
+        <p>You, me, and your wife, playing trivia every single day. And let&rsquo;s be honest about how it goes: you&rsquo;re the guy to play trivia against. The rest of us are basically competing for second place. I figured if anybody could handle one more question from me, it&rsquo;s the reigning champion.</p>
+        <p>Today&rsquo;s Veterans Day. Of the two of us, I&rsquo;m the one who wore the uniform — and on a day like this, it felt right to finally share something with an old friend that&rsquo;s been on my heart for a while now.</p>
+        <p>Here&rsquo;s the honest part: I don&rsquo;t know if I&rsquo;ve ever actually shown you this, or even mentioned it. I didn&rsquo;t want to be weird about it. It&rsquo;s just something I&rsquo;ve been building that matters a lot to me, and you&rsquo;ve been my friend since we were both in our twenties — so here it is.</p>
+        <p>It&rsquo;s called <strong>Word of God Risen</strong>. It&rsquo;s a free app with the whole Bible, read out loud, word for word, by a narrator we call Grandpa Teddy. No account, no password, nothing to sign up for. You just open it, tap a book, tap a chapter, and tap Listen.</p>
+        <p>And here&rsquo;s why I&rsquo;m really sending it to you, of all people: you&rsquo;re sharp, and you&rsquo;ll tell me the truth. Would you test-drive it for me? Open it up, tap the book of Mark, chapter 1, and hit Listen — or watch one of the short videos. Then tell me honestly: was it easy to find your way around, or was it confusing? Don&rsquo;t be polite. Your straight answer is the favor, and it would mean a lot.</p>
+        <p>And if it&rsquo;s not your thing, that&rsquo;s fine too. No pressure, no follow-up campaign — we&rsquo;re still on for trivia tomorrow either way.</p>
+        <p class="sign">— Jason</p>
+        <p class="ps">(P.S. There&rsquo;s a bonus trivia question at the bottom of this page. Champion&rsquo;s honor — no searching.)</p>
+      </div>
+    </section>
+
+    <section class="movement" aria-labelledby="door-h">
+      <div class="sec-head">
+        <p class="kicker">The Door</p>
+        <h2 id="door-h" class="serif">Try It Out</h2>
+        <p class="sub">Free. No account, no password — just open it.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="doors">
+        <a class="door-btn" href="https://word-of-god-risen.vercel.app/">Open Word of God Risen</a>
+        <br>
+        <a class="door-alt" href="https://word-of-god-risen.vercel.app/book/mark/0">Or start right at Mark, chapter 1 →</a>
+        <p class="first-step"><strong>A good first step:</strong> tap the book of <strong>Mark</strong>, tap <strong>chapter 1</strong>, tap <strong>Listen</strong> — then tell me if finding your way there was easy or a maze.</p>
+        <p class="door-note">That&rsquo;s the whole assignment, professor. Watch a video or hear a chapter — then grade the navigation like you grade my trivia answers: honestly.</p>
+      </div>
+    </section>
+
+    <section class="movement" aria-labelledby="bonus-h">
+      <div class="sec-head">
+        <p class="kicker">Just For You</p>
+        <h2 id="bonus-h" class="serif">The Bonus Round</h2>
+        <div class="rule" aria-hidden="true"></div>
+      </div>
+      <div class="bonus">
+        <p class="kicker">Daily Trivia · Bonus Question</p>
+        <p class="q serif">&ldquo;Which book of the Bible opens with a genealogy — a family tree that runs name after name, generation after generation?&rdquo;</p>
+        <details>
+          <summary>Reveal the answer</summary>
+          <p class="answer">The Gospel of <strong>Matthew</strong> — it opens with the family line of Jesus, Abraham to David to Joseph. And now you know where to find it in the app when you go test that navigation.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="closing">
+    <p class="vine" aria-hidden="true">❧</p>
+    <p class="prepared">Prepared for Ralph Chapman — thanks for the friendship, and for every day&rsquo;s game.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Jason Nutt · TruVINE — All rights reserved.</p>
+  </footer>
+</div>
+</body>
+</html>
