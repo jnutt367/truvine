@@ -480,6 +480,71 @@ window.NATIONS_DATA = {
    ]
   },
   {
+   "captured": "2026-11-16",
+   "period": "last 28 days (Oct 19 - Nov 15, 2026)",
+   "total_views": 4676,
+   "countries": [
+    [
+     "United States",
+     22.8
+    ],
+    [
+     "India",
+     2.0
+    ],
+    [
+     "Kenya",
+     1.3
+    ],
+    [
+     "Indonesia",
+     1.0
+    ],
+    [
+     "Philippines",
+     0.9
+    ],
+    [
+     "South Africa",
+     0.7
+    ],
+    [
+     "United Kingdom",
+     0.7
+    ],
+    [
+     "Uzbekistan",
+     0.6
+    ],
+    [
+     "Uganda",
+     0.6
+    ]
+   ],
+   "watch_time_share_top": [
+    [
+     "United States",
+     93.4
+    ],
+    [
+     "Philippines",
+     0.7
+    ],
+    [
+     "India",
+     0.6
+    ],
+    [
+     "Kenya",
+     0.6
+    ],
+    [
+     "Indonesia",
+     0.2
+    ]
+   ]
+  },
+  {
    "captured": "2026-10-22",
    "period": "lifetime (Nov 11, 2024 - Oct 21, 2026)",
    "total_views": 160259,
